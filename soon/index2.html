@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+
+<link rel="stylesheet" type="text/css" href="styles.css" />
+
+<html>
+<head>
+
+<script>
+    function price(){
+        window.open('#price');
+    }
+    
+    function allergies(){
+        window.open('#allergies');
+    }
+    
+    function phone(){
+        window.open('#phone');
+    }
+    
+    function address(){
+        window.open('#address');
+    }
+    
+    function loading(){
+        window.open('#loading');
+        window.setTimeout('review()',1000);
+    }
+
+    function review(){
+        window.open('#review');
+    }
+
+    function payment(){
+        window.open('#payment');
+    }
+    
+    function done(){
+        window.open('#done');
+    }
+</script>
+
+</head>
+<body>
+<div class="banner">NomOn</div>
+<div class="subBanner">get your nom on.</div>
+
+<button style="background-color:#aa0000; color:white; width:200px;height:100px;font-size:20px;margin:20px;background-color:#aa0000;color:white;" onclick="price()">Start Nomming!</button>
+
+
+<h1 id="price">Pick Your Price</h1>
+<ul>
+    <li><button style="width:200px;height:50px;font-size:15px;background-color:#aa0000;color:white;" onclick=allergies();>$15 - Hungry</button></li>
+    <li><button style="width:200px;height:50px;font-size:15px;background-color:#aa0000;color:white;" onclick=allergies();>$20 - Really hungry</button></li>
+    <li><button style="width:200px;height:50px;font-size:15px;background-color:#aa0000;color:white;" onclick=allergies();>$25 - I could eat a horse</button></li>
+</ul>
+
+<h1 id="allergies">I Can't Eat . . .</h1>
+<ul>
+    <li><input type="checkbox" style="font-size:20px;">Vegetarian</input></li>
+    <li><input type="checkbox" style="font-size:20px;">Vegan</input></li>
+    <li><input type="checkbox" style="font-size:20px;">Eggs</input></li>
+    <li><input type="checkbox" style="font-size:20px;">Peanuts</input></li>
+    <li><input type="checkbox" style="font-size:20px;">Nut</input></li>
+</ul>
+<input type="submit" value="Next" style="width:100px;height:50px;font-size:150%;background-color:#aa0000;color:white;" onclick="address()"></input>
+
+<h1 id="address">Where You At?</h1>
+<ul>
+<li><input type="text" style="width:200px;height:50px;font-size:25px;" placeholder="Address"></input></li>
+<li><input type="text" style="width:200px;height:50px;font-size:25px;" placeholder="City"></input> <input type="text" style="width:75px;height:50px;font-size:25px;" placeholder="State" maxlength="2"></input></li>
+<li><input type="text" style="width:100px;height:50px;font-size:25px;" placeholder="ZIP" maxlength="5"></input></li>
+</ul>
+<input type="submit" value="Next" style="width:100px;height:50px;font-size:25px;background-color:#aa0000;color:white;" onclick="phone()"></input>
+
+<h1 id="phone">Can I Have Yo Numba?</h1>
+<input type="text" style="width:200px;height:50px;font-size:25px;"></input>
+<input type="submit" value="Next" style="width:100px;height:50px;font-size:25px;background-color:#aa0000;color:white;" onclick="loading()"></input>
+
+<h1 id="loading" class="loading">Picking<br />Random<br />Noms<br />. . .</h1>
+
+<h1 id="review">Review</h1>
+<ul>
+    <li><h2>Allergies</h2></li>
+    <li><h2>Address</h2></li>
+    <li><h2>Phone Number</h2></li>
+</ul>
+<input type="submit" value="Pay" style="width:100px;height:50px;font-size:150%;background-color:#aa0000;color:white;" onclick="payment()"></input>
+
+<h1 id="payment">Payment</h1>
+<input type="submit" value="Done" style="width:100px;height:50px;font-size:150%;background-color:#aa0000;color:white;" onclick="done()"></input>
+
+<h1 id="done">Done!</h1>
+
+<div class="banner">NomOn</div>
+
+</body>
+</html>

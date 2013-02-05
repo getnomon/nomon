@@ -1,0 +1,42 @@
+body{
+    margin:0;
+    padding:0;
+    font-family:"Helvetica","Arial","Myriad Pro";
+    text-align:center;
+    background-color:#eee;
+}
+
+ul,li{
+    list-style:none;
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
+
+li{
+    margin-bottom:20px;
+}
+
+h1{
+    margin-top:500px;
+}
+
+.banner{
+    font-size:20px;
+    background-color:#aa0000;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.subBanner{
+    background-color:#770000;
+    color:white;
+    padding:10px;
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.loading{
+    font-size:50px;
+}

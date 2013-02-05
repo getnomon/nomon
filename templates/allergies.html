@@ -1,0 +1,37 @@
+      <div class="jumbotron clearfix">
+        <h1>Allergies or Dietary Restrictions?</h1>
+        <p class="lead">We've got you covered<small>*</small></p> 
+
+        <a class="btn btn-danger btn-large btn-block btn-primary" href="/pay">I'll eat anything.</a>
+        <button class="btn btn-danger btn-large btn-block btn-primary" href="#show-allergies" 
+        onclick="document.getElementById('restrictions').style.display='block';">Keep in mind...</button>
+        <form id="restrictions" action="/pay" style="display:none; margin-top: 10px;" method="post">
+        	<label><h4>I am a</h4></label>
+	        <label class="checkbox">
+			  <input type="checkbox" id="Checkbox1" name="restrictions" value="Vegetarian"> Vegetarian
+			</label>
+			<label class="checkbox">
+			  <input type="checkbox" id="Checkbox3" name="restrictions" value="Vegan"> Vegan
+			</label>
+			<label><h4>I am allergic to</h4></label>
+			<label class="checkbox">
+			  <input type="checkbox" id="Checkbox2" name="restrictions" value="Gluten"> Gluten
+			</label>
+			<label class="checkbox">
+			  <input type="checkbox" id="Checkbox4" name="restrictions" value="Peanuts"> Peanuts
+			</label>
+			<label class="checkbox">
+			  <input type="checkbox" id="Checkbox5" name="restrictions" value="Dairy"> Dairy
+			</label>
+			<label class="checkbox">
+			  <input type="checkbox" id="Checkbox6" name="restrictions" value="Nut"> Nut
+			</label>
+			<label class="checkbox">
+			  <input type="checkbox" id="Checkbox7" name="restrictions" value="Fish/Shellfish"> Fish/Shellfish
+			</label>
+			<label class="checkbox">
+			  <input type="checkbox" id="Checkbox8" name="restrictions" value="Egg"> Egg
+			</label>
+			<button type="submit" class="btn btn-danger btn-large btn-block btn-primary" style="margin-top:10px">Feed me!</button>
+        </form>
+      </div>
