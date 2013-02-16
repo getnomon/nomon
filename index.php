@@ -4,6 +4,7 @@ error_reporting(E_ALL);
 
 /*Index file makes nomon HUNGRY*/
 //Load Dependencies
+//Get Money
 
 require_once('smart.php');
 /*
