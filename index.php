@@ -4,13 +4,12 @@ error_reporting(E_ALL);
 
 /*Index file makes nomon HUNGRY*/
 //Load Dependencies
-chdir('/var/www');
+
 require_once('smart.php');
 /*
 1. Start
 2. Price
 3. Allergies
-
 */
 _generate('header');
 

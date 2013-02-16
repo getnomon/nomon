@@ -1,19 +1,27 @@
 <?php
 
+/**
+ * Ordr.in API interface.
+ *
+ * @author   Evan Cohen <evanbtcohen@gmail.com | @3vanc>
+ * @license  http://creativecommons.org/licenses/MIT/ MIT
+ */
+
 require_once('../OrdrinApi.php');
 
-$dt = (isset($_POST['dT'])) ? $_POST['dT'] : '';
+#Date Time (Either set or ASAP)
+$dt = (isset($_POST['dT'])) ? $_POST['dT'] : 'ASAP';
 
-$ordrin = new OrdrinApi(%insert_your_api_key_here%, OrdrinApi::TEST_SERVERS);
+$ordrin = new OrdrinApi("e2ZK67T9HAFW3uVhDtKFVbO33dmUnHgWzMMZNgAlPwE", OrdrinApi::TEST_SERVERS);
 
 switch ($_GET["api"]) {
-  case "r":
-    // don't need to do anything
+  case "r": #Don't do anything
   break;
-  case "u":
+  case "u": #Authenticate User
     $ordrin->user->authenticate($_POST['email'],hash('sha256',$_POST['pass']));
   break;
-  case "o":
+  case "o": #Place Order
+    try{
     if(!empty($_POST['pass'])){
       $ordrin->user->authenticate($_POST['email'],hash('sha256',$_POST['pass']));
     }
@@ -42,80 +50,89 @@ switch ($_GET["api"]) {
     $print = $ordrin->order->submit($_POST["rid"], $tray, $_POST['tip'], $dt, $_POST["email"], $_POST['pass'], $_POST["fName"], $_POST["lName"], $a, $credit_card);
     $data['response'] = $print;
     echo json_encode($data);
+    }catch(Exception $e){
+      echo "{FukNuggit} " . $e;
+    }
   break;
 }
 if(!isset($_POST['func'])) {
   $_POST['func'] = 'ord';
 }
+
+try{
 switch ($_POST["func"]) {
-  case "dl":
+#Restaurant API
+  case "dl": #Delivery List
     $addr = $ordrin::address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], "");
     $print = $ordrin->restaurant->getDeliveryList($dt, $addr);
     echo json_encode($print);
   break;
-  case "dc":
+  case "dc": #Delivery Check
     $addr = $ordrin::address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], "");
     $print = $ordrin->restaurant->deliveryCheck($_POST["rid"], $dt, $addr);
     echo json_encode($print);
   break;
-  case "df":
+  case "df": #Delivery Fee
     $sT = $_POST["sT"];
     $tip = $_POST["tip"];
     $addr = $ordrin::address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], "");
     $print = $ordrin->restaurant->deliveryFee($_POST["rid"], $sT, $tip, $dt, $addr);
     echo json_encode($print);
   break;
-  case "rd":
+  case "rd": #Restaurant Details
     $print = $ordrin->restaurant->details($_POST["rid"]);
     echo json_encode($print);
   break;
-
-  case "gacc":
+#User API
+  case "gacc": #Account Info
     $print = $ordrin->user->getAccountInfo();
     echo json_encode($print);
   break;
-  case "macc":
+  case "macc": #Create Account
     $print = $ordrin->user->create($_POST["email"], hash('sha256',$_POST["pass"]), $_POST["fName"], $_POST["lName"]);
     echo json_encode($print);
   break;
-  case "upass":
+  case "upass": #Update Password
     $ordrin->user->authenticate($_POST['email'],hash('sha256',$_POST['oldPass']));
     $print = $ordrin->user->updatePassword(hash('sha256',$_POST['pass']));
     echo json_encode($print);
   break;
-  case "gaddr":
+  case "gaddr": #Saved Address(es)
     $print = $ordrin->user->getAddress($_POST["addrNick"]);
     echo json_encode($print);
   break;
-  case "uaddr":
+  case "uaddr": #Save/Update Address
     $a = $ordrin::Address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], $_POST["phone"], $_POST["addr2"]);
     $print = $ordrin->user->setAddress($_POST["addrNick"], $a);
     echo json_encode($print);
   break;
-  case "daddr":
+  case "daddr": #Delete Address
     $print = $ordrin->user->deleteAddress($_POST["addrNick"]);
     echo json_encode($print);
   break;
-  case "gcar":
+  case "gcar": #Get Card(s)
     $print = $ordrin->user->getCard($_POST["cardNick"]);
     echo json_encode($print);
   break;
-  case "ucar":
+  case "ucar": #Save/update Card
     $a = $ordrin::Address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], $_POST["phone"], $_POST["addr2"]);
     $print = $ordrin->user->setCard($_POST["cardNick"], $_POST["fName"] . $_POST["lName"], $_POST["cardNum"], $_POST["csc"], $_POST["expMo"], $_POST["expYr"], $a);
     echo json_encode($print);
   break;
-  case "dcar":
+  case "dcar": #Delete Card
     $print = $ordrin->user->deleteCard($_POST["cardNick"]);
     echo json_encode($print);
   break;
-  case "gordr":
+  case "gordr": #Get Previous Order(s)
     $print = $ordrin->user->getOrderHistory();
     echo json_encode($print);
   break;
-  case "gordrs":
+  case "gordrs": #Info On Specific Order
     $print = $ordrin->user->getOrderHistory($_POST["ordrID"]);
     echo json_encode($print);
   break;
+}
+}catch (Exception $e){
+  echo "{FukNuggit} " . $e;
 }
 ?>
