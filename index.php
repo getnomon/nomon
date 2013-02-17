@@ -27,6 +27,9 @@ switch ($q[0]) {
 	case 'test': //Start
 		_generate('test');
 		break;
+	case 'about':
+		_generate('about');
+		break;
 	case 'price':
 		_generate('price');
 		break;
