@@ -13,6 +13,9 @@ require_once('ordrin/OrdrinApi.php');
 #Date Time (Either set or ASAP)
 $dt = (isset($_REQUEST['dT'])) ? $_REQUEST['dT'] : 'ASAP';
 
+
+# DEV : Ff8tzeriI0SGq9xiNBzbIkuhMdbar7Mml8SKrd9cKD0
+# SITE: e2ZK67T9HAFW3uVhDtKFVbO33dmUnHgWzMMZNgAlPwE
 $ordrin = new OrdrinApi("e2ZK67T9HAFW3uVhDtKFVbO33dmUnHgWzMMZNgAlPwE", OrdrinApi::TEST_SERVERS);
 
 if(!isset($_REQUEST['func'])) {
@@ -25,6 +28,7 @@ try{
 	  case "dl": #Delivery List
 	    $addr = $ordrin::address($_REQUEST["addr"], $_REQUEST["city"], $_REQUEST["state"], $_REQUEST["zip"], "");
 	    $print = $ordrin->restaurant->getDeliveryList($dt, $addr);
+	    print($print);
 	    $randomIndex = array_rand($print, 1);
 
 	    echo '<pre>';
@@ -117,7 +121,7 @@ function calcMeal($targetPrice, $result, $allergies = NULL){
 		//If peanut allergy is in $allergies exclude Thai food
 		//Dary -> pizza
 	}
-
+	
 }
 
 /*Acceps an array of allergie IDs*/
