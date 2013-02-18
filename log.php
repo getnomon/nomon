@@ -48,8 +48,6 @@ foreach($output as $line){
 }
 
 $log .= "</div>";
-$s->assign("log", $log, true);
-
 
 echo $log;
 
