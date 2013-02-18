@@ -11,10 +11,11 @@ if((!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "") && $SUBDOMAIN != "dev"
     $redirect = "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     header("Location: $redirect");
 }elseif ($SUBDOMAIN == "dev") {
-	echo "dev server FTW!";
+	#This is the dev server... Deal with it...
 }
 
 require_once('smart.php');
+
 /*
 1. Start
 2. Price

@@ -1,5 +1,7 @@
 <?php
 
+require_once ("api.php");
+
 $GLOBALS['page'] = "";
 
 function _generate($file){
