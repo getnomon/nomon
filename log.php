@@ -10,13 +10,14 @@ $output = array();
 
 $numberToDisplay = -50;
 
-if(isset($$_GET['num'])){
-	if(is_int($$_GET['num'])){
-		$numberToDisplay = 0 - $$_GET['num'];
-	}elseif($$_GET['num'] == "all"){
+if(isset($_GET['num'])){
+	if(is_int($_GET['num'])){
+		$numberToDisplay = 0 - $_GET['num'];
+	}elseif($_GET['num'] == "all"){
 		$numberToDisplay = "";
 	}
 }
+
 exec("git log $numberToDisplay",$output);
 
 #This stuff is questionable
