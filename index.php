@@ -6,8 +6,6 @@ error_reporting(E_ALL);
 //Load Dependencies
 //Get Moneyn
 
-echo 'Hi';
-
 #FORCE HTTPS
 if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == ""){
     $redirect = "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
