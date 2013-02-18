@@ -10,6 +10,8 @@ error_reporting(E_ALL);
 if((!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "") && array_shift(explode(".",$_SERVER['HTTP_HOST'])) != "dev") {
     $redirect = "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     header("Location: $redirect");
+}else{
+	echo "dev server FTW!";
 }
 
 require_once('smart.php');
