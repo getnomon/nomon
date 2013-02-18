@@ -23,38 +23,14 @@ _generate('header');
 if(isset($_REQUEST['q'])){
 	$q = explode('/', $_REQUEST['q']);
 }else{
-	$q[0] = '';
+	$q[0] = 'index';
 }
 
-switch ($q[0]) {
-	case '': //Start
-		_generate('index');
-		break;
-	case 'test': //Start
-		_generate('test');
-		break;
-	case 'about':
-		_generate('about');
-		break;
-	case 'price':
-		_generate('price');
-		break;
-	case 'allergies':
-		_generate('allergies');
-		break;
-	case 'pay':
-		_generate('pay');
-		break;
-	case 'thanks':
-		_generate('thanks');
-		break;
-	case 'review':
-		_generate('review');
-		break;
-	default:
-		header("Status: 404 Not Found");
-		_generate('404');
-		break;
+if (file_exists('templates/' . $q[0] . '.html')) {
+	_generate($q[0]);
+}else{
+	header("Status: 404 Not Found");
+	_generate('404');
 }
 
 _generate('footer');
