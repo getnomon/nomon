@@ -7,8 +7,7 @@ error_reporting(E_ALL);
 //Get Moneyn
 
 #FORCE HTTPS
-if((!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "") && 
-	array_shift(explode(".",$_SERVER['HTTP_HOST']) != "dev")) {
+if((!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "") && array_shift(explode(".",$_SERVER['HTTP_HOST'])) != "dev") {
     $redirect = "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     header("Location: $redirect");
 }
