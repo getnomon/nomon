@@ -1,0 +1,18 @@
+<IfModule mod_rewrite.c>
+	#AuthName "Section Name"
+	#AuthType Basic
+	#AuthUserFile /home/ubuntu/public_html/dev/.htpasswds
+	#Require valid-user 
+	
+	DirectoryIndex index.php
+	RewriteEngine On
+	
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_URI} !=/favicon.ico
+	
+	
+	#rewrite all urls
+	RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
+	
+</IfModule>
