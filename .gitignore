@@ -7,3 +7,6 @@
 # Log files
 *.log
 *error_log
+
+#folder
+dev
