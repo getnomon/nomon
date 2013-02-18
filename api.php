@@ -12,6 +12,9 @@ require_once('ordrin/OrdrinApi.php');
 #Date Time (Either set or ASAP)
 $dt = (isset($_POST['dT'])) ? $_POST['dT'] : 'ASAP';
 
+if($GLOBALS['dev']){
+	#TODO Use TEST_SERVERS only on dev (after everything is fixed)
+}
 $ordrin = new OrdrinApi("M4CEY61LCIGUUaOpzF4Jc_TKaHvuOVzb50ZdOYRhMPE", OrdrinApi::TEST_SERVERS);
 
 switch ($_GET["api"]) {
@@ -50,7 +53,7 @@ switch ($_GET["api"]) {
 	    $print = $ordrin->order->submit($_POST["rid"], $tray, $_POST['tip'], $dt, $_POST["email"], $_POST['pass'], $_POST["fName"], $_POST["lName"], $a, $credit_card);
 	    $data['response'] = $print;
 	    echo json_encode($data);
-	}catch{
+	}catch(Exception $e){
 		echo "{Swag Exception} " . $e;
 	}
   break;
