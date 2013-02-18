@@ -4,7 +4,9 @@ error_reporting(E_ALL);
 
 /*Index file makes nomon HUNGRY*/
 //Load Dependencies
-//Get Money
+//Get Moneyn
+
+echo 'Hi';
 
 #FORCE HTTPS
 if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == ""){
