@@ -5,12 +5,12 @@ error_reporting(E_ALL);
 /*Index file makes nomon HUNGRY*/
 //Load Dependencies
 //Get Moneyn
-
+$SUBDOMAIN = array_shift(explode(".",$_SERVER['HTTP_HOST']));
 #FORCE HTTPS
-if((!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "") && array_shift(explode(".",$_SERVER['HTTP_HOST'])) != "dev") {
+if((!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "") && $SUBDOMAIN != "dev") {
     $redirect = "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     header("Location: $redirect");
-}else{
+}elseif ($SUBDOMAIN == "dev") {
 	echo "dev server FTW!";
 }
 
