@@ -1,9 +1,0 @@
-# Data
-*.xml
-*.txt
-*.json
-*.xspf
-
-# Log files
-*.log
-*error_log
