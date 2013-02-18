@@ -12,6 +12,7 @@ if((!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "") && $SUBDOMAIN != "dev"
     header("Location: $redirect");
 }elseif ($SUBDOMAIN == "dev") {
 	#This is the dev server... Deal with it...
+	$GLOBALS['dev'] = true;
 }
 
 require_once('smart.php');

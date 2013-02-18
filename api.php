@@ -12,7 +12,7 @@ require_once('ordrin/OrdrinApi.php');
 #Date Time (Either set or ASAP)
 $dt = (isset($_POST['dT'])) ? $_POST['dT'] : 'ASAP';
 
-if($GLOBALS['dev']){
+if(isset($GLOBALS['dev']) && $GLOBALS['dev']){
 	#TODO Use TEST_SERVERS only on dev (after everything is fixed)
 }
 $ordrin = new OrdrinApi("M4CEY61LCIGUUaOpzF4Jc_TKaHvuOVzb50ZdOYRhMPE", OrdrinApi::TEST_SERVERS);
