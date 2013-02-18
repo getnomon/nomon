@@ -7,6 +7,13 @@ error_reporting(E_ALL);
  * @author   Evan Cohen <evanbtcohen@gmail.com | @3vanc>
  * @license  http://creativecommons.org/licenses/MIT/ MIT
  */
+
+	$mtime = microtime(); 
+	$mtime = explode(" ",$mtime); 
+	$mtime = $mtime[1] + $mtime[0]; 
+	$starttime = $mtime; 
+
+
 echo '<h4>Document loaded!<h4>';
 
 require_once('ordrin/OrdrinApi.php');
@@ -135,5 +142,12 @@ function genNote($allergies){
 	$note .= "please substitute the order for an item of equal value from your menu.\n";
 	$note .= "Thanks!\n -NomON | nomon.co";
 }
+
+	$mtime = microtime();
+	$mtime = explode(" ",$mtime); 
+	$mtime = $mtime[1] + $mtime[0]; 
+	$endtime = $mtime; 
+	$totaltime = ($endtime - $starttime); 
+	echo "This page was created in ".$totaltime." seconds"; 
 
 ?>
