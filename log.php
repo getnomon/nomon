@@ -2,6 +2,8 @@
 # Log
 # Evan Cohen
 # Get and return the contents of the git log
+ini_set('display_errors',1); 
+error_reporting(E_ALL);
 
 //What is the path to the repo? I wonder...
 //$dir = "/public_html/ev";
