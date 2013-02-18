@@ -1,0 +1,10 @@
+
+{include file="header.tpl" title=header}
+<div class="row">
+  <div class=
+  
+  <hr>
+  {include file="copy.tpl"}
+
+</div> <!-- /container -->
+{include file="footer.tpl"}
