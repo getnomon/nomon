@@ -6,6 +6,12 @@ error_reporting(E_ALL);
 //Load Dependencies
 //Get Money
 
+#FORCE HTTPS
+if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == ""){
+    $redirect = "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    header("Location: $redirect");
+}
+
 require_once('smart.php');
 /*
 1. Start
