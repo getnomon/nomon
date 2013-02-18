@@ -17,6 +17,11 @@ if(isset($GLOBALS['dev']) && $GLOBALS['dev']){
 }
 $ordrin = new OrdrinApi("M4CEY61LCIGUUaOpzF4Jc_TKaHvuOVzb50ZdOYRhMPE", OrdrinApi::TEST_SERVERS);
 
+if (!isset($_GET["api"])) {
+	# code...
+	$_GET["api"] = "n";
+}
+
 switch ($_GET["api"]) {
   case "r": #Don't do anything
   break;
