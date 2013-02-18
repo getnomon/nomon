@@ -5,6 +5,9 @@
 $VERSION = 0.12;
 $MAINTANANCE = false;
 
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
 if(!$MAINTANANCE){
 	if(isset($_COOKIE['dev'])){
 		error_reporting(E_ALL);
