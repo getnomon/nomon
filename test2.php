@@ -44,9 +44,11 @@ try{
 	    	echo "Name: " . $restaurant->na . "\n";
 	    	echo "Phone: " . $restaurant->cs_phone . "\n";
 	    	echo "Minimum Order: $" . $restaurant->mino . "\n";
-	    	echo "Type: " . $restaurant->cu[0] . "\n";
+	    	if (isset($restaurant->cu[0])) {
+	    		echo "Type: " . $restaurant->cu[0] . "\n";
+	    	}
 	    	$address = explode(',',$restaurant->ad);
-	    	echo "Address: " . $address[0] . "\n";
+	    	echo "Address: " . $restaurant->ad . "\n";
 	    	echo "City: " . $restaurant->city . "\n\n";
 	    }
 	    echo "-->";
