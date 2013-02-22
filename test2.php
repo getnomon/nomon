@@ -48,8 +48,11 @@ try{
 	    		echo "Type: " . $restaurant->cu[0] . "\n";
 	    	}
 	    	$address = explode(',',$restaurant->ad);
-	    	echo "Address: " . $restaurant->ad . "\n";
-	    	echo "City: " . $restaurant->city . "\n\n";
+	    	echo "Address: " . $address[0] . "\n";
+	    	if (isset($restaurant->city)) {
+ 	    		echo "City: " . $restaurant->city . "\n";
+	    	}
+	    	echo "\n";
 	    }
 	    echo "-->";
 
