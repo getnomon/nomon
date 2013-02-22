@@ -45,7 +45,8 @@ try{
 	    	echo "Phone: " . $restaurant->cs_phone . "\n";
 	    	echo "Minimum Order: $" . $restaurant->mino . "\n";
 	    	echo "Type: " . $restaurant->cu[0] . "\n";
-	    	echo "Address: " . explode(',',$restaurant->ad)[0] . "\n";
+	    	$address = explode(',',$restaurant->ad);
+	    	echo "Address: " . $address[0] . "\n";
 	    	echo "City: " . $restaurant->city . "\n\n";
 	    }
 	    echo "-->";
