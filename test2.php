@@ -36,7 +36,9 @@ try{
 	  case "dl": #Delivery List
 	    $addr = $ordrin::address($_REQUEST["addr"], $_REQUEST["city"], $_REQUEST["state"], $_REQUEST["zip"], "");
 	    $print = $ordrin->restaurant->getDeliveryList($dt, $addr);
-	    print($print);
+	    echo "<!--";
+	    print_r($print);
+	    echo "-->";
 	    $randomIndex = array_rand($print, 1);
 
 	    echo '<pre>';
