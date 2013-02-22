@@ -36,15 +36,16 @@ try{
 	  case "dl": #Delivery List
 	    $addr = $ordrin::address($_REQUEST["addr"], $_REQUEST["city"], $_REQUEST["state"], $_REQUEST["zip"], "");
 	    $print = $ordrin->restaurant->getDeliveryList($dt, $addr);
-	    echo "<!-- Extract Data";
+	    echo "<!-- Extract Data\n";
 
 	    foreach ($print as $restaurant) {
+	    	#This goes into the database
 	    	echo "ID: " . $restaurant->id . "\n";
 	    	echo "Name: " . $restaurant->na . "\n";
 	    	echo "Phone: " . $restaurant->cs_phone . "\n";
 	    	echo "Minimum Order: $" . $restaurant->mino . "\n";
 	    	echo "Type: " . $restaurant->cu[0] . "\n";
-	    	echo "Address: " . $restaurant->ad . "\n";
+	    	echo "Address: " . explode(',',$restaurant->ad)[0] . "\n";
 	    	echo "City: " . $restaurant->city . "\n\n";
 	    }
 	    echo "-->";
@@ -157,11 +158,17 @@ function genNote($allergies){
 	$note .= "Thanks!\n -NomON | nomon.co";
 }
 
-	$mtime = microtime();
-	$mtime = explode(" ",$mtime); 
-	$mtime = $mtime[1] + $mtime[0]; 
-	$endtime = $mtime; 
-	$totaltime = ($endtime - $starttime); 
-	echo "This page was created in ".$totaltime." seconds"; 
+#recursivly prints out dishes
+#MUST pass menu object, not an array of menues
+function getDishes($menu){
+	return 0;
+}
+
+$mtime = microtime();
+$mtime = explode(" ",$mtime); 
+$mtime = $mtime[1] + $mtime[0]; 
+$endtime = $mtime; 
+$totaltime = ($endtime - $starttime); 
+echo "This page was created in ".$totaltime." seconds"; 
 
 ?>
