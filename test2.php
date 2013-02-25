@@ -165,9 +165,21 @@ function genNote($allergies){
 }
 
 #recursivly prints out dishes
-#MUST pass menu object, not an array of menues
-function getDishes($menu){
-	return 0;
+#accepts a menu id (menu parent description)
+#MUST pass menu object
+
+function getDishes($rid, $md, $parentMenu){
+	foreach ($parentMenu as $menu) {
+		if (!isset($menu->children)) {
+			# This is a dish
+			echo 'Name-ID: ' . $menu->name . ' ['  . $menu->id . ']\n';
+			echo 'Descr: ' . $menu->descrip . '\n';
+		}else{
+			getDishes($rid, $menu->id, $menu);
+		}
+	}
+	
+	#menu[children] is each of the children, if it has children it is a menue
 }
 
 $mtime = microtime();
