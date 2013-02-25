@@ -38,6 +38,7 @@ try{
 	    $print = $ordrin->restaurant->getDeliveryList($dt, $addr);
 	    echo "<!-- Extract Data\n";
 
+	    //Getting data on each restaurant
 	    foreach ($print as $restaurant) {
 	    	#This goes into the database
 	    	echo "ID: " . $restaurant->id . "\n";
@@ -65,6 +66,10 @@ try{
 	    print_r($randomRestaurant);
 	    $restaurant = $ordrin->restaurant->details($randomRestaurant->id);
 	    $menu = $restaurant->menu;
+
+	    //parse menu
+	    getDishes($randomRestaurant->id, $menu);
+
 	    print_r($menu);
 	    echo '</pre>';
 	    /*foreach ($print as $restaurant) {
@@ -168,14 +173,15 @@ function genNote($allergies){
 #accepts a menu id (menu parent description)
 #MUST pass menu object
 
-function getDishes($rid, $md, $parentMenu){
+function getDishes($rid, $parentMenu){
 	foreach ($parentMenu as $menu) {
 		if (!isset($menu->children)) {
 			# This is a dish
 			echo 'Name-ID: ' . $menu->name . ' ['  . $menu->id . ']\n';
+			echo 'Price $' . $menu->price;
 			echo 'Descr: ' . $menu->descrip . '\n';
 		}else{
-			getDishes($rid, $menu->id, $menu);
+			getDishes($rid, $menu);
 		}
 	}
 	
