@@ -70,7 +70,8 @@ try{
 	    //parse menu
 	    getDishes($randomRestaurant->id, $menu);
 
-	    //print_r($menu);
+	    echo '____________________________________________________________________';
+	    print_r($menu);
 	    echo '</pre>';
 	    /*foreach ($print as $restaurant) {
 	    	print($restaurant->id . " - " . $restaurant->na);
@@ -173,50 +174,25 @@ function genNote($allergies){
 #accepts a menu id (menu parent description)
 #MUST pass menu object
 
-function getDishes($rid, $menu){
-/*	foreach ($parentMenu as $menu) {
-		if (!isset($menu->children)) {
-			# This is a dish
-			foreach ($menu as $dish) {
-				//print_r($dish);
-				echo 'Name-ID: ' . $dish->name . ' ['  . $dish->id . ']\n';
-				echo 'Price $' . $dish->price;
-				echo 'Descr: ' . $dish->descrip . '\n';
-			}
-			
-		}else{
-			#this is a parent
-			getDishes($rid, $menu);
-		}
-	}*/
-	#menu[children] is each of the children, if it has children it is a menue
-	if(is_array($menu)){
-		for ($i=0; $i < count($menu); $i++) { 
+function getDishes($rid, $item){
+	#item[children] is each of the children, if it has children it is a parent. duh.
+	if(is_array($item)){
+		for ($i=0; $i < count($item); $i++) { 
 			#Contains a bunch of stdClass Objects
-			getDishes($rid, $menu[$i]);
+			getDishes($rid, $item[$i]);
 		}
 	}else{
 		#is an stdObject -> check for children
-		if (isset($menu->children)) {
-			getDishes($rid, $menu->children);
+		if (isset($item->children)) {
+			#is sub menu/item (or dish with options)
+			getDishes($rid, $item->children);
 		}else{
 			#is a dish - save shit shit
-			print_r($menu);
+			echo '[' . $item->id . ']' . " $" . $item->price . " " . $item->name . '\n';
+			echo $item->descrip ."\n";
+			print_r($item);
 		}
 	}
-
-/*	foreach($menu as $sub){
-		if(!isset($sub->children)){
-			#dish
-			foreach ($sub as $dish) {
-				echo 'notarray\n';
-				print_r($dish);
-			}
-		}else{
-			echo 'Is parent:';
-			getDishes($rid, $sub);
-		}
-	}*/
 }
 
 $mtime = microtime();
