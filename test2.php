@@ -191,12 +191,12 @@ function getDishes($rid, $menu){
 	}*/
 	#menu[children] is each of the children, if it has children it is a menue
 	foreach($menu as $sub){
-		if(!isset($sub->children) && is_array($sub)){
+		if(isset($sub) && !isset($sub->children)){
 			#dish
 			foreach ($sub as $dish) {
 				print_r($dish);
 			}
-		}elseif(!is_array($sub)){
+		}elseif(is_array($sub)){
 			echo 'unhandled case';
 		}else{
 			echo 'Is parent:';
