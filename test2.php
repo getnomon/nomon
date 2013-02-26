@@ -180,7 +180,7 @@ function getDishes($rid, $item, $depth = 0){
 	if(is_array($item)){
 		for ($i=0; $i < count($item); $i++) { 
 			#Contains a bunch of stdClass Objects
-			getDishes($rid, $item[$i], $depth++);
+			getDishes($rid, $item[$i], $depth+1);
 		}
 	}else{
 		#is an stdObject -> check for children
@@ -189,7 +189,7 @@ function getDishes($rid, $item, $depth = 0){
 			if($depth == 0){
 				echo "!Parent menu [$item->id] $item->name \n";
 			}
-			getDishes($rid, $item->children, $depth++);
+			getDishes($rid, $item->children, $depth+1);
 		}else{
 			#is a dish - save shit shit
 			for($j=0; $j<$depth; $j++){
