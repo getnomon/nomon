@@ -196,9 +196,9 @@ function getDishes($rid, $menu){
 			foreach ($sub as $dish) {
 				print_r($dish);
 			}
-		}elseif(!is_array($sub)){}
+		}elseif(!is_array($sub)){
 			echo 'unhandled case';
-		else{
+		}else{
 			echo 'Is parent:';
 			getDishes($rid, $sub);
 		}
