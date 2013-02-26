@@ -1,9 +1,9 @@
 /*
-# NAME: NomON!
+# NAME: nomON
 # AUTHOR: Evan Cohen
 # DATE: September 2012
-# USAGE: Imports all of the content from Ellington to Drupal
-# REQUIREMENTS: Know what you are doing if you run this!
+# USAGE: Powers the mighty application known as nomON
+# REQUIREMENTS: Extreme hunger
 */
 
 var a=document.getElementsByTagName("a");
