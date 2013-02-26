@@ -191,7 +191,7 @@ function getDishes($rid, $menu){
 	}*/
 	#menu[children] is each of the children, if it has children it is a menue
 	foreach($menu as $sub){
-		if(!isset($sub->children) && !empty($sub)){
+		if(!isset($sub->children) && is_array($sub)){
 			#dish
 			foreach ($sub as $dish) {
 				print_r($dish);
