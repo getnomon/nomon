@@ -193,11 +193,14 @@ function getDishes($rid, $menu){
 	foreach($menu as $sub){
 		if(!isset($sub->children)){
 			#dish
-			foreach ($sub as $dish) {
-				if(is_array($sub)){
-					echo 'Is Array:';
+			if(is_array($sub)){
+				echo 'array\n';
+				print_r($array);
+			}else{
+				foreach ($sub as $dish) {
+					echo 'notarray\n';
+					print_r($dish);
 				}
-				print_r($dish);
 			}
 		}else{
 			echo 'Is parent:';
