@@ -65,10 +65,13 @@ try{
 	    	
 	    	#This goes into the database
 	    	if(isset($_REQUEST['pop'])){
-
+	    		if(isset($restaurant->cu[0])){
+	    			$typeID = getRestaurantTypeID($con, $restaurant->cu[0]);
+    			}else{
+    				$typeID = 0;
+    			}
 	    		$sql = "INSERT INTO tbl_restaurant
-	    		VALUES ($restaurant->id, " . getRestaurantTypeID($con, $restaurant->cu[0]) . 
-	    			", $restaurant->na, $restaurant->mino, $address[0], $restaurant->cs_phone)";
+	    		VALUES ($restaurant->id,  $typeID, $restaurant->na, $restaurant->mino, $address[0], $restaurant->cs_phone)";
 	    		$query = mysqli_query($con,$sql);
 	    	}
 	    }
