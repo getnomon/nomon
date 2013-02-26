@@ -193,7 +193,7 @@ function getDishes($rid, $item, $depth = 0){
 		}else{
 			#is a dish - save shit shit
 			for($j=0; $j<$depth; $j++){
-				echo "\t";
+				echo "=";
 			}
 			echo '[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 			echo " - " . $item->descrip . "\n";
