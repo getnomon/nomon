@@ -55,6 +55,9 @@ try{
 	    	echo "Minimum Order: $" . $restaurant->mino . "\n";
 	    	if (isset($restaurant->cu[0])) {
 	    		echo "Type: " . $restaurant->cu[0] . "\n";
+	    		$TypeName = $restaurant->cu[0];
+	    	}else{
+	    		$TypeName = "None";
 	    	}
 	    	echo "Address: " . $address[0] . "\n";
 	    	if (isset($restaurant->city)) {
@@ -76,7 +79,7 @@ try{
 	    		echo $query;
 	    	}elseif(isset($_REQUEST['popt'])){
 				$sql2 = "INSERT INTO tbl_restaurant_type (RestTypeName)
-				VALUES ($typeID);";
+				VALUES ($TypeName);";
 				//mysqli_query($con,$sql2);
 				$MYSQL .= $sql2 . "\n";
 			}
