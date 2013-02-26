@@ -29,7 +29,7 @@ $ordrin = new OrdrinApi("M4CEY61LCIGUUaOpzF4Jc_TKaHvuOVzb50ZdOYRhMPE", OrdrinApi
 
 
 #Connect to DB
-$conn = mysqli_connect("localhost","nomn","iloveapples","nomon");
+$conn = mysqli_connect("localhost","nomon","iloveapples","nomon");
 // Check connection
 if (mysqli_connect_errno($con)){
 	echo "Failed to connect to MySQL: " . mysqli_connect_error();
