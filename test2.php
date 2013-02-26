@@ -81,7 +81,6 @@ try{
 	  case "rd": #Restaurant Details
 
 	    echo '<pre>';
-	    print_r($randomRestaurant);
 	    $restaurant = $ordrin->restaurant->details($_REQUEST["rid"]);
 	    $menu = $restaurant->menu;
 
