@@ -27,17 +27,18 @@ $dt = (isset($_REQUEST['dT'])) ? $_REQUEST['dT'] : 'ASAP';
 $ordrin = new OrdrinApi("M4CEY61LCIGUUaOpzF4Jc_TKaHvuOVzb50ZdOYRhMPE", OrdrinApi::TEST_SERVERS);
 
 
-if (isset($_REQUEST['persons'])) {
-	$sql ="CREATE TABLE Persons(P_Id int, LastName varchar(255), FirstName varchar(255), Address varchar(255), City varchar(255));";
-	$query = mysqli_query($con,$sql);
-}
-
 #Connect to DB
 $GLOBALS['con'] = mysqli_connect("localhost","nomon","iloveapples","nomon");
 $con = $GLOBALS['con'];
 // Check connection
 if (mysqli_connect_errno($con)){
 	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
+
+#test
+if (isset($_REQUEST['persons'])) {
+	$sql ="CREATE TABLE Persons(P_Id int, LastName varchar(255), FirstName varchar(255), Address varchar(255), City varchar(255));";
+	$query = mysqli_query($con,$sql);
 }
 
 if(!isset($_REQUEST['func'])) {
