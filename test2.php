@@ -186,11 +186,14 @@ function getDishes($rid, $item, $depth = 0){
 		#is an stdObject -> check for children
 		if (isset($item->children)) {
 			#is sub menu/item (or dish with options)
+			if($depth == 0){
+				echo "!Parent menu [$item->id] $item->name";
+			}
 			getDishes($rid, $item->children, $depth++);
 		}else{
 			#is a dish - save shit shit
-			echo '[' . $item->id . ']' . " $" . $item->price . " " . $item->name . '\n';
-			echo $item->descrip ."\n";
+			echo '[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
+			echo " - " . $item->descrip . "\n";
 			//print_r($item);
 		}
 	}
