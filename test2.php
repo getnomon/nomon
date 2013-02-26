@@ -190,7 +190,17 @@ function getDishes($rid, $menu){
 		}
 	}*/
 	#menu[children] is each of the children, if it has children it is a menue
-	print_r($menu);
+	foreach($menu as $sub){
+		if(!isset($sub->children)){
+			#dish
+			foreach ($sub as $dish) {
+				print_r($dish);
+			}
+		}else{
+			echo 'Is parent:';
+			print_r($sub);
+		}
+	}
 }
 
 $mtime = microtime();
