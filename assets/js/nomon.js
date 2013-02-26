@@ -6,18 +6,31 @@
 # REQUIREMENTS: Extreme hunger
 */
 
-var a=document.getElementsByTagName("a");
-for(var i=0;i<a.length;i++) {
-    if(!a[i].onclick && a[i].getAttribute("target") != "_blank") {
-        a[i].onclick=function() {
-        		console.log(this.getAttribute("href"));
-                window.location=this.getAttribute("href");
-                return false; 
-        }
-    }
+if(("standalone" in window.navigator) && window.navigator.standalone){
+	// If you want to prevent remote links in standalone web apps opening Mobile Safari, change 'remotes' to true
+	var noddy, remotes = false;
+	document.addEventListener('click', function(event) {
+		noddy = event.target;
+		// Bubble up until we hit link or top HTML element. Warning: BODY element is not compulsory so better to stop on HTML
+		while(noddy.nodeName !== "A" && noddy.nodeName !== "HTML") {
+	        noddy = noddy.parentNode;
+	    }
+		if('href' in noddy && noddy.href.indexOf('http') !== -1 && (noddy.href.indexOf(document.location.host) !== -1 || remotes)){
+			event.preventDefault();
+			document.location.href = noddy.href;
+		}
+	},false);
 }
 
 $(function() {
+	//Capture click/taps
+	/*$("a").click(function (event) {
+		if($(this).attr("target") != "_blank"){
+		    event.preventDefault();
+		    window.location = $(this).attr("href");
+	    }
+	});*/
+
     if($(location).attr('pathname') != '/' && $(location).attr('pathname') != '/test'){
         $('.mini-logo').attr('style', 'display: inline-block');
     }
