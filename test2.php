@@ -28,16 +28,10 @@ $ordrin = new OrdrinApi("M4CEY61LCIGUUaOpzF4Jc_TKaHvuOVzb50ZdOYRhMPE", OrdrinApi
 
 
 if (isset($_REQUEST['persons'])) {
-	$sql ="CREATE TABLE Persons
-	(
-	P_Id int,
-	LastName varchar(255),
-	FirstName varchar(255),
-	Address varchar(255),
-	City varchar(255)
-	);";
+	$sql ="CREATE TABLE Persons(P_Id int, LastName varchar(255), FirstName varchar(255), Address varchar(255), City varchar(255));";
 	$query = mysqli_query($con,$sql);
 }
+
 #Connect to DB
 $GLOBALS['con'] = mysqli_connect("localhost","nomon","iloveapples","nomon");
 $con = $GLOBALS['con'];
@@ -223,11 +217,6 @@ function getRestaurantTypeID($con, $type){
 		$query = mysqli_query($con,$sql);
 	}
 	return $query;
-}
-
-
-function query($sql, $con = $GLOBALS['con']){
-	return mysqli_query($sql, $con);;
 }
 
 $mtime = microtime();
