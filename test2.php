@@ -175,7 +175,7 @@ function genNote($allergies){
 #accepts a menu id (menu parent description)
 #MUST pass menu object
 
-function getDishes($rid, $item, $depth = 0){
+function getDishes($rid, $item, $depth = -1){
 	#item[children] is each of the children, if it has children it is a parent. duh.
 	if(is_array($item)){
 		for ($i=0; $i < count($item); $i++) { 
