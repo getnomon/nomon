@@ -35,12 +35,6 @@ if (mysqli_connect_errno($con)){
 	echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
-#test
-if (isset($_REQUEST['persons'])) {
-	$sql ="CREATE TABLE Persons(P_Id int, LastName varchar(255), FirstName varchar(255), Address varchar(255), City varchar(255));";
-	$query = mysqli_query($con,$sql);
-}
-
 if(!isset($_REQUEST['func'])) {
   $_REQUEST['func'] = 'ord'; #Order already processed
 }
@@ -77,7 +71,7 @@ try{
     				$typeID = "NULL";
     			}
 	    		$sql = "INSERT INTO tbl_restaurant
-	    		VALUES ($restaurant->id,  $typeID, $restaurant->na, $restaurant->mino, $address[0], $restaurant->cs_phone)";
+	    		VALUES ('$restaurant->id',  '$typeID', '$restaurant->na',' $restaurant->mino', '$address[0]', '$restaurant->cs_phone')";
 	    		$query = mysqli_query($con,$sql);
 	    	}
 	    }
