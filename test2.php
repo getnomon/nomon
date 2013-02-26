@@ -190,7 +190,7 @@ function getDishes($rid, $item){
 			#is a dish - save shit shit
 			echo '[' . $item->id . ']' . " $" . $item->price . " " . $item->name . '\n';
 			echo $item->descrip ."\n";
-			print_r($item);
+			//print_r($item);
 		}
 	}
 }
