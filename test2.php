@@ -79,7 +79,7 @@ try{
 	    		echo $query;
 	    	}elseif(isset($_REQUEST['popt'])){
 				$sql2 = "INSERT INTO tbl_restaurant_type (RestTypeName)
-				VALUES ($TypeName);";
+				VALUES ('$TypeName');";
 				//mysqli_query($con,$sql2);
 				$MYSQL .= $sql2 . "\n";
 			}
