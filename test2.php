@@ -173,8 +173,8 @@ function genNote($allergies){
 #accepts a menu id (menu parent description)
 #MUST pass menu object
 
-function getDishes($rid, $parentMenu){
-	foreach ($parentMenu as $menu) {
+function getDishes($rid, $menu){
+/*	foreach ($parentMenu as $menu) {
 		if (!isset($menu->children)) {
 			# This is a dish
 			foreach ($menu as $dish) {
@@ -188,9 +188,9 @@ function getDishes($rid, $parentMenu){
 			#this is a parent
 			getDishes($rid, $menu);
 		}
-	}
-	
+	}*/
 	#menu[children] is each of the children, if it has children it is a menue
+	print_r($menu);
 }
 
 $mtime = microtime();
