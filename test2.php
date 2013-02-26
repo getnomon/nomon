@@ -179,9 +179,9 @@ function getDishes($rid, $parentMenu){
 			# This is a dish
 			foreach ($menu as $dish) {
 				//print_r($dish);
-				echo 'Name-ID: ' . $dish['name'] . ' ['  . $dish['id'] . ']\n';
-				echo 'Price $' . $dish['price'];
-				echo 'Descr: ' . $dish['descrip'] . '\n';
+				echo 'Name-ID: ' . $dish->name . ' ['  . $dish->id . ']\n';
+				echo 'Price $' . $dish->price;
+				echo 'Descr: ' . $dish->descrip . '\n';
 			}
 			
 		}else{
