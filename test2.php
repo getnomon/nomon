@@ -205,7 +205,7 @@ function getDishes($rid, $menu){
 		}
 	}
 
-	foreach($menu as $sub){
+/*	foreach($menu as $sub){
 		if(!isset($sub->children)){
 			#dish
 			foreach ($sub as $dish) {
@@ -216,7 +216,7 @@ function getDishes($rid, $menu){
 			echo 'Is parent:';
 			getDishes($rid, $sub);
 		}
-	}
+	}*/
 }
 
 $mtime = microtime();
