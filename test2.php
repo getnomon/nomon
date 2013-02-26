@@ -178,12 +178,12 @@ function getDishes($rid, $parentMenu){
 		if (!isset($menu->children)) {
 			# This is a dish
 			foreach ($menu as $dish) {
-				print_r($dish);
+				//print_r($dish);
+				echo 'Name-ID: ' . $dish['name'] . ' ['  . $dish['id'] . ']\n';
+				echo 'Price $' . $dish['price'];
+				echo 'Descr: ' . $dish['descrip'] . '\n';
 			}
-			/*
-			echo 'Name-ID: ' . $menu['name'] . ' ['  . $menu['id'] . ']\n';
-			echo 'Price $' . $menu['price'];
-			echo 'Descr: ' . $menu['descrip'] . '\n';*/
+			
 		}else{
 			#this is a parent
 			getDishes($rid, $menu);
