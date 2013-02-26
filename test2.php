@@ -85,7 +85,7 @@ try{
 	    $menu = $restaurant->menu;
 
 	    //parse menu
-	    getDishes($con, $randomRestaurant->id, $menu);
+	    getDishes($con, $_REQUEST["rid"], $menu);
 
 	    //echo '____________________________________________________________________';
 	    //print_r($menu);
