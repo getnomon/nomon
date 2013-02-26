@@ -187,13 +187,13 @@ function getDishes($rid, $item, $depth = 0){
 		if (isset($item->children)) {
 			#is sub menu/item (or dish with options)
 			if($depth == 0){
-				echo "!Parent menu [$item->id] $item->name";
+				echo "!Parent menu [$item->id] $item->name \n";
 			}
 			getDishes($rid, $item->children, $depth++);
 		}else{
 			#is a dish - save shit shit
 			for($j=0; $j<$depth; $j++){
-				echo'\t';
+				echo "\t";
 			}
 			echo '[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 			echo " - " . $item->descrip . "\n";
