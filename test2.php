@@ -68,9 +68,9 @@ try{
 	    $menu = $restaurant->menu;
 
 	    //parse menu
-	    //getDishes($randomRestaurant->id, $menu);
+	    getDishes($randomRestaurant->id, $menu);
 
-	    print_r($menu);
+	    //print_r($menu);
 	    echo '</pre>';
 	    /*foreach ($print as $restaurant) {
 	    	print($restaurant->id . " - " . $restaurant->na);
@@ -190,6 +190,21 @@ function getDishes($rid, $menu){
 		}
 	}*/
 	#menu[children] is each of the children, if it has children it is a menue
+	if(is_array($menu)){
+		for ($i=0; $i < count($menu); $i++) { 
+			#Contains a bunch of stdClass Objects
+			getDishes($rid, $menu[$i]);
+		}
+	}else{
+		#is an stdObject -> check for children
+		if (isset($menu->children)) {
+			getDishes($rid, $menu->children);
+		}else{
+			#is a dish - save shit shit
+			print_r($menu);
+		}
+	}
+
 	foreach($menu as $sub){
 		if(!isset($sub->children)){
 			#dish
