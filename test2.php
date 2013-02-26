@@ -45,12 +45,12 @@ try{
 	  case "dl": #Delivery List
 	    $addr = $ordrin::address($_REQUEST["addr"], $_REQUEST["city"], $_REQUEST["state"], $_REQUEST["zip"], "");
 	    $print = $ordrin->restaurant->getDeliveryList($dt, $addr);
-	    echo "<!-- Extract Data\n";
+	    echo "<pre>Extract Data\n";
 
 	    //Getting data on each restaurant
 	    foreach ($print as $restaurant) {
 	    	#This goes into the database
-	    	echo "ID: " . $restaurant->id . "\n";
+	    	echo "ID: " . "<a href='/test2.php?func=rd&rid=$restaurant->id'>" . $restaurant->id . "</a>\n";
 	    	echo "Name: " . $restaurant->na . "\n";
 	    	echo "Phone: " . $restaurant->cs_phone . "\n";
 	    	echo "Minimum Order: $" . $restaurant->mino . "\n";
@@ -64,31 +64,7 @@ try{
 	    	}
 	    	echo "\n";
 	    }
-	    echo "-->";
-
-
-
-	    $randomIndex = array_rand($print, 1);
-
-	    echo '<pre>';
-	    $randomRestaurant = $print[$randomIndex];
-	    print_r($randomRestaurant);
-	    $restaurant = $ordrin->restaurant->details($randomRestaurant->id);
-	    $menu = $restaurant->menu;
-
-	    //parse menu
-	    getDishes($randomRestaurant->id, $menu);
-
-	    //echo '____________________________________________________________________';
-	    //print_r($menu);
-	    
-	    echo '</pre>';
-	    /*foreach ($print as $restaurant) {
-	    	print($restaurant->id . " - " . $restaurant->na);
-	    	echo '<pre>';
-		    print_r($restaurant);
-		    echo '</pre>';
-	    }*/
+	    echo "<pre>";
 	  break;
 	  case "dc": #Delivery Check
 	    $addr = $ordrin::address($_REQUEST["addr"], $_REQUEST["city"], $_REQUEST["state"], $_REQUEST["zip"], "");
@@ -103,8 +79,19 @@ try{
 	    echo json_encode($print);
 	  break;
 	  case "rd": #Restaurant Details
-	    $print = $ordrin->restaurant->details($_REQUEST["rid"]);
-	    echo json_encode($print);
+
+	    echo '<pre>';
+	    print_r($randomRestaurant);
+	    $restaurant = $ordrin->restaurant->details($_REQUEST["rid"]);
+	    $menu = $restaurant->menu;
+
+	    //parse menu
+	    getDishes($con, $randomRestaurant->id, $menu);
+
+	    //echo '____________________________________________________________________';
+	    //print_r($menu);
+	    
+	    echo '</pre>';
 	  break;
 	#User API
 	  case "gacc": #Account Info
@@ -184,12 +171,12 @@ function genNote($allergies){
 #accepts a menu id (menu parent description)
 #MUST pass menu object
 
-function getDishes($rid, $item, $depth = -1){
+function getDishes($con, $rid, $item, $depth = -1){
 	#item[children] is each of the children, if it has children it is a parent. duh.
 	if(is_array($item)){
 		for ($i=0; $i < count($item); $i++) { 
 			#Contains a bunch of stdClass Objects
-			getDishes($rid, $item[$i], $depth+1);
+			getDishes($con, $rid, $item[$i], $depth+1);
 		}
 	}else{
 		#is an stdObject -> check for children
@@ -203,7 +190,7 @@ function getDishes($rid, $item, $depth = -1){
 			}
 			echo '![' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 			echo " - " . $item->descrip . "\n";
-			getDishes($rid, $item->children, $depth+1);
+			getDishes($con, $rid, $item->children, $depth+1);
 		}else{
 			#is a dish - save shit shit
 			for($j=0; $j<$depth; $j++){
