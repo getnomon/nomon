@@ -68,9 +68,9 @@ try{
 	    $menu = $restaurant->menu;
 
 	    //parse menu
-	    getDishes($randomRestaurant->id, $menu);
+	    //getDishes($randomRestaurant->id, $menu);
 
-	    //print_r($menu);
+	    print_r($menu);
 	    echo '</pre>';
 	    /*foreach ($print as $restaurant) {
 	    	print($restaurant->id . " - " . $restaurant->na);
@@ -193,14 +193,9 @@ function getDishes($rid, $menu){
 	foreach($menu as $sub){
 		if(!isset($sub->children)){
 			#dish
-			if(is_array($sub)){
-				echo 'array\n';
-				print_r($array);
-			}else{
-				foreach ($sub as $dish) {
-					echo 'notarray\n';
-					print_r($dish);
-				}
+			foreach ($sub as $dish) {
+				echo 'notarray\n';
+				print_r($dish);
 			}
 		}else{
 			echo 'Is parent:';
