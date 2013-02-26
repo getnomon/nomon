@@ -70,8 +70,9 @@ try{
 	    //parse menu
 	    getDishes($randomRestaurant->id, $menu);
 
-	    echo '____________________________________________________________________';
-	    print_r($menu);
+	    //echo '____________________________________________________________________';
+	    //print_r($menu);
+	    
 	    echo '</pre>';
 	    /*foreach ($print as $restaurant) {
 	    	print($restaurant->id . " - " . $restaurant->na);
