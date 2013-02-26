@@ -72,6 +72,7 @@ try{
     			}
 	    		$sql = "INSERT INTO tbl_restaurant
 	    		VALUES ('$restaurant->id',  '$typeID', '$restaurant->na',' $restaurant->mino', '$address[0]', '$restaurant->cs_phone')";
+	    		echo $sql . "\n";
 	    		$query = mysqli_query($con,$sql);
 	    	}
 	    }
