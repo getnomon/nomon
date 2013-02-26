@@ -175,18 +175,18 @@ function genNote($allergies){
 #accepts a menu id (menu parent description)
 #MUST pass menu object
 
-function getDishes($rid, $item){
+function getDishes($rid, $item, $depth = 0){
 	#item[children] is each of the children, if it has children it is a parent. duh.
 	if(is_array($item)){
 		for ($i=0; $i < count($item); $i++) { 
 			#Contains a bunch of stdClass Objects
-			getDishes($rid, $item[$i]);
+			getDishes($rid, $item[$i], $depth++);
 		}
 	}else{
 		#is an stdObject -> check for children
 		if (isset($item->children)) {
 			#is sub menu/item (or dish with options)
-			getDishes($rid, $item->children);
+			getDishes($rid, $item->children, $depth++);
 		}else{
 			#is a dish - save shit shit
 			echo '[' . $item->id . ']' . " $" . $item->price . " " . $item->name . '\n';
