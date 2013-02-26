@@ -26,6 +26,15 @@ $dt = (isset($_REQUEST['dT'])) ? $_REQUEST['dT'] : 'ASAP';
 # SITE: e2ZK67T9HAFW3uVhDtKFVbO33dmUnHgWzMMZNgAlPwE
 $ordrin = new OrdrinApi("M4CEY61LCIGUUaOpzF4Jc_TKaHvuOVzb50ZdOYRhMPE", OrdrinApi::TEST_SERVERS);
 
+
+
+#Connect to DB
+$conn = mysqli_connect("localhost","nomn","iloveapples","nomon");
+// Check connection
+if (mysqli_connect_errno($con)){
+	echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
+
 if(!isset($_REQUEST['func'])) {
   $_REQUEST['func'] = 'ord'; #Order already processed
 }
@@ -214,4 +223,6 @@ $endtime = $mtime;
 $totaltime = ($endtime - $starttime); 
 echo "This page was created in ".$totaltime." seconds"; 
 
+#close DB connection
+mysqli_close($con);
 ?>
