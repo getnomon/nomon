@@ -20,14 +20,27 @@ require_once('ordrin/OrdrinApi.php');
 
 #Date Time (Either set or ASAP)
 $dt = (isset($_REQUEST['dT'])) ? $_REQUEST['dT'] : 'ASAP';
+
+
 # DEV : Ff8tzeriI0SGq9xiNBzbIkuhMdbar7Mml8SKrd9cKD0
 # SITE: e2ZK67T9HAFW3uVhDtKFVbO33dmUnHgWzMMZNgAlPwE
 $ordrin = new OrdrinApi("M4CEY61LCIGUUaOpzF4Jc_TKaHvuOVzb50ZdOYRhMPE", OrdrinApi::TEST_SERVERS);
 
-$MYSQL = "";
 
+if (isset($_REQUEST['persons'])) {
+	$sql ="CREATE TABLE Persons
+	(
+	P_Id int,
+	LastName varchar(255),
+	FirstName varchar(255),
+	Address varchar(255),
+	City varchar(255)
+	);";
+	$query = mysqli_query($con,$sql);
+}
 #Connect to DB
-$con = mysqli_connect("localhost","nomon","iloveapples","nomon");
+$GLOBALS['con'] = mysqli_connect("localhost","nomon","iloveapples","nomon");
+$con = $GLOBALS['con'];
 // Check connection
 if (mysqli_connect_errno($con)){
 	echo "Failed to connect to MySQL: " . mysqli_connect_error();
@@ -47,42 +60,31 @@ try{
 
 	    //Getting data on each restaurant
 	    foreach ($print as $restaurant) {
-	    	$address = explode(',',$restaurant->ad);
-	    	
 	    	echo "ID: " . "<a href='/test2.php?func=rd&rid=$restaurant->id'>" . $restaurant->id . "</a>\n";
 	    	echo "Name: " . $restaurant->na . "\n";
 	    	echo "Phone: " . $restaurant->cs_phone . "\n";
 	    	echo "Minimum Order: $" . $restaurant->mino . "\n";
 	    	if (isset($restaurant->cu[0])) {
 	    		echo "Type: " . $restaurant->cu[0] . "\n";
-	    		$TypeName = $restaurant->cu[0];
-	    	}else{
-	    		$TypeName = "None";
 	    	}
+	    	$address = explode(',',$restaurant->ad);
 	    	echo "Address: " . $address[0] . "\n";
 	    	if (isset($restaurant->city)) {
  	    		echo "City: " . $restaurant->city . "\n";
 	    	}
 	    	echo "\n";
 	    	
-	    	#RestaurantType
-    		if(isset($restaurant->cu[0])){
-    			$typeID = getRestaurantTypeID($con, $restaurant->cu[0]);
-			}else{
-				$typeID = 'None';
-			}
 	    	#This goes into the database
-	    	if(isset($_REQUEST['popr'])){
+	    	if(isset($_REQUEST['pop'])){
+	    		if(isset($restaurant->cu[0])){
+	    			$typeID = getRestaurantTypeID($con, $restaurant->cu[0]);
+    			}else{
+    				$typeID = "NULL";
+    			}
 	    		$sql = "INSERT INTO tbl_restaurant
-	    		VALUES ($restaurant->id,  $typeID, $restaurant->na, $restaurant->mino, $address[0], $restaurant->cs_phone);";
+	    		VALUES ($restaurant->id,  $typeID, $restaurant->na, $restaurant->mino, $address[0], $restaurant->cs_phone)";
 	    		$query = mysqli_query($con,$sql);
-	    		echo $query;
-	    	}elseif(isset($_REQUEST['popt'])){
-				$sql2 = "INSERT INTO tbl_restaurant_type (RestTypeName)
-				VALUES ('$TypeName');";
-				//mysqli_query($con,$sql2);
-				$MYSQL .= $sql2 . "\n";
-			}
+	    	}
 	    }
 	    echo "<pre>";
 	  break;
@@ -223,6 +225,11 @@ function getRestaurantTypeID($con, $type){
 	return $query;
 }
 
+
+function query($sql, $con = $GLOBALS['con']){
+	return mysqli_query($sql, $con);;
+}
+
 $mtime = microtime();
 $mtime = explode(" ",$mtime); 
 $mtime = $mtime[1] + $mtime[0]; 
@@ -232,6 +239,4 @@ echo "This page was created in ".$totaltime." seconds";
 
 #close DB connection
 mysqli_close($con);
-
-echo $MYSQL;
 ?>
