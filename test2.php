@@ -20,13 +20,11 @@ require_once('ordrin/OrdrinApi.php');
 
 #Date Time (Either set or ASAP)
 $dt = (isset($_REQUEST['dT'])) ? $_REQUEST['dT'] : 'ASAP';
-
-
 # DEV : Ff8tzeriI0SGq9xiNBzbIkuhMdbar7Mml8SKrd9cKD0
 # SITE: e2ZK67T9HAFW3uVhDtKFVbO33dmUnHgWzMMZNgAlPwE
 $ordrin = new OrdrinApi("M4CEY61LCIGUUaOpzF4Jc_TKaHvuOVzb50ZdOYRhMPE", OrdrinApi::TEST_SERVERS);
 
-
+$MYSQL = "";
 
 #Connect to DB
 $con = mysqli_connect("localhost","nomon","iloveapples","nomon");
@@ -49,6 +47,8 @@ try{
 
 	    //Getting data on each restaurant
 	    foreach ($print as $restaurant) {
+	    	$address = explode(',',$restaurant->ad);
+	    	
 	    	echo "ID: " . "<a href='/test2.php?func=rd&rid=$restaurant->id'>" . $restaurant->id . "</a>\n";
 	    	echo "Name: " . $restaurant->na . "\n";
 	    	echo "Phone: " . $restaurant->cs_phone . "\n";
@@ -56,25 +56,30 @@ try{
 	    	if (isset($restaurant->cu[0])) {
 	    		echo "Type: " . $restaurant->cu[0] . "\n";
 	    	}
-	    	$address = explode(',',$restaurant->ad);
 	    	echo "Address: " . $address[0] . "\n";
 	    	if (isset($restaurant->city)) {
  	    		echo "City: " . $restaurant->city . "\n";
 	    	}
 	    	echo "\n";
 	    	
+	    	#RestaurantType
+    		if(isset($restaurant->cu[0])){
+    			$typeID = getRestaurantTypeID($con, $restaurant->cu[0]);
+			}else{
+				$typeID = 'None';
+			}
 	    	#This goes into the database
-	    	if(isset($_REQUEST['pop'])){
-	    		if(isset($restaurant->cu[0])){
-	    			$typeID = getRestaurantTypeID($con, $restaurant->cu[0]);
-    			}else{
-    				$typeID = 0;
-    			}
+	    	if(isset($_REQUEST['popr'])){
 	    		$sql = "INSERT INTO tbl_restaurant
-	    		VALUES ($restaurant->id,  $typeID, $restaurant->na, $restaurant->mino, $address[0], $restaurant->cs_phone)";
+	    		VALUES ($restaurant->id,  $typeID, $restaurant->na, $restaurant->mino, $address[0], $restaurant->cs_phone);";
 	    		$query = mysqli_query($con,$sql);
 	    		echo $query;
-	    	}
+	    	}elseif(isset($_REQUEST['popt'])){
+				$sql2 = "INSERT INTO tbl_restaurant_type (RestTypeName)
+				VALUES ($typeID);";
+				//mysqli_query($con,$sql2);
+				$MYSQL .= $sql2 . "\n";
+			}
 	    }
 	    echo "<pre>";
 	  break;
@@ -167,17 +172,6 @@ function calcMeal($targetPrice, $result, $allergies = NULL){
 	
 }
 
-/*Acceps an array of allergie IDs*/
-function genNote($allergies){
-	$note = "[NomON]\n Please note, this person has the following food alergies/prefrences:\n";
-	foreach ($allergies as $allergie) {
-		$note .= "- $allergie\n";
-	}
-	$note .= "If the order contains any of thse alergies/prefrences ";
-	$note .= "please substitute the order for an item of equal value from your menu.\n";
-	$note .= "Thanks!\n -NomON | nomon.co";
-}
-
 #recursivly prints out dishes
 #accepts a menu id (menu parent description)
 #MUST pass menu object
@@ -235,4 +229,6 @@ echo "This page was created in ".$totaltime." seconds";
 
 #close DB connection
 mysqli_close($con);
+
+echo $MYSQL;
 ?>
