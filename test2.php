@@ -49,7 +49,6 @@ try{
 
 	    //Getting data on each restaurant
 	    foreach ($print as $restaurant) {
-	    	#This goes into the database
 	    	echo "ID: " . "<a href='/test2.php?func=rd&rid=$restaurant->id'>" . $restaurant->id . "</a>\n";
 	    	echo "Name: " . $restaurant->na . "\n";
 	    	echo "Phone: " . $restaurant->cs_phone . "\n";
@@ -63,6 +62,15 @@ try{
  	    		echo "City: " . $restaurant->city . "\n";
 	    	}
 	    	echo "\n";
+	    	
+	    	#This goes into the database
+	    	if(isset($_REQUEST['pop'])){
+
+	    		$sql = "INSERT INTO tbl_restaurant
+	    		VALUES ($restaurant->id, " . getRestaurantTypeID($con, $restaurant->cu[0]) . 
+	    			", $restaurant->na, $restaurant->mino, $address[0], $restaurant->cs_phone)";
+	    		$query = mysqli_query($con,$sql);
+	    	}
 	    }
 	    echo "<pre>";
 	  break;
@@ -200,6 +208,18 @@ function getDishes($con, $rid, $item, $depth = -1){
 			//print_r($item);
 		}
 	}
+}
+
+function getRestaurantTypeID($con, $type){
+	$sql = "SELECT RestTypeID FROM tbl_restaurant_type WHERE RestTypeName='$type'";
+	$query = mysqli_query($con,$sql);
+	if($query = null){
+		$sql2 = "INSERT INTO tbl_restaurant_type (RestTypeName)
+		VALUES ($type)";
+		mysqli_query($con,$sql2);
+		$query = mysqli_query($con,$sql);
+	}
+	return $query;
 }
 
 $mtime = microtime();
