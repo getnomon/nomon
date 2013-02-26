@@ -189,6 +189,9 @@ function getDishes($rid, $item, $depth = -1){
 			if($depth == 0){
 				echo "!Parent menu [$item->id] $item->name \n";
 			}
+			for($j=0; $j<$depth; $j++){
+				echo "=";
+			}
 			echo '![' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 			echo " - " . $item->descrip . "\n";
 			getDishes($rid, $item->children, $depth+1);
