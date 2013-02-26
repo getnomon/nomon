@@ -198,7 +198,7 @@ function getDishes($rid, $menu){
 			}
 		}else{
 			echo 'Is parent:';
-			print_r($sub);
+			getDishes($rid, $sub);
 		}
 	}
 }
