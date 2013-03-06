@@ -188,13 +188,13 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 			if($depth == 0 && $parentid == 0){
 				echo "!Parent menu [$item->id] $item->name\n";
 				$menuid = $item->id;
-				/*$sql = "INSERT INTO tbl_menu
+				$sql = "INSERT INTO tbl_menu
 	    			VALUES ('".
 	    				$item->id."', '".
 	    				$rid."', '".
 	    				mysql_real_escape_string($item->name)."', '".
 	    				mysql_real_escape_string($item->descrip)."')";
-	    		$result = mysqliQuery($con,$sql);*/
+	    		$result = mysqliQuery($con,$sql);
 	    		getDishes($con, $rid, $item->children, $depth+1, $menuid);
 			}else{
 				for($j=0; $j<$depth; $j++){
@@ -202,7 +202,7 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 				}
 				echo '![' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 				echo " - " . $item->descrip . "\n";
-				/*$sql = "INSERT INTO tbl_dish (DishID, MenuID, DishName, DishDescr, Price)
+				$sql = "INSERT INTO tbl_dish (DishID, MenuID, DishName, DishDescr, Price)
 		    		VALUES ('".
 		    			$item->id."', '".
 		    			$menuid."', '".
@@ -210,7 +210,6 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 		    			mysql_real_escape_string($item->descrip)."', '".
 		    			$item->price."')";
 		    	$result = mysqliQuery($con,$sql);
-		    	print_r($result);*/
 		    	getDishes($con, $rid, $item->children, $depth+1, $menuid, $item->id);
 			}
 		}else{
@@ -221,7 +220,7 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 
 			echo '[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 			echo " - " . $item->descrip . "\n";
-			/*$sql = "INSERT INTO tbl_dish
+			$sql = "INSERT INTO tbl_dish
 	    		VALUES ('".
 	    			$item->id."', '".
 	    			$menuid."', '".
@@ -230,7 +229,6 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 	    			mysql_real_escape_string($item->descrip)."', '".
 	    			$item->price."')";
 	    	$result = mysqliQuery($con,$sql);
-			print_r($result);*/
 		}
 	}
 }
