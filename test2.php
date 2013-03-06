@@ -66,16 +66,24 @@ try{
 	    	#This goes into the database
 	    	if(isset($_REQUEST['pop'])){
 	    		if(isset($restaurant->cu[0])){
-	    	/*		if($_REQUEST['pop'] == "tbl_restaurant_type"){
-	    				$sql = "INSERT INTO tbl_restaurant_type (RestTypeName)
-	    							VALUES ('".$restaurant->cu[0]."')
-									WHERE '".$restaurant->cu[0]."' NOT IN 
-									(SELECT RestTypeName FROM tbl_restaurant_type)";
-						mysqliQuery($con,$sql);
+	    			if($_REQUEST['pop'] == "tbl_restaurant_type"){
+	    				$sql = "SELECT RestTypeID FROM tbl_restaurant_type WHERE RestTypeName='".$type."'";
+						echo "running query...\n";
+						$query = mysqliQuery($con,$sql);
+						print_r($query);
+						echo "query has run\n";
+						if($query = null){
+							$sql2 = "INSERT INTO tbl_restaurant_type (RestTypeName)
+							VALUES ('".$type."')";
+							$retult = mysqliQuery($con,$sql2);
+							echo 'Created new type: ' . $retult;
+							$query = mysqliQuery($con,$sql);
+						}
+						$typeID = mysqliQuery($con,$sql);
 	    			}else{*/
 	    				echo "calling restaurant Type\n";
 	    				$typeID = getRestaurantTypeID($con, $restaurant->cu[0]);
-    				//}
+    				}
     			}else{
     				$typeID = getRestaurantTypeID($con, "NA");
     			}
