@@ -73,13 +73,10 @@ try{
     			$typeID = $result['RestTypeID'];
     			echo "TypeID: $typeID\n";
     			if($_REQUEST['pop'] == "tbl_restaurant"){
-		    		/*$sql = "INSERT INTO tbl_restaurant
-		    		VALUES ('".$restaurant->id."', '".$typeID."', '".$restaurant->na."','".
-		    			$restaurant->mino."', '".$address[0]."', '".$restaurant->cs_phone."')";*/
-					$sql = "INSERT INTO tbl_restaurant
-		    			VALUES ('{$restaurant->id}', '{$typeID}', 
-		    				'{sqlescape($restaurant->na)}', '{$restaurant->mino}', 
-		    				'{sqlescape($address[0])}', '{$restaurant->cs_phone;}')";
+		    		$sql = "INSERT INTO tbl_restaurant
+		    		VALUES ('".$restaurant->id."', '".$typeID."', '".
+		    			mysql_real_escape_string($restaurant->na)."','".$restaurant->mino."', '".
+		    			mysql_real_escape_string($address[0])."', '".$restaurant->cs_phone."')";
 		    		$query = mysqliQuery($con,$sql);
 	    		}
 
