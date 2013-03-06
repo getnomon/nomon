@@ -179,7 +179,7 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 	if(is_array($item)){
 		for ($i=0; $i < count($item); $i++) { 
 			#Contains a bunch of stdClass Objects
-			getDishes($con, $rid, $item[$i], $depth+1);
+			getDishes($con, $rid, $item[$i], $depth+1, $menuid, $parentid);
 		}
 	}else{
 		#is an stdObject -> check for children
