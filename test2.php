@@ -211,6 +211,7 @@ function getDishes($con, $rid, $item, $depth = -1, $parentid = 0){
 		    			mysql_real_escape_string($item->descrip)."', '".
 		    			$item->price."')";
 		    	$result = mysqliQuery($con,$sql);
+		    	print_r($result);
 		    	getDishes($con, $rid, $item->children, $depth+1, $item->id);
 			}
 		}else{
