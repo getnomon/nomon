@@ -103,7 +103,7 @@ try{
 	    echo '<pre>';
 	    $restaurant = $ordrin->restaurant->details($_REQUEST["rid"]);
 	    $menu = $restaurant->menu;
-
+	    print_r($menu);
 	    //parse menu
 	    getDishes($con, $_REQUEST["rid"], $menu);
 	    echo '</pre>';
