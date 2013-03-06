@@ -65,13 +65,11 @@ try{
 	    	
 	    	#This goes into the database
 	    	if(isset($_REQUEST['pop'])){
-	    		if(isset($restaurant->cu[0])){
-					$result = getRestaurantTypeID($con, $restaurant->cu[0]);
-					//print_r($typeID);
-    			}else{
-    				#restaurants default to the type of Specialty if not provided
-    				$result = getRestaurantTypeID($con, "Specialty");
+	    		if(!isset($restaurant->cu[0])){
+					$restaurant->cu[0] = "Specialty";
     			}
+    			
+				$result = mysqli_fetch_array(getRestaurantTypeID($con, $restaurant->cu[0]));
     			$typeID = $result['RestTypeID'];
     			echo "TypeID: $typeID";
     			if($_REQUEST['pop'] == "tbl_restaurant"){
@@ -239,7 +237,7 @@ function mysqliQuery($con, $sql){
 	if(!$result = $con->query($sql)){
     	die('There was an error running the query [' . $con->error . ']');
 	}
-	return mysqli_fetch_array($result);
+	return $result;
 }
 
 
