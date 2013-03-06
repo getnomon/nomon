@@ -66,17 +66,15 @@ try{
 	    	#This goes into the database
 	    	if(isset($_REQUEST['pop'])){
 	    		if(isset($restaurant->cu[0])){
-	    			if($_REQUEST['pop'] == "tbl_restaurant_type"){
-						$typeID = mysqliQuery($con,$sql);
-						//print_r($typeID);
-	    			}else{
-	    				echo "calling restaurant Type\n";
-	    				$typeID = getRestaurantTypeID($con, $restaurant->cu[0]);
-    				}
+					$typeID = getRestaurantTypeID($con, $restaurant->cu[0]);
+					//print_r($typeID);
     			}else{
-    				$typeID = getRestaurantTypeID($con, "NA");
+    				#restaurants default to the type of Specialty if not provided
+    				$typeID = getRestaurantTypeID($con, "Specialty");
     			}
-
+    			echo 'TypeID: ';
+    			print_r($typeID);
+    			echo "\n";
     			if($_REQUEST['pop'] == "tbl_restaurant"){
 		    		$sql = "INSERT INTO tbl_restaurant
 		    		VALUES ('$restaurant->id', '$typeID', '$restaurant->na',' $restaurant->mino', '$address[0]', '$restaurant->cs_phone')";
