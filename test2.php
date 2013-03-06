@@ -186,7 +186,7 @@ function getDishes($con, $rid, $item, $depth = -1, $parentid = 0){
 		#is an stdObject -> check for children
 		if (isset($item->children)) {
 			#is sub menu/item (or dish with options)
-			if($depth == 0 && !isset($item->price)){
+			if($depth == 0 && $item->is_orderable == 0){
 				echo "!Parent menu [$item->id] $item->name \n";
 				$menuid = $item->id;
 				/*$sql = "INSERT INTO tbl_menu
