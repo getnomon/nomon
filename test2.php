@@ -200,11 +200,10 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 			}
 			echo '![' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 			echo " - " . $item->descrip . "\n";
-			$sql = "INSERT INTO tbl_dish
+			$sql = "INSERT INTO tbl_dish (DishID, MenuID, DishName, DishDescr, Price)
 	    		VALUES ('".
 	    			$item->id."', '".
 	    			$menuid."', '".
-	    			$parentid."', '".
 	    			mysql_real_escape_string($item->name)."', '".
 	    			mysql_real_escape_string($item->descrip)."', '".
 	    			$item->price."')";
