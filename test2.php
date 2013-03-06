@@ -70,7 +70,7 @@ try{
 	    				$sql = "SELECT RestTypeID FROM tbl_restaurant_type WHERE RestTypeName='".$restaurant->cu[0]."'";
 						echo "running query...\n";
 						$query = mysqliQuery($con,$sql);
-						print_r($query);
+						print($query);
 						echo "query has run\n";
 						if($query = null){
 							$sql2 = "INSERT INTO tbl_restaurant_type (RestTypeName)
