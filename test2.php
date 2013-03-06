@@ -67,21 +67,8 @@ try{
 	    	if(isset($_REQUEST['pop'])){
 	    		if(isset($restaurant->cu[0])){
 	    			if($_REQUEST['pop'] == "tbl_restaurant_type"){
-	    				$sql = "SELECT RestTypeID FROM tbl_restaurant_type WHERE RestTypeName='".$restaurant->cu[0]."'";
-						$result = mysqliQuery($con,$sql);
-						echo "Query result: ";
-						print_r($result);
-						echo "\n";
-						if($result->num_rows == 0){
-							echo "Creating new type!";
-							$sql2 = "INSERT INTO tbl_restaurant_type (RestTypeName)
-							VALUES ('".$type."')";
-							$retult = mysqliQuery($con,$sql2);
-							echo 'Created new type: ' . $retult . "\n";
-							$result = mysqliQuery($con,$sql);
-						}
 						$typeID = mysqliQuery($con,$sql);
-						print_r($typeID);
+						//print_r($typeID);
 	    			}else{
 	    				echo "calling restaurant Type\n";
 	    				$typeID = getRestaurantTypeID($con, $restaurant->cu[0]);
@@ -236,18 +223,17 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 
 function getRestaurantTypeID($con, $type){
 	$sql = "SELECT RestTypeID FROM tbl_restaurant_type WHERE RestTypeName='".$type."'";
-	echo "running query...\n";
-	$query = mysqliQuery($con,$sql);
-	print_r($query);
-	echo "query has run\n";
-	if($query = null){
+	$result = mysqliQuery($con,$sql);
+	print_r($result);
+	echo "\n";
+	if($result->num_rows == 0){
 		$sql2 = "INSERT INTO tbl_restaurant_type (RestTypeName)
 		VALUES ('".$type."')";
 		$retult = mysqliQuery($con,$sql2);
-		echo 'Created new type: ' . $retult;
-		$query = mysqliQuery($con,$sql);
+		echo 'Created new type: ' . $retult . "\n";
+		$result = mysqliQuery($con,$sql);
 	}
-	return $query;
+	return $result;
 }
 
 function mysqliQuery($con, $sql){
