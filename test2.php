@@ -71,6 +71,7 @@ try{
 	    							VALUES ('$restaurant->cu[0]')
 									WHERE '$restaurant->cu[0]' NOT IN 
 									(SELECT RestTypeName FROM tbl_restaurant_type)";
+						mysqliQuery($con,$sql);
 	    			}else{
 	    				$typeID = getRestaurantTypeID($con, $restaurant->cu[0]);
     				}
