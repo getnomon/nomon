@@ -73,6 +73,7 @@ try{
 									(SELECT RestTypeName FROM tbl_restaurant_type)";
 						mysqliQuery($con,$sql);
 	    			}else{*/
+	    				echo "calling restaurant Type\n";
 	    				$typeID = getRestaurantTypeID($con, $restaurant->cu[0]);
     				//}
     			}else{
@@ -225,8 +226,10 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 
 function getRestaurantTypeID($con, $type){
 	$sql = "SELECT RestTypeID FROM tbl_restaurant_type WHERE RestTypeName='".$type."'";
+	echo "running query...\n";
 	$query = mysqliQuery($con,$sql);
 	print_r($query);
+	echo "query has run\n";
 	if($query = null){
 		$sql2 = "INSERT INTO tbl_restaurant_type (RestTypeName)
 		VALUES ('".$type."')";
