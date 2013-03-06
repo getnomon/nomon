@@ -80,7 +80,7 @@ try{
 							$query = mysqliQuery($con,$sql);
 						}
 						$typeID = mysqliQuery($con,$sql);
-	    			}else{*/
+	    			}else{
 	    				echo "calling restaurant Type\n";
 	    				$typeID = getRestaurantTypeID($con, $restaurant->cu[0]);
     				}
