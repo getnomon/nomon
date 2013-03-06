@@ -229,8 +229,8 @@ function getDishes($con, $rid, $item, $depth = -1, $parentid = 0){
 	    			$parentid."', '".
 	    			mysql_real_escape_string($item->name)."', '".
 	    			mysql_real_escape_string($item->descrip)."', '".
-	    			$item->price."')";*/
-	    	$result = mysqliQuery($con,$sql);
+	    			$item->price."')";
+	    	$result = mysqliQuery($con,$sql);*/
 			//print_r($item);
 		}
 	}
