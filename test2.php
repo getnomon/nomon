@@ -243,8 +243,8 @@ function mysqliQuery($con, $sql){
 }
 
 //function shortener for mysql_real_escape_string
-function sqlescape($string){
-	return mysql_real_escape_string($string);
+function sqlescape($escapeString){
+	return mysql_real_escape_string($escapeString);
 }
 
 //Returns an array of all leaf dishes
