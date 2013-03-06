@@ -70,9 +70,11 @@ try{
     			}else{
     				$typeID = "NULL";
     			}
-	    		$sql = "INSERT INTO tbl_restaurant
-	    		VALUES ('$restaurant->id', '$typeID', '$restaurant->na',' $restaurant->mino', '$address[0]', '$restaurant->cs_phone')";
-	    		$query = mysqliQuery($con,$sql);
+    			if($_REQUEST['pop'] == "tbl_restaurant"){
+		    		$sql = "INSERT INTO tbl_restaurant
+		    		VALUES ('$restaurant->id', '$typeID', '$restaurant->na',' $restaurant->mino', '$address[0]', '$restaurant->cs_phone')";
+		    		$query = mysqliQuery($con,$sql);
+	    		}
 	    	}
 	    }
 	    echo "<pre>";
