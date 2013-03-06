@@ -68,8 +68,8 @@ try{
 	    		if(isset($restaurant->cu[0])){
 	    			if($_REQUEST['pop'] == "tbl_restaurant_type"){
 	    				$sql = "INSERT INTO tbl_restaurant_type (RestTypeName)
-	    							VALUES ('$restaurant->cu[0]')
-									WHERE '$restaurant->cu[0]' NOT IN 
+	    							VALUES ('".$restaurant->cu[0]."')
+									WHERE '".$restaurant->cu[0]."' NOT IN 
 									(SELECT RestTypeName FROM tbl_restaurant_type)";
 						mysqliQuery($con,$sql);
 	    			}else{
