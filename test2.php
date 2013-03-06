@@ -73,14 +73,9 @@ try{
     			$typeID = $result['RestTypeID'];
     			echo "TypeID: $typeID\n";
     			if($_REQUEST['pop'] == "tbl_restaurant"){
-		    		$sql = sprintf("INSERT INTO tbl_restaurant
-		    		VALUES ('%s', '%s', '%s', '%s', '%s', '%s')",
-		    					  $restaurant->id,
-		    					  $typeID,
-		    			sqlescape($restaurant->na),
-		    					  $restaurant->mino,
-		    			sqlescape($address[0]),
-		    				      $restaurant->cs_phone);
+		    		$sql = "INSERT INTO tbl_restaurant
+		    		VALUES ('".$restaurant->id."', '".$typeID."', '".sqlescape($restaurant->na)."','".
+		    			$restaurant->mino."', '".sqlescape($address[0])."', '".$restaurant->cs_phone."')";
 		    		$query = mysqliQuery($con,$sql);
 	    		}
 	    	}
@@ -250,6 +245,7 @@ function mysqliQuery($con, $sql){
 function sqlescape($string){
 	return mysql_real_escape_string($string)
 }
+
 //Returns an array of all leaf dishes
 //Item is the parent menu object
 function buildPlatter($item, $target, $depth = -1, $price = 0, $combinations = null){
