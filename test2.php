@@ -104,10 +104,6 @@ try{
 
 	    //parse menu
 	    getDishes($con, $_REQUEST["rid"], $menu);
-
-	    //echo '____________________________________________________________________';
-	    //print_r($menu);
-	    
 	    echo '</pre>';
 	  break;
 	#User API
@@ -192,8 +188,10 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 				echo "!Parent menu [$item->id] $item->name \n";
 				$menuid = $item->id;
 				$sql = "INSERT INTO tbl_menu
-	    		VALUES ('$item->id', '$item->na', '$item->descrip')";
-	    		$query = mysqliQuery($con,$sql);
+	    		VALUES ('".$item->id."', '".$rid."', '".
+	    			mysql_real_escape_string($item->name)."', '".
+	    			mysql_real_escape_string($item->descrip)."')";
+	    		$result = mysqliQuery($con,$sql);
 			}
 
 			for($j=0; $j<$depth; $j++){
@@ -210,10 +208,12 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 
 			echo '[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 			echo " - " . $item->descrip . "\n";
-			$sql = "INSERT INTO tbl_menu
-	    		VALUES ('$item->id', '$menuid', '$parentid', '$item->na', '$item->descrip', '$item->price')";
+			$sql = "INSERT INTO tbl_dish
+	    		VALUES ('".$item->id."', '".$menuid."', '".$parentid."', '".
+	    			mysql_real_escape_string($item->na)."', '".
+	    			mysql_real_escape_string($item->descrip_."', '".$item->price."')";
 	    		//echo $sql . "\n";
-	    		$query = mysqliQuery($con,$sql);
+	    		$result = mysqliQuery($con,$sql);
 			//print_r($item);
 		}
 	}
