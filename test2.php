@@ -66,15 +66,23 @@ try{
 	    	#This goes into the database
 	    	if(isset($_REQUEST['pop'])){
 	    		if(isset($restaurant->cu[0])){
-	    			$typeID = getRestaurantTypeID($con, $restaurant->cu[0]);
+	    			if($_REQUEST['pop'] == "tbl_restaurant_type"){
+	    				$sql = "INSERT INTO tbl_restaurant_type (RestTypeName)
+	    							VALUES ('$restaurant->cu[0]')
+									WHERE '$restaurant->cu[0]' NOT IN 
+									(SELECT RestTypeName FROM tbl_restaurant_type)";
+	    			}else{
+	    				$typeID = getRestaurantTypeID($con, $restaurant->cu[0]);
+    				}
     			}else{
     				$typeID = "NULL";
     			}
-    			//if($_REQUEST['pop'] == "tbl_restaurant"){
+
+    			if($_REQUEST['pop'] == "tbl_restaurant"){
 		    		$sql = "INSERT INTO tbl_restaurant
 		    		VALUES ('$restaurant->id', '$typeID', '$restaurant->na',' $restaurant->mino', '$address[0]', '$restaurant->cs_phone')";
 		    		$query = mysqliQuery($con,$sql);
-	    		//}
+	    		}
 	    	}
 	    }
 	    echo "<pre>";
