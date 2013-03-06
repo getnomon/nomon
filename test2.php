@@ -67,7 +67,7 @@ try{
 	    	if(isset($_REQUEST['pop'])){
 	    		if(isset($restaurant->cu[0])){
 	    			if($_REQUEST['pop'] == "tbl_restaurant_type"){
-	    				$sql = "SELECT RestTypeID FROM tbl_restaurant_type WHERE RestTypeName='".$type."'";
+	    				$sql = "SELECT RestTypeID FROM tbl_restaurant_type WHERE RestTypeName='".$restaurant->cu[0]."'";
 						echo "running query...\n";
 						$query = mysqliQuery($con,$sql);
 						print_r($query);
