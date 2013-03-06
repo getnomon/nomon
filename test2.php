@@ -187,13 +187,13 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 			#is sub menu/item (or dish with options)
 			if($depth == 0 && $parentid == null){
 				echo "!Parent menu [$item->id] $item->name\n";
-				/*$sql = "INSERT INTO tbl_menu
+				$sql = "INSERT INTO tbl_menu
 	    			VALUES ('".
 	    				$item->id."', '".
 	    				$rid."', '".
 	    				mysql_real_escape_string($item->name)."', '".
 	    				mysql_real_escape_string($item->descrip)."')";
-	    		$result = mysqliQuery($con,$sql);*/
+	    		$result = mysqliQuery($con,$sql);
 	    		getDishes($con, $rid, $item->children, $depth+1, $item->id + 0);
 			}else{
 				#is a menu item with children
@@ -202,7 +202,7 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 				}
 				echo '!('. $parentid.')[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 				echo " - " . $item->descrip . "\n";
-				/*$sql = "INSERT INTO tbl_dish (DishID, MenuID, DishName, DishDescr, DishPrice, DishOrderable)
+				$sql = "INSERT INTO tbl_dish (DishID, MenuID, DishName, DishDescr, DishPrice, DishOrderable)
 		    		VALUES ('".
 		    			$item->id."', '".
 		    			$menuid."', '".
@@ -210,7 +210,7 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 		    			mysql_real_escape_string($item->descrip)."', '".
 		    			$item->price."', '".
 		    			$item->is_orderable."')";
-		    	$result = mysqliQuery($con,$sql);*/
+		    	$result = mysqliQuery($con,$sql);
 
 		    	getDishes($con, $rid, $item->children, $depth+1, $menuid + 0, $item->id + 0);
 			}
@@ -222,8 +222,7 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 				echo '('. $parentid.')[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 				echo " - " . $item->descrip . "\n";
 			if($parentid != 0){
-
-		/*		$sql = "INSERT INTO tbl_dish
+				$sql = "INSERT INTO tbl_dish
 		    		VALUES ('".
 		    			$item->id."', '".
 		    			$menuid."', '".
@@ -232,9 +231,9 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 		    			mysql_real_escape_string($item->descrip)."', '".
 		    			$item->price."', '".
 						$item->is_orderable."')";
-		    	$result = mysqliQuery($con,$sql);*/
+		    	$result = mysqliQuery($con,$sql);
 	    	}else{
-/*				$sql = "INSERT INTO tbl_dish (DishID, MenuID, DishName, DishDescr, DishPrice, DishOrderable)
+				$sql = "INSERT INTO tbl_dish (DishID, MenuID, DishName, DishDescr, DishPrice, DishOrderable)
 		    		VALUES ('".
 		    			$item->id."', '".
 		    			$menuid."', '".
@@ -242,7 +241,7 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 		    			mysql_real_escape_string($item->descrip)."', '".
 		    			$item->price."', '".
 		    			$item->is_orderable."')";
-		    	$result = mysqliQuery($con,$sql);*/
+		    	$result = mysqliQuery($con,$sql);
 	    	}
 		}
 	}
