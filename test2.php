@@ -66,12 +66,13 @@ try{
 	    	#This goes into the database
 	    	if(isset($_REQUEST['pop'])){
 	    		if(isset($restaurant->cu[0])){
-					$typeID = getRestaurantTypeID($con, $restaurant->cu[0]);
+					$result = getRestaurantTypeID($con, $restaurant->cu[0]);
 					//print_r($typeID);
     			}else{
     				#restaurants default to the type of Specialty if not provided
-    				$typeID = getRestaurantTypeID($con, "Specialty");
+    				$result = getRestaurantTypeID($con, "Specialty");
     			}
+    			$typeID = mysqli_fetch_array($result);
     			echo 'TypeID: ';
     			print_r($typeID);
     			echo "\n";
