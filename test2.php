@@ -13,6 +13,8 @@ error_reporting(E_ALL);
 	$mtime = $mtime[1] + $mtime[0]; 
 	$starttime = $mtime; 
 
+	$menuid = 0;
+
 
 echo '<h4>Document loaded!<h4>';
 
@@ -172,9 +174,9 @@ function calcMeal($targetPrice, $result, $allergies = NULL){
 #recursivly prints out dishes
 #accepts a menu id (menu parent description)
 #MUST pass menu object
-
-function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
+function getDishes($con, $rid, $item, $depth = -1, $parentid = 0){
 	#item[children] is each of the children, if it has children it is a parent. duh.
+	global $menuid;
 	if(is_array($item)){
 		for ($i=0; $i < count($item); $i++) { 
 			#Contains a bunch of stdClass Objects
@@ -194,7 +196,7 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 	    				mysql_real_escape_string($item->name)."', '".
 	    				mysql_real_escape_string($item->descrip)."')";
 	    		$result = mysqliQuery($con,$sql);
-	    		getDishes($con, $rid, $item->children, $depth+1, $menuid);
+	    		getDishes($con, $rid, $item->children, $depth+1);
 			}else{
 				for($j=0; $j<$depth; $j++){
 					echo "=";
@@ -209,7 +211,7 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 		    			mysql_real_escape_string($item->descrip)."', '".
 		    			$item->price."')";
 		    	$result = mysqliQuery($con,$sql);
-		    	getDishes($con, $rid, $item->children, $depth+1, $menuid, $item->id);
+		    	getDishes($con, $rid, $item->children, $depth+1, $item->id);
 			}
 		}else{
 			#is a dish - save shit shit
