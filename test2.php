@@ -176,7 +176,6 @@ function calcMeal($targetPrice, $result, $allergies = NULL){
 #MUST pass menu object
 function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 	#item[children] is each of the children, if it has children it is a parent. duh.
-	echo $parentid . "\n";
 	if(is_array($item)){
 		for ($i=0; $i < count($item); $i++) { 
 			#Contains a bunch of stdClass Objects
@@ -220,7 +219,7 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 			for($j=0; $j<$depth; $j++){
 				echo "=";
 			}
-				echo '[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
+				echo '('. $parentid.')[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 				echo " - " . $item->descrip . "\n";
 			if($parentid != 0){
 
@@ -235,7 +234,6 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 						$item->is_orderable."')";
 		    	$result = mysqliQuery($con,$sql);*/
 	    	}else{
-	    		echo "*\n";
 /*				$sql = "INSERT INTO tbl_dish (DishID, MenuID, DishName, DishDescr, DishPrice, DishOrderable)
 		    		VALUES ('".
 		    			$item->id."', '".
