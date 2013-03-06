@@ -187,11 +187,13 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 			if($depth == 0){
 				echo "!Parent menu [$item->id] $item->name \n";
 				$menuid = $item->id;
-				/*$sql = "INSERT INTO tbl_menu
-	    		VALUES ('".$item->id."', '".$rid."', '".
-	    			mysql_real_escape_string($item->name)."', '".
-	    			mysql_real_escape_string($item->descrip)."')";
-	    		$result = mysqliQuery($con,$sql);*/
+				$sql = "INSERT INTO tbl_menu
+	    			VALUES ('".
+	    				$item->id."', '".
+	    				$rid."', '".
+	    				mysql_real_escape_string($item->name)."', '".
+	    				mysql_real_escape_string($item->descrip)."')";
+	    		$result = mysqliQuery($con,$sql);
 			}
 			for($j=0; $j<$depth; $j++){
 				echo "=";
