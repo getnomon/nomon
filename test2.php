@@ -72,10 +72,8 @@ try{
     				#restaurants default to the type of Specialty if not provided
     				$result = getRestaurantTypeID($con, "Specialty");
     			}
-    			$typeID = mysqli_fetch_array($result);
-    			echo 'TypeID: ';
-    			print_r($typeID);
-    			echo "\n";
+    			$typeID = $result['RestTypeID'];
+    			echo "TypeID: $typeID";
     			if($_REQUEST['pop'] == "tbl_restaurant"){
 		    		$sql = "INSERT INTO tbl_restaurant
 		    		VALUES ('$restaurant->id', '$typeID', '$restaurant->na',' $restaurant->mino', '$address[0]', '$restaurant->cs_phone')";
@@ -235,11 +233,13 @@ function getRestaurantTypeID($con, $type){
 	return $result;
 }
 
+//Runs the given query on the given connection
+//Returns an array of results
 function mysqliQuery($con, $sql){
 	if(!$result = $con->query($sql)){
     	die('There was an error running the query [' . $con->error . ']');
 	}
-	return $result;
+	return mysqli_fetch_array($result);
 }
 
 
