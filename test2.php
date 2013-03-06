@@ -174,9 +174,8 @@ function calcMeal($targetPrice, $result, $allergies = NULL){
 #recursivly prints out dishes
 #accepts a menu id (menu parent description)
 #MUST pass menu object
-function getDishes($con, $rid, $item, $depth = -1, $parentid = 0){
+function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 	#item[children] is each of the children, if it has children it is a parent. duh.
-	global $menuid;
 	if(is_array($item)){
 		for ($i=0; $i < count($item); $i++) { 
 			#Contains a bunch of stdClass Objects
@@ -186,8 +185,8 @@ function getDishes($con, $rid, $item, $depth = -1, $parentid = 0){
 		#is an stdObject -> check for children
 		if (isset($item->children)) {
 			#is sub menu/item (or dish with options)
-			if($depth == 0 && $item->is_orderable == 0){
-				echo "!Parent menu [$item->id] $item->name \n";
+			if($depth == 0 && $parentid == 0){
+				echo "!Parent menu [$item->id] $item->name\n";
 				$menuid = $item->id;
 				$sql = "INSERT INTO tbl_menu
 	    			VALUES ('".
@@ -196,7 +195,7 @@ function getDishes($con, $rid, $item, $depth = -1, $parentid = 0){
 	    				mysql_real_escape_string($item->name)."', '".
 	    				mysql_real_escape_string($item->descrip)."')";
 	    		$result = mysqliQuery($con,$sql);
-	    		getDishes($con, $rid, $item->children, $depth+1);
+	    		getDishes($con, $rid, $item->children, $depth+1, $menuid);
 			}else{
 				for($j=0; $j<$depth; $j++){
 					echo "=";
@@ -212,7 +211,7 @@ function getDishes($con, $rid, $item, $depth = -1, $parentid = 0){
 		    			$item->price."')";
 		    	$result = mysqliQuery($con,$sql);
 		    	print_r($result);
-		    	getDishes($con, $rid, $item->children, $depth+1, $item->id);
+		    	getDishes($con, $rid, $item->children, $depth+1, $menuid, $item->id);
 			}
 		}else{
 			#is a dish - save shit shit
@@ -231,7 +230,7 @@ function getDishes($con, $rid, $item, $depth = -1, $parentid = 0){
 	    			mysql_real_escape_string($item->descrip)."', '".
 	    			$item->price."')";
 	    	$result = mysqliQuery($con,$sql);
-			//print_r($item);
+			print_r($result);
 		}
 	}
 }
