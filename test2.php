@@ -211,7 +211,7 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 			$sql = "INSERT INTO tbl_dish
 	    		VALUES ('".$item->id."', '".$menuid."', '".$parentid."', '".
 	    			mysql_real_escape_string($item->na)."', '".
-	    			mysql_real_escape_string($item->descrip_."', '".$item->price."')";
+	    			mysql_real_escape_string($item->descrip."', '".$item->price."')";
 	    		//echo $sql . "\n";
 	    		$result = mysqliQuery($con,$sql);
 			//print_r($item);
