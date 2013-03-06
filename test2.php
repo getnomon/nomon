@@ -68,19 +68,20 @@ try{
 	    		if(isset($restaurant->cu[0])){
 	    			if($_REQUEST['pop'] == "tbl_restaurant_type"){
 	    				$sql = "SELECT RestTypeID FROM tbl_restaurant_type WHERE RestTypeName='".$restaurant->cu[0]."'";
-						$query = mysqliQuery($con,$sql);
+						$result = mysqliQuery($con,$sql);
 						echo "Query result: ";
-						print_r($query);
+						print_r($result);
 						echo "\n";
-						if($query = ""){
+						if($result->num_rows == 0){
 							echo "Creating new type!";
 							$sql2 = "INSERT INTO tbl_restaurant_type (RestTypeName)
 							VALUES ('".$type."')";
 							$retult = mysqliQuery($con,$sql2);
-							echo 'Created new type: ' . $retult;
-							$query = mysqliQuery($con,$sql);
+							echo 'Created new type: ' . $retult . "\n";
+							$result = mysqliQuery($con,$sql);
 						}
 						$typeID = mysqliQuery($con,$sql);
+						print_r($typeID);
 	    			}else{
 	    				echo "calling restaurant Type\n";
 	    				$typeID = getRestaurantTypeID($con, $restaurant->cu[0]);
