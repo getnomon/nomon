@@ -183,9 +183,12 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 		}
 	}else{
 		#is an stdObject -> check for children
+		if(!isset($item->children) && $parentid = 0){
+			echo "We are about to experience turbulance...";
+		}
 		if (isset($item->children)) {
 			#is sub menu/item (or dish with options)
-			if($depth == 0 && $parentid == null){
+			if($depth == 0){
 				echo "!Parent menu [$item->id] $item->name\n";
 				$sql = "INSERT INTO tbl_menu
 	    			VALUES ('".
@@ -232,17 +235,19 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 		    			$item->price."', '".
 						$item->is_orderable."')";
 		    	$result = mysqliQuery($con,$sql);
-	    	}else{
-				$sql = "INSERT INTO tbl_dish (DishID, MenuID, DishName, DishDescr, DishPrice, DishOrderable)
-		    		VALUES ('".
-		    			$item->id."', '".
-		    			$menuid."', '".
-		    			mysql_real_escape_string($item->name)."', '".
-		    			mysql_real_escape_string($item->descrip)."', '".
-		    			$item->price."', '".
-		    			$item->is_orderable."')";
-		    	$result = mysqliQuery($con,$sql);
+	    	}elseif ($menuid != 0) {
+	    		#ignore all empty menus, becuase fuck that!
+	    		$sql = "INSERT INTO tbl_dish (DishID, MenuID, DishName, DishDescr, DishPrice, DishOrderable)
+			    		VALUES ('".
+			    			$item->id."', '".
+			    			$menuid."', '".
+			    			mysql_real_escape_string($item->name)."', '".
+			    			mysql_real_escape_string($item->descrip)."', '".
+			    			$item->price."', '".
+			    			$item->is_orderable."')";
+			    	$result = mysqliQuery($con,$sql);
 	    	}
+
 		}
 	}
 }
@@ -250,7 +255,6 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 function getRestaurantTypeID($con, $type){
 	$sql = "SELECT RestTypeID FROM tbl_restaurant_type WHERE RestTypeName='".$type."'";
 	$result = mysqliQuery($con,$sql);
-	print_r($result);
 	echo "\n";
 	if($result->num_rows == 0){
 		$sql2 = "INSERT INTO tbl_restaurant_type (RestTypeName)
