@@ -40,7 +40,8 @@ if(function_exists($function_name) && in_array($function_name, $functionWhitelis
 ?>
 <style type="text/css">
 	label{
-		width: 200px;
+		width: 75px;
+		display: inline-block;
 	}
 </style>
 <?php
