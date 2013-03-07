@@ -386,6 +386,7 @@ function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0
 			#is sub menu/item (or dish with options)
 			if($depth == 0){
 				echo "!Parent menu [$item->id] $item->name\n";
+				buildPlatter($con, $rid, $item->children, $depth+1, $item->id + 0);
 			}else{
 				#is a menu item with children
 				for($j=0; $j<$depth; $j++){
