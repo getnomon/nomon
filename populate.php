@@ -141,14 +141,14 @@ try{
 	  	if(isset($_REQUEST['email']) && isset($_REQUEST['fName']) && 
 	  	  isset($_REQUEST['lName']) && isset($_REQUEST['address']) && 
 	  	  isset($_REQUEST['zip-code']) && isset($_REQUEST['phone'])){
-	  		$email = mysql_real_escape_string($_REQUEST['email']);
 	  		$fname = mysql_real_escape_string($_REQUEST['fName']);
 	  		$lname = mysql_real_escape_string($_REQUEST['lName']);
 	  		$addr = mysql_real_escape_string($_REQUEST['address']);
 	  		$zip = mysql_real_escape_string($_REQUEST['zip-code']);
 	  		$phone = mysql_real_escape_string($_REQUEST['phone']);
-	  		$sql = "INSERT INTO tbl_customer (CustEmail, CustFname, CustLname, CustStreet, CustZip)
-	  		VALUES ('".$email."', '".$fname."', '".$lname."', '".$addr."', '".$zip."', '".$phone."')";
+	  		$email = mysql_real_escape_string($_REQUEST['email']);
+	  		$sql = "INSERT INTO tbl_customer (CustFname, CustLname, CustStreet, CustZip, CustEmail, CustPhone)
+	  		VALUES ('".$fname."', '".$lname."', '".$addr."', '".$zip."', '".$email."', '".$phone."')";
 	  		$query = mysqliQuery($con,$sql);
 	  		echo "<h4>User added...<h4>";
 	  	}
