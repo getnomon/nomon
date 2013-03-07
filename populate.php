@@ -40,8 +40,13 @@ if(function_exists($function_name) && in_array($function_name, $functionWhitelis
 ?>
 <style type="text/css">
 	label{
-		width: 75px;
+		width: 100px;
 		display: inline-block;
+		text-align: right;
+	}
+	form{
+		width: 500px;
+		max-width: 100%;
 	}
 </style>
 <?php
@@ -221,7 +226,7 @@ try{
 	    	<input name="func" type="hidden" value="ordr"> <br />
 			<label>User ID:</label> <input name="uid" type="text" size="20" value=""> <br />
 		    <label>Dishes:</label> <input name="dishes" type="text" size="30" value=""> <br />
-		    <small>Comma seperated list of dish IDs</small>
+		    <small>Comma seperated list of dish IDs</small><br />
 		    <button type="submit" value="Submit">Submit</button>
   			<button type="reset" value="Reset">Clear</button>
 	    </form>
