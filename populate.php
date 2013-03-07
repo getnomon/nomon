@@ -148,7 +148,7 @@ try{
 	  		$zip = mysql_real_escape_string($_REQUEST['zip-code']);
 	  		$phone = mysql_real_escape_string($_REQUEST['phone']);
 	  		$sql = "INSERT INTO tbl_customer (CustEmail, CustFname, CustLname, CustStreet, CustZip)
-	  		('".$email."', '".$fname."', '".$lname."', '".$addr."', '".$zip."', '".$phone."')";
+	  		VALUES ('".$email."', '".$fname."', '".$lname."', '".$addr."', '".$zip."', '".$phone."')";
 	  		$query = mysqliQuery($con,$sql);
 	  		echo "<h4>User added...<h4>";
 	  	}
