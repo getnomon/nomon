@@ -108,18 +108,18 @@ try{
 	    }
 	    echo "<pre>";
 	  break;
-	  case "dc": #Delivery Check
+/*	  case "dc": #Delivery Check
 	    $addr = $ordrin::address($_REQUEST["addr"], $_REQUEST["city"], $_REQUEST["state"], $_REQUEST["zip"], "");
 	    $print = $ordrin->restaurant->deliveryCheck($_REQUEST["rid"], $dt, $addr);
 	    echo json_encode($print);
 	  break;
 	  case "df": #Delivery Fee
-	    /*$sT = $_REQUEST["sT"];
+	    $sT = $_REQUEST["sT"];
 	    $tip = $_REQUEST["tip"];
 	    $addr = $ordrin::address($_REQUEST["addr"], $_REQUEST["city"], $_REQUEST["state"], $_REQUEST["zip"], "");
 	    $print = $ordrin->restaurant->deliveryFee($_REQUEST["rid"], $sT, $tip, $dt, $addr);
-	    echo json_encode($print);*/
-	  break;
+	    echo json_encode($print);
+	  break;*/
 	  case "rd": #Restaurant Details
 	    echo '<pre>';
 	    $restaurant = $ordrin->restaurant->details($_REQUEST["rid"]);
