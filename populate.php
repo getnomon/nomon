@@ -159,6 +159,7 @@ try{
 	    			width: 200px;
 	    		}
 	    	</style>
+	    	<input name="func" type="hidden" value="macc"> <br />
 			<lable>Email:</lable> <input name="email" type="text" size="20" value=""> <br />
 		    <lable>First name:</lable> <input name="fName" type="text" size="12" value=""> Last name: <input name="lName" type="text" size="12" value=""><br />
 		    <lable>Street Address:</lable> <input name="address" type="text" size="20" value="">
