@@ -81,7 +81,8 @@ try{
 
 	    //Getting data on each restaurant
 	    foreach ($print as $restaurant) {
-	    	echo "ID: " . "<a href='/test2.php?func=rd&rid=$restaurant->id' target='_blank'>" . $restaurant->id . "</a>\n";
+	    	echo "ID: " . "<a href='/populate.php?func=rd&rid=$restaurant->id' target='_blank'>" . $restaurant->id . "</a>";
+	    	echo " | <a href='/populate.php?func=rd&rid=$restaurant->id&pop' target='_blank'>[POP]</a>\n";
 	    	echo "Name: " . $restaurant->na . "\n";
 	    	echo "Phone: " . $restaurant->cs_phone . "\n";
 	    	echo "Minimum Order: $" . $restaurant->mino . "\n";
