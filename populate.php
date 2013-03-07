@@ -24,11 +24,11 @@ error_reporting(E_ALL);
  * restaurant. You now have 5 of the 8 tables populated. Good job!
  */
 
-#array of whitelisted functions
+/*#array of whitelisted functions
 $functionWhitelist = array("foo", "bar");
 if(function_exists($function_name) && in_array($function_name, $functionWhitelist) ){
 	call_user_func($function_name, $function_data);
-}
+}*/
 
 	$mtime = microtime(); 
 	$mtime = explode(" ",$mtime); 
@@ -136,8 +136,31 @@ try{
 	    echo json_encode($print);
 	  break;
 	  case "macc": #Create Account
-	    $print = $ordrin->user->create($_REQUEST["email"], hash('sha256',$_REQUEST["pass"]), $_REQUEST["fName"], $_REQUEST["lName"]);
-	    echo json_encode($print);
+	    /*$print = $ordrin->user->create($_REQUEST["email"], hash('sha256',$_REQUEST["pass"]), $_REQUEST["fName"], $_REQUEST["lName"]);
+	    echo json_encode($print);*/
+	  	if(isset($_REQUEST['email']) && isset($_REQUEST['fName']) && 
+	  	  isset($_REQUEST['lName']) && isset($_REQUEST['address']) && 
+	  	  isset($_REQUEST['zip-code']) && isset($_REQUEST['phone'])){
+	  		$email = mysql_real_escape_string($_REQUEST['email']);
+	  		$fname = mysql_real_escape_string($_REQUEST['fName']);
+	  		$lname = mysql_real_escape_string($_REQUEST['lName']);
+	  		$addr = mysql_real_escape_string($_REQUEST['address']);
+	  		$zip = mysql_real_escape_string($_REQUEST['zip-code']);
+	  		$phone = mysql_real_escape_string($_REQUEST['phone']);
+	  		$sql = "INSERT INTO tbl_customer (CustEmail, CustFname, CustLname, CustStreet, CustZip)
+	  		('".$email."', '".$fname."', '".$lname."', '".$addr."', '".$zip."', '".$phone."')";
+	  		$query = mysqliQuery($con,$sql);
+	  		echo "<h4>User added...<h4>";
+	  	}
+	    ?>
+	    <form method="get">
+			Email: <input name="email" type="text" size="20" value="test0@testing.com"> <br />
+		    First name: <input name="fName" type="text" size="12" value="Test"> Last name: <input name="lName" type="text" size="12" value="Testing"><br />
+		    Street Address: <input name="address" type="text" size="20" value="12 Main Street"> <input name="addr2" type="text" size="10" value="Suite 200"><br />
+		    ZIP: <input name="zip-code" type="text" size="5" value="77840"><br />
+		    Phone number: <input name="phone" type="text" size="10" value="6789101112"><br />
+	    </form>
+	    <?php
 	  break;
 	  case "upass": #Update Password
 	    $ordrin->user->authenticate($_REQUEST['email'],hash('sha256',$_REQUEST['oldPass']));
