@@ -159,6 +159,8 @@ try{
 		    Street Address: <input name="address" type="text" size="20" value="12 Main Street"> <input name="addr2" type="text" size="10" value="Suite 200"><br />
 		    ZIP: <input name="zip-code" type="text" size="5" value="77840"><br />
 		    Phone number: <input name="phone" type="text" size="10" value="6789101112"><br />
+		    <button type="submit" value="Submit">Submit</button>
+  			<button type="reset" value="Reset">Clear</button>
 	    </form>
 	    <?php
 	  break;
