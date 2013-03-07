@@ -151,15 +151,6 @@ try{
 	  		$query = mysqliQuery($con,$sql);
 	  		echo "<h4>User added...<h4>";
 	  	}
-	    ?>
-	    <form method="get">
-			Email: <input name="email" type="text" size="20" value="test0@testing.com"> <br />
-		    First name: <input name="fName" type="text" size="12" value="Test"> Last name: <input name="lName" type="text" size="12" value="Testing"><br />
-		    Street Address: <input name="address" type="text" size="20" value="12 Main Street"> <input name="addr2" type="text" size="10" value="Suite 200"><br />
-		    ZIP: <input name="zip-code" type="text" size="5" value="77840"><br />
-		    Phone number: <input name="phone" type="text" size="10" value="6789101112"><br />
-	    </form>
-	    <?php
 	  break;
 	  case "upass": #Update Password
 	    $ordrin->user->authenticate($_REQUEST['email'],hash('sha256',$_REQUEST['oldPass']));
