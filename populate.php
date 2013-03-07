@@ -195,7 +195,7 @@ try{
 	  case "ordr":
 	  	  if(isset($_REQUEST['uid']) && isset($_REQUEST['dishes'])){
 	  		$uid = $_REQUEST['uid'];
-	  		$dishes = explode(',', $_REQUEST['dishes'];
+	  		$dishes = explode(',', $_REQUEST['dishes']);
 	  		#Create new order
 	  		$sql = "INSERT INTO tbl_order (CustID) VALUES ('".$uid."')";
 	  		$result = mysqliQuery($con,$sql);
