@@ -209,7 +209,7 @@ try{
 	    <p>For the love of god, please enter a valid Review ID. Otherwise this will fail...</p>
 	    <form method="get">
 	    	<input name="func" type="hidden" value="ordr"> <br />
-			<label>Order ID:</label> <input name="orderid" type="text" size="20" value="<?=$orderId?>"> <br />
+			<label>Order ID:</label> <input name="orderid" type="text" size="20" value="<?=$orderid?>"> <br />
 		    <label>First name:</label> <input name="fName" type="text" size="12" value=""> <br />
 		    <small>Rating is out of 3 (1, 2, or 3)</small>
 		    <button type="submit" value="Submit">Submit</button>
