@@ -185,6 +185,37 @@ try{
 	    </form>
 	    <?php
 	  break;
+  	  case "rvw": #Add Review
+	    /*$print = $ordrin->user->create($_REQUEST["email"], hash('sha256',$_REQUEST["pass"]), $_REQUEST["fName"], $_REQUEST["lName"]);
+	    echo json_encode($print);*/
+	  	if(isset($_REQUEST['orderid']) && isset($_REQUEST['rating'])){
+	  		$orderid = mysql_real_escape_string($_REQUEST['orderid']);
+	  		$rating = mysql_real_escape_string($_REQUEST['rating']);
+	  		if($rating > 3 || $rating < 1){
+	  			#if the rating is invalid that sucks...
+	  			echo "<h4>This is not a valid rating. Try Again.</h4>";
+	  			$rating = "";
+	  		}else{
+		  		$sql = "INSERT INTO tbl_review (OrderID, rating)
+		  		VALUES ('".$orderid."', '".$rating."')";
+		  		$result = mysqliQuery($con,$sql);
+		  		echo "<h4>Review added...<h4>";
+		  		$rating = "";
+		  		$orderid = "";
+	  		}
+	  	}
+	    ?>
+	    <p>For the love of god, please enter a valid Review ID. Otherwise this will fail...</p>
+	    <form method="get">
+	    	<input name="func" type="hidden" value="ordr"> <br />
+			<label>Order ID:</label> <input name="orderid" type="text" size="20" value="<?=$orderId?>"> <br />
+		    <label>First name:</label> <input name="fName" type="text" size="12" value=""> <br />
+		    <small>Rating is out of 3 (1, 2, or 3)</small>
+		    <button type="submit" value="Submit">Submit</button>
+  			<button type="reset" value="Reset">Clear</button>
+	    </form>
+	    <?php
+	  break;
 	  case "upass": #Update Password
 	    $ordrin->user->authenticate($_REQUEST['email'],hash('sha256',$_REQUEST['oldPass']));
 	    $print = $ordrin->user->updatePassword(hash('sha256',$_REQUEST['pass']));
