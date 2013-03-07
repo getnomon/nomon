@@ -37,6 +37,14 @@ if(function_exists($function_name) && in_array($function_name, $functionWhitelis
 
 	$menuid = 0;
 
+?>
+<style type="text/css">
+	label{
+		width: 200px;
+	}
+</style>
+<?php
+
 
 echo '<h4>Document loaded!<h4>';
 
@@ -149,22 +157,18 @@ try{
 	  		$email = mysql_real_escape_string($_REQUEST['email']);
 	  		$sql = "INSERT INTO tbl_customer (CustFname, CustLname, CustStreet, CustZip, CustEmail, CustPhone)
 	  		VALUES ('".$fname."', '".$lname."', '".$addr."', '".$zip."', '".$email."', '".$phone."')";
-	  		$query = mysqliQuery($con,$sql);
+	  		$result = mysqliQuery($con,$sql);
 	  		echo "<h4>User added...<h4>";
 	  	}
 	    ?>
-	    <form action="populate.php?func=macc" method="get">
-	    	<style type="text/css">
-	    		lable{
-	    			width: 200px;
-	    		}
-	    	</style>
+	    <form method="get">
 	    	<input name="func" type="hidden" value="macc"> <br />
-			<lable>Email:</lable> <input name="email" type="text" size="20" value=""> <br />
-		    <lable>First name:</lable> <input name="fName" type="text" size="12" value=""> Last name: <input name="lName" type="text" size="12" value=""><br />
-		    <lable>Street Address:</lable> <input name="address" type="text" size="20" value="">
-		    <lable>ZIP:</lable> <input name="zip-code" type="text" size="5" value=""><br />
-		    <lable>Phone number:</lable> <input name="phone" type="text" size="10" value=""><br />
+			<label>Email:</label> <input name="email" type="text" size="20" value=""> <br />
+		    <label>First name:</label> <input name="fName" type="text" size="12" value=""> <br />
+		    Last name: <input name="lName" type="text" size="12" value=""><br />
+		    <label>Street Address:</label> <input name="address" type="text" size="20" value="">
+		    <label>ZIP:</label> <input name="zip-code" type="text" size="5" value=""><br />
+		    <label>Phone number:</label> <input name="phone" type="text" size="10" value=""><br />
 		    <button type="submit" value="Submit">Submit</button>
   			<button type="reset" value="Reset">Clear</button>
 	    </form>
@@ -187,6 +191,41 @@ try{
 	  case "daddr": #Delete Address
 	    $print = $ordrin->user->deleteAddress($_REQUEST["addrNick"]);
 	    echo json_encode($print);
+	  break;
+	  case "ordr":
+	  	  if(isset($_REQUEST['uid']) && isset($_REQUEST['dishes'])){
+	  		$uid = $_REQUEST['uid'];
+	  		$dishes = explode(',', $_REQUEST['dishes'];
+	  		#Create new order
+	  		$sql = "INSERT INTO tbl_order (CustID)
+	  		VALUES ('".$uid."')";
+	  		$result = mysqliQuery($con,$sql);
+
+	  		$orderID = mysqli_insert_id($con);
+	  		echo "OrderID: $orderID\n";
+
+	  		#Add dishes to the order
+	  		foreach ($dishes as $dish) {
+	  			$dishID = trim($dish) + 0;
+	  			$sql = "INSERT INTO tbl_order_dish VALUES ('".$orderID."', '".$dishID."')";
+	  			$result = mysqliQuery($con,$sql);
+	  		}
+
+	  		$sql = "INSERT INTO tbl_customer (CustFname, CustLname, CustStreet, CustZip, CustEmail, CustPhone)
+	  		VALUES ('".$fname."', '".$lname."', '".$addr."', '".$zip."', '".$email."', '".$phone."')";
+	  		$query = mysqliQuery($con,$sql);
+	  		echo "<h4>Order added...<h4>";
+	  	}
+	    ?>
+	    <form method="get">
+	    	<input name="func" type="hidden" value="ordr"> <br />
+			<label>User ID:</label> <input name="uid" type="text" size="20" value=""> <br />
+		    <label>Dishes:</label> <input name="dishes" type="text" size="30" value=""> <br />
+		    <small>Comma seperated list of dish IDs</small>
+		    <button type="submit" value="Submit">Submit</button>
+  			<button type="reset" value="Reset">Clear</button>
+	    </form>
+	    <?php
 	  break;
 	  case "gcar": #Get Card(s)
 	    $print = $ordrin->user->getCard($_REQUEST["cardNick"]);
@@ -293,7 +332,8 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 						$item->is_orderable."')";
 		    	$result = mysqliQuery($con,$sql);
 	    	}elseif ($menuid != 0) {
-	    		#ignore all empty menus, becuase fuck that! (They would serve no purpose exept to pollute the db)
+	    		#ignore all empty menus, becuase fuck that! 
+	    		#(They would serve no purpose exept to pollute the db)
 	    		$sql = "INSERT INTO tbl_dish (DishID, MenuID, DishName, DishDescr, DishPrice, DishOrderable)
 			    		VALUES ('".
 			    			$item->id."', '".
