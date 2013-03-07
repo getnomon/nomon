@@ -74,12 +74,15 @@ if (mysqli_connect_errno($con)){
 }
 
 if(!isset($_REQUEST['func'])) {
-  $_REQUEST['func'] = 'fin'; #Order already processed
+  $_REQUEST['func'] = 'none'; #Order already processed
 }
 
 try{
 	switch ($_REQUEST["func"]) {
 	#Restaurant API
+	  case 'none':
+	  	echo "<p>Entering some params would be great...</p>";
+	  break;
 	  case "dl": #Delivery List
 	    $addr = $ordrin::address($_REQUEST["addr"], $_REQUEST["city"], $_REQUEST["state"], $_REQUEST["zip"], "");
 	    $print = $ordrin->restaurant->getDeliveryList($dt, $addr);
@@ -206,7 +209,7 @@ try{
 	  		}
 	  	}
 	    ?>
-	    <p>For the love of god, please enter a valid Review ID. Otherwise this will fail...</p>
+	    <small>For the love of god, please enter a valid Review ID. Otherwise this will fail...</small>
 	    <form method="get">
 	    	<input name="func" type="hidden" value="rvw"> <br />
 			<label>Order ID:</label> <input name="orderid" type="text" size="20" value="<?=$orderid?>"> <br />
