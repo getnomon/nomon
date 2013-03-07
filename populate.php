@@ -135,7 +135,11 @@ try{
 	    $menu = $restaurant->menu;
 	    print_r($menu);
 	    //parse menu
-	    getDishes($con, $_REQUEST["rid"], $menu);
+	    if($_REQUEST['pop']){
+	    	getDishes($con, $_REQUEST["rid"], $menu);
+		}else{
+	    	buildPlatter($con, $_REQUEST["rid"], $menu);
+		}
 	    echo '</pre>';
 	  break;
 	#User API
