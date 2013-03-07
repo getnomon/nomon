@@ -134,7 +134,7 @@ try{
 	    echo '<pre>';
 	    $restaurant = $ordrin->restaurant->details($_REQUEST["rid"]);
 	    $menu = $restaurant->menu;
-	    print_r($menu);
+	    //print_r($menu);
 	    //parse menu
 	    if(isset($_REQUEST['pop'])){
 	    	getDishes($con, $_REQUEST["rid"], $menu);
@@ -375,36 +375,33 @@ function mysqliQuery($con, $sql){
 //Returns an array of all leaf dishes
 //Item is the parent menu object
 function buildPlatter($item, $target, $depth = -1, $price = 0, $combinations = null){
-	if($price < $target){ #Assure that possibilities 
-		if(is_array($item)){
-			for ($i=0; $i < count($item); $i++) { 
-				#Contains a bunch of stdClass Objects
-				buildPlatter($item[$i], $depth+1);
+	#item[children] is each of the children, if it has children it is a parent. duh.
+	if(is_array($item)){
+		for ($i=0; $i < count($item); $i++) { 
+			#Contains a bunch of stdClass Objects
+			getDishes($con, $rid, $item[$i], $depth+1, $menuid, $parentid);
+		}
+	}else{
+		if (isset($item->children)) {
+			#is sub menu/item (or dish with options)
+			if($depth == 0){
+				echo "!Parent menu [$item->id] $item->name\n";
+			}else{
+				#is a menu item with children
+				for($j=0; $j<$depth; $j++){
+					echo "=";
+				}
+				echo '!('. $parentid.')[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
+				echo " - " . $item->descrip . "\n";
+		    	getDishes($con, $rid, $item->children, $depth+1, $menuid + 0, $item->id + 0);
 			}
 		}else{
-			#is an stdObject -> check for children
-			if (isset($item->children)) {
-				#is sub menu/item (or dish with options)
-				if($depth == 0){
-					echo "!Parent menu [$item->id] $item->name \n";
-				}
-
-				for($j=0; $j<$depth; $j++){
-					echo "=";
-				}
-				echo '![' . $item->id . ']' . " $" . $item->price . " " . $item->name;
-				echo " - " . $item->descrip . "\n";
-				buildPlatter($item->children, $target, $depth+1, $price+$item->price);
-			}else{
-				#is a dish - save shit shit - leaf
-				for($j=0; $j<$depth; $j++){
-					echo "=";
-				}
-
-				echo '[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
-				echo " - " . $item->descrip . "\n";
-				//print_r($item);
+			#is a dish - save shit shit
+			for($j=0; $j<$depth; $j++){
+				echo "=";
 			}
+				echo '('. $parentid.')[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
+				echo " - " . $item->descrip . "\n";
 		}
 	}
 }
