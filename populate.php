@@ -292,7 +292,7 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 	    				mysql_real_escape_string($item->name)."', '".
 	    				mysql_real_escape_string($item->descrip)."')";
 	    		$result = mysqliQuery($con,$sql);
-	    		getDishes($con, $rid, $item->children, $depth+1, $item->id + 0);
+	    		buildPlatter($con, $rid, $item->children, $depth+1, $item->id + 0);
 			}else{
 				#is a menu item with children
 				for($j=0; $j<$depth; $j++){
@@ -310,7 +310,7 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 		    			$item->is_orderable."')";
 		    	$result = mysqliQuery($con,$sql);
 
-		    	getDishes($con, $rid, $item->children, $depth+1, $menuid + 0, $item->id + 0);
+		    	buildPlatter($con, $rid, $item->children, $depth+1, $menuid + 0, $item->id + 0);
 			}
 		}else{
 			#is a dish - save shit shit
