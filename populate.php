@@ -153,7 +153,7 @@ try{
 	  		echo "<h4>User added...<h4>";
 	  	}
 	    ?>
-	    <form method="get">
+	    <form action="populate.php?func=macc" method="get">
 	    	<style type="text/css">
 	    		lable{
 	    			width: 200px;
