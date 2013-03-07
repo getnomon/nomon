@@ -114,11 +114,11 @@ try{
 	    echo json_encode($print);
 	  break;
 	  case "df": #Delivery Fee
-	    $sT = $_REQUEST["sT"];
+	    /*$sT = $_REQUEST["sT"];
 	    $tip = $_REQUEST["tip"];
 	    $addr = $ordrin::address($_REQUEST["addr"], $_REQUEST["city"], $_REQUEST["state"], $_REQUEST["zip"], "");
 	    $print = $ordrin->restaurant->deliveryFee($_REQUEST["rid"], $sT, $tip, $dt, $addr);
-	    echo json_encode($print);
+	    echo json_encode($print);*/
 	  break;
 	  case "rd": #Restaurant Details
 	    echo '<pre>';
