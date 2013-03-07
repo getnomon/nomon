@@ -192,7 +192,7 @@ try{
 	    $print = $ordrin->user->deleteAddress($_REQUEST["addrNick"]);
 	    echo json_encode($print);
 	  break;
-	  /*case "ordr":
+	  case "ordr":
 	  	  if(isset($_REQUEST['uid']) && isset($_REQUEST['dishes'])){
 	  		$uid = $_REQUEST['uid'];
 	  		$dishes = explode(',', $_REQUEST['dishes'];
@@ -208,10 +208,6 @@ try{
 	  			$sql = "INSERT INTO tbl_order_dish VALUES ('".$orderID."', '".$dishID."')";
 	  			$result = mysqliQuery($con,$sql);
 	  		}
-
-	  		$sql = "INSERT INTO tbl_customer (CustFname, CustLname, CustStreet, CustZip, CustEmail, CustPhone)
-	  		VALUES ('".$fname."', '".$lname."', '".$addr."', '".$zip."', '".$email."', '".$phone."')";
-	  		$query = mysqliQuery($con,$sql);
 	  		echo "<h4>Order added...<h4>";
 	  	}
 	    ?>
@@ -224,7 +220,7 @@ try{
   			<button type="reset" value="Reset">Clear</button>
 	    </form>
 	    <?php
-	  break;*/
+	  break;
 	  case "gcar": #Get Card(s)
 	    $print = $ordrin->user->getCard($_REQUEST["cardNick"]);
 	    echo json_encode($print);
