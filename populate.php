@@ -24,11 +24,11 @@ error_reporting(E_ALL);
  * restaurant. You now have 5 of the 8 tables populated. Good job!
  */
 
-#array of whitelisted functions
+/*#array of whitelisted functions
 $functionWhitelist = array("foo", "bar");
-if(function_exists($function_name) && in_array($function_name, $functionWhitelist) ){
+if(function_exists($function_name) && in_array($function_name, $functionWhitelist)){
 	call_user_func($function_name, $function_data);
-}
+}*/
 
 	$mtime = microtime(); 
 	$mtime = explode(" ",$mtime); 
@@ -135,9 +135,9 @@ try{
 	    echo json_encode($print);
 	  break;
 	  case "macc": #Create Account
-	    //$print = $ordrin->user->create($_REQUEST["email"], hash('sha256',$_REQUEST["pass"]), $_REQUEST["fName"], $_REQUEST["lName"]);
-	    //echo json_encode($print);
-	  	/*if(isset($_REQUEST['email']) && isset($_REQUEST['fName']) && 
+	    /*$print = $ordrin->user->create($_REQUEST["email"], hash('sha256',$_REQUEST["pass"]), $_REQUEST["fName"], $_REQUEST["lName"]);
+	    echo json_encode($print);*/
+	  	if(isset($_REQUEST['email']) && isset($_REQUEST['fName']) && 
 	  	  isset($_REQUEST['lName']) && isset($_REQUEST['address']) && 
 	  	  isset($_REQUEST['zip-code']) && isset($_REQUEST['phone'])){
 	  		$email = mysql_real_escape_string($_REQUEST['email']);
@@ -150,7 +150,7 @@ try{
 	  		('".$email."', '".$fname."', '".$lname."', '".$addr."', '".$zip."', '".$phone."')";
 	  		$query = mysqliQuery($con,$sql);
 	  		echo "<h4>User added...<h4>";
-	  	}*/
+	  	}
 	    ?>
 	    <form method="get">
 			Email: <input name="email" type="text" size="20" value="test0@testing.com"> <br />
