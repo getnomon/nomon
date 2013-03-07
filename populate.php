@@ -121,7 +121,6 @@ try{
 	    echo json_encode($print);
 	  break;
 	  case "rd": #Restaurant Details
-
 	    echo '<pre>';
 	    $restaurant = $ordrin->restaurant->details($_REQUEST["rid"]);
 	    $menu = $restaurant->menu;
@@ -138,12 +137,12 @@ try{
 	  case "macc": #Create Account
 	    //$print = $ordrin->user->create($_REQUEST["email"], hash('sha256',$_REQUEST["pass"]), $_REQUEST["fName"], $_REQUEST["lName"]);
 	    //echo json_encode($print);
-	  	if(isset($_REQUEST['email']) && isset($_REQUEST['fname']) && 
-	  	  isset($_REQUEST['lname']) && isset($_REQUEST['address']) && 
+	  	if(isset($_REQUEST['email']) && isset($_REQUEST['fName']) && 
+	  	  isset($_REQUEST['lName']) && isset($_REQUEST['address']) && 
 	  	  isset($_REQUEST['zip-code']) && isset($_REQUEST['phone'])){
 	  		$email = mysql_real_escape_string($_REQUEST['email']);
-	  		$fname = mysql_real_escape_string($_REQUEST['fname']);
-	  		$lname = mysql_real_escape_string($_REQUEST['lname']);
+	  		$fname = mysql_real_escape_string($_REQUEST['fName']);
+	  		$lname = mysql_real_escape_string($_REQUEST['lName']);
 	  		$addr = mysql_real_escape_string($_REQUEST['address']);
 	  		$zip = mysql_real_escape_string($_REQUEST['zip-code']);
 	  		$phone = mysql_real_escape_string($_REQUEST['phone']);
