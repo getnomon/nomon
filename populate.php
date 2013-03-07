@@ -137,7 +137,7 @@ try{
 	  case "macc": #Create Account
 	    //$print = $ordrin->user->create($_REQUEST["email"], hash('sha256',$_REQUEST["pass"]), $_REQUEST["fName"], $_REQUEST["lName"]);
 	    //echo json_encode($print);
-	  	if(isset($_REQUEST['email']) && isset($_REQUEST['fName']) && 
+	  	/*if(isset($_REQUEST['email']) && isset($_REQUEST['fName']) && 
 	  	  isset($_REQUEST['lName']) && isset($_REQUEST['address']) && 
 	  	  isset($_REQUEST['zip-code']) && isset($_REQUEST['phone'])){
 	  		$email = mysql_real_escape_string($_REQUEST['email']);
@@ -150,7 +150,7 @@ try{
 	  		('".$email."', '".$fname."', '".$lname."', '".$addr."', '".$zip."', '".$phone."')";
 	  		$query = mysqliQuery($con,$sql);
 	  		echo "<h4>User added...<h4>";
-	  	}
+	  	}*/
 	    ?>
 	    <form method="get">
 			Email: <input name="email" type="text" size="20" value="test0@testing.com"> <br />
