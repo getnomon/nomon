@@ -24,11 +24,11 @@ error_reporting(E_ALL);
  * restaurant. You now have 5 of the 8 tables populated. Good job!
  */
 
-/*#array of whitelisted functions
+#array of whitelisted functions
 $functionWhitelist = array("foo", "bar");
-if(function_exists($function_name) && in_array($function_name, $functionWhitelist)){
+if(function_exists($function_name) && in_array($function_name, $functionWhitelist) ){
 	call_user_func($function_name, $function_data);
-}*/
+}
 
 	$mtime = microtime(); 
 	$mtime = explode(" ",$mtime); 
@@ -38,7 +38,7 @@ if(function_exists($function_name) && in_array($function_name, $functionWhitelis
 	$menuid = 0;
 
 
-echo '<h3>Document loaded!<h3>';
+echo '<h4>Document loaded!<h4>';
 
 require_once('ordrin/OrdrinApi.php');
 
@@ -108,7 +108,7 @@ try{
 	    }
 	    echo "<pre>";
 	  break;
-/*	  case "dc": #Delivery Check
+	  case "dc": #Delivery Check
 	    $addr = $ordrin::address($_REQUEST["addr"], $_REQUEST["city"], $_REQUEST["state"], $_REQUEST["zip"], "");
 	    $print = $ordrin->restaurant->deliveryCheck($_REQUEST["rid"], $dt, $addr);
 	    echo json_encode($print);
@@ -119,8 +119,9 @@ try{
 	    $addr = $ordrin::address($_REQUEST["addr"], $_REQUEST["city"], $_REQUEST["state"], $_REQUEST["zip"], "");
 	    $print = $ordrin->restaurant->deliveryFee($_REQUEST["rid"], $sT, $tip, $dt, $addr);
 	    echo json_encode($print);
-	  break;*/
+	  break;
 	  case "rd": #Restaurant Details
+
 	    echo '<pre>';
 	    $restaurant = $ordrin->restaurant->details($_REQUEST["rid"]);
 	    $menu = $restaurant->menu;
@@ -135,22 +136,8 @@ try{
 	    echo json_encode($print);
 	  break;
 	  case "macc": #Create Account
-	    /*$print = $ordrin->user->create($_REQUEST["email"], hash('sha256',$_REQUEST["pass"]), $_REQUEST["fName"], $_REQUEST["lName"]);
-	    echo json_encode($print);*/
-	  	if(isset($_REQUEST['email']) && isset($_REQUEST['fName']) && 
-	  	  isset($_REQUEST['lName']) && isset($_REQUEST['address']) && 
-	  	  isset($_REQUEST['zip-code']) && isset($_REQUEST['phone'])){
-	  		$email = mysql_real_escape_string($_REQUEST['email']);
-	  		$fname = mysql_real_escape_string($_REQUEST['fName']);
-	  		$lname = mysql_real_escape_string($_REQUEST['lName']);
-	  		$addr = mysql_real_escape_string($_REQUEST['address']);
-	  		$zip = mysql_real_escape_string($_REQUEST['zip-code']);
-	  		$phone = mysql_real_escape_string($_REQUEST['phone']);
-	  		$sql = "INSERT INTO tbl_customer (CustEmail, CustFname, CustLname, CustStreet, CustZip)
-	  		('".$email."', '".$fname."', '".$lname."', '".$addr."', '".$zip."', '".$phone."')";
-	  		$query = mysqliQuery($con,$sql);
-	  		echo "<h4>User added...<h4>";
-	  	}
+	    $print = $ordrin->user->create($_REQUEST["email"], hash('sha256',$_REQUEST["pass"]), $_REQUEST["fName"], $_REQUEST["lName"]);
+	    echo json_encode($print);
 	  break;
 	  case "upass": #Update Password
 	    $ordrin->user->authenticate($_REQUEST['email'],hash('sha256',$_REQUEST['oldPass']));
