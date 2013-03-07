@@ -188,6 +188,7 @@ try{
   	  case "rvw": #Add Review
 	    /*$print = $ordrin->user->create($_REQUEST["email"], hash('sha256',$_REQUEST["pass"]), $_REQUEST["fName"], $_REQUEST["lName"]);
 	    echo json_encode($print);*/
+	    $orderid = "";
 	  	if(isset($_REQUEST['orderid']) && isset($_REQUEST['rating'])){
 	  		$orderid = mysql_real_escape_string($_REQUEST['orderid']);
 	  		$rating = mysql_real_escape_string($_REQUEST['rating']);
