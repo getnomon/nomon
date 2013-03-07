@@ -374,7 +374,7 @@ function mysqliQuery($con, $sql){
 
 //Returns an array of all leaf dishes
 //Item is the parent menu object
-function buildPlatter($item, $target, $depth = -1, $price = 0, $combinations = null){
+function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 	#item[children] is each of the children, if it has children it is a parent. duh.
 	if(is_array($item)){
 		for ($i=0; $i < count($item); $i++) { 
