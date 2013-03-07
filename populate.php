@@ -210,7 +210,7 @@ try{
 	    <form method="get">
 	    	<input name="func" type="hidden" value="ordr"> <br />
 			<label>Order ID:</label> <input name="orderid" type="text" size="20" value="<?=$orderid?>"> <br />
-		    <label>First name:</label> <input name="fName" type="text" size="12" value=""> <br />
+		    <label>First name:</label> <input name="rating" type="text" size="12" value=""> <br />
 		    <small>Rating is out of 3 (1, 2, or 3)</small>
 		    <button type="submit" value="Submit">Submit</button>
   			<button type="reset" value="Reset">Clear</button>
