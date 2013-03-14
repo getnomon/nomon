@@ -14,19 +14,20 @@ error_reporting(E_ALL);
  * populate.php?addr=4308%20Place%20NE&city=Seattle&state=WA&zip=98105
  *
  * In order to actually begin to import data you have to follow a specific order (In 
- * order to have primary keys function properly). The first command you need to run
- * is as follows:
+ * order to have primary keys function properly). The first command you need to attach
+ * to your existing query string is as follows:
  *
- * func=dl&pop=tbl_restaurant
+ * &func=dl&pop=tbl_restaurant
  *
  * This will populate the restaurant and restaurant type table. You can then open each 
- * Restaurant and import their Menu and dish items by clicking the linked ID of the
- * restaurant. You now have 5 of the 8 tables populated. Good job!
+ * Restaurant and import their Menu and dish items by clicking [POP] next to each of the
+ * restaurants. You now have 5 of the 8 tables populated. Good job!
  * 
- * Now we can add users, orders, and reviews
+ * Now we can add users, orders, and reviews by setting 'func' to equal the following
  *
- *
- *
+ * ?func=macc - Create Account
+ * ?func=ordr - Create An Order
+ * ?func=rvw  - Create A Review
  *
  **/
 
@@ -185,8 +186,8 @@ try{
 	    	<input name="func" type="hidden" value="macc"> <br />
 			<label>Email:</label> <input name="email" type="text" size="20" value=""> <br />
 		    <label>First name:</label> <input name="fName" type="text" size="12" value=""> <br />
-		    Last name: <input name="lName" type="text" size="12" value=""><br />
-		    <label>Street Address:</label> <input name="address" type="text" size="20" value="">
+		    <label>Last name:</label> <input name="lName" type="text" size="12" value=""><br />
+		    <label>Address:</label> <input name="address" type="text" size="20" value="">
 		    <label>ZIP:</label> <input name="zip-code" type="text" size="5" value=""><br />
 		    <label>Phone number:</label> <input name="phone" type="text" size="10" value=""><br />
 		    <button type="submit" value="Submit">Submit</button>
@@ -421,6 +422,7 @@ function mysqliQuery($con, $sql){
 
 //Returns an array of all leaf dishes
 //Item is the parent menu object
+//Is a redundant version of getDishes and doesn't populate/query
 function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 	#item[children] is each of the children, if it has children it is a parent. duh.
 	if(is_array($item)){
