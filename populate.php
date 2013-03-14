@@ -22,7 +22,13 @@ error_reporting(E_ALL);
  * This will populate the restaurant and restaurant type table. You can then open each 
  * Restaurant and import their Menu and dish items by clicking the linked ID of the
  * restaurant. You now have 5 of the 8 tables populated. Good job!
- */
+ * 
+ * Now we can add users, orders, and reviews
+ *
+ *
+ *
+ *
+ **/
 
 /*#array of whitelisted functions
 $functionWhitelist = array("foo", "bar");
