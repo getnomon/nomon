@@ -440,10 +440,11 @@ function mysqliQuery($con, $sql){
 function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 		#item[children] is each of the children, if it has children it is a parent. duh.
 	if(!isset($item->children) && $parentid = 0){
-		echo "{!}";
+		
 	}
 
 	if(is_array($item)){
+		echo "[]";
 		for ($i=0; $i < count($item); $i++) { 
 			#Contains a bunch of stdClass Objects
 			buildPlatter($con, $rid, $item[$i], $depth+1, $menuid, $parentid);
@@ -460,7 +461,7 @@ function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0
 				for($j=0; $j<$depth; $j++){
 					echo "=";
 				}
-				if($parentid != 0){
+				if($parentid == 0){
 					echo "{X}";
 		    	}
 				echo '!('. $parentid.')[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
@@ -472,9 +473,6 @@ function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0
 			for($j=0; $j<$depth; $j++){
 				echo "=";
 			}
-			if($parentid != 0){
-				echo "{X}";
-	    	}
 				echo '('. $parentid.')[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 				echo " - " . $item->descrip . "\n";
 		}
