@@ -348,15 +348,29 @@ function getDishes($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 				}
 				echo '!('. $parentid.')[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 				echo " - " . $item->descrip . "\n";
-				$sql = "INSERT INTO tbl_dish (DishID, MenuID, DishName, DishDescr, DishPrice, DishOrderable)
+
+				if($parentid != 0){
+				$sql = "INSERT INTO tbl_dish
 		    		VALUES ('".
 		    			$item->id."', '".
 		    			$menuid."', '".
+		    			$parentid."', '".
 		    			mysql_real_escape_string($item->name)."', '".
 		    			mysql_real_escape_string($item->descrip)."', '".
 		    			$item->price."', '".
-		    			$item->is_orderable."')";
+						$item->is_orderable."')";
 		    	$result = mysqliQuery($con,$sql);
+	    		}else{
+					$sql = "INSERT INTO tbl_dish (DishID, MenuID, DishName, DishDescr, DishPrice, DishOrderable)
+			    		VALUES ('".
+			    			$item->id."', '".
+			    			$menuid."', '".
+			    			mysql_real_escape_string($item->name)."', '".
+			    			mysql_real_escape_string($item->descrip)."', '".
+			    			$item->price."', '".
+			    			$item->is_orderable."')";
+			    	$result = mysqliQuery($con,$sql);
+		    	}
 
 		    	getDishes($con, $rid, $item->children, $depth+1, $menuid + 0, $item->id + 0);
 			}
@@ -445,6 +459,9 @@ function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0
 				for($j=0; $j<$depth; $j++){
 					echo "=";
 				}
+				if($parentid != 0){
+					echo "{X}";
+		    	}
 				echo '!('. $parentid.')[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 				echo " - " . $item->descrip . "\n";
 		    	buildPlatter($con, $rid, $item->children, $depth+1, $menuid + 0, $item->id + 0);
@@ -457,11 +474,11 @@ function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0
 				echo '('. $parentid.')[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 				echo " - " . $item->descrip . "\n";
 			if($parentid != 0){
-				echo "{Parent ID != 0}";
+				echo "{X}";
 	    	}elseif ($menuid != 0) {
 	    		#ignore all empty menus, becuase fuck that! 
 	    		#(They would serve no purpose exept to pollute the db)
-	    		echo "{Menu ID != 0}";
+	    		//echo "{Menu ID != 0}";
 	    	}
 
 		}
