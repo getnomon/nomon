@@ -439,7 +439,7 @@ function mysqliQuery($con, $sql){
 //Is a redundant version of getDishes and doesn't populate/query
 function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 		#item[children] is each of the children, if it has children it is a parent. duh.
-	if($parentid = 0){
+	if($parentid == 0){
 		echo "*";
 	}
 
