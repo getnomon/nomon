@@ -444,7 +444,7 @@ function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0
 	}
 
 	if(is_array($item)){
-		echo "[]";
+		echo "[$parentid]";
 		for ($i=0; $i < count($item); $i++) { 
 			#Contains a bunch of stdClass Objects
 			buildPlatter($con, $rid, $item[$i], $depth+1, $menuid, $parentid);
