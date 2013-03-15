@@ -424,18 +424,21 @@ function mysqliQuery($con, $sql){
 //Item is the parent menu object
 //Is a redundant version of getDishes and doesn't populate/query
 function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
-	#item[children] is each of the children, if it has children it is a parent. duh.
+		#item[children] is each of the children, if it has children it is a parent. duh.
 	if(is_array($item)){
 		for ($i=0; $i < count($item); $i++) { 
 			#Contains a bunch of stdClass Objects
-			buildPlatter($con, $rid, $item[$i], $depth+1, $menuid, $parentid);
+			getDishes($con, $rid, $item[$i], $depth+1, $menuid, $parentid);
 		}
 	}else{
+		#is an stdObject -> check for children
+		if(!isset($item->children) && $parentid = 0){
+			echo "We are about to experience turbulance...";
+		}
 		if (isset($item->children)) {
 			#is sub menu/item (or dish with options)
 			if($depth == 0){
 				echo "!Parent menu [$item->id] $item->name\n";
-				buildPlatter($con, $rid, $item->children, $depth+1, $item->id + 0);
 			}else{
 				#is a menu item with children
 				for($j=0; $j<$depth; $j++){
@@ -443,7 +446,6 @@ function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0
 				}
 				echo '!('. $parentid.')[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 				echo " - " . $item->descrip . "\n";
-		    	buildPlatter($con, $rid, $item->children, $depth+1, $menuid + 0, $item->id + 0);
 			}
 		}else{
 			#is a dish - save shit shit
@@ -452,6 +454,14 @@ function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0
 			}
 				echo '('. $parentid.')[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 				echo " - " . $item->descrip . "\n";
+			if($parentid != 0){
+				echo "Parent ID !=0";
+	    	}elseif ($menuid != 0) {
+	    		#ignore all empty menus, becuase fuck that! 
+	    		#(They would serve no purpose exept to pollute the db)
+	    		echo "Menu ID !=0";
+	    	}
+
 		}
 	}
 }
