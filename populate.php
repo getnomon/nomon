@@ -471,16 +471,11 @@ function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0
 			for($j=0; $j<$depth; $j++){
 				echo "=";
 			}
-				echo '('. $parentid.')[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
-				echo " - " . $item->descrip . "\n";
 			if($parentid != 0){
 				echo "{X}";
-	    	}elseif ($menuid != 0) {
-	    		#ignore all empty menus, becuase fuck that! 
-	    		#(They would serve no purpose exept to pollute the db)
-	    		//echo "{Menu ID != 0}";
 	    	}
-
+				echo '('. $parentid.')[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
+				echo " - " . $item->descrip . "\n";
 		}
 	}
 }
