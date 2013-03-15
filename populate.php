@@ -428,7 +428,7 @@ function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0
 	if(is_array($item)){
 		for ($i=0; $i < count($item); $i++) { 
 			#Contains a bunch of stdClass Objects
-			getDishes($con, $rid, $item[$i], $depth+1, $menuid, $parentid);
+			buildPlatter($con, $rid, $item[$i], $depth+1, $menuid, $parentid);
 		}
 	}else{
 		#is an stdObject -> check for children
@@ -439,6 +439,7 @@ function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0
 			#is sub menu/item (or dish with options)
 			if($depth == 0){
 				echo "!Parent menu [$item->id] $item->name\n";
+	    		buildPlatter($con, $rid, $item->children, $depth+1, $item->id + 0);
 			}else{
 				#is a menu item with children
 				for($j=0; $j<$depth; $j++){
@@ -446,6 +447,7 @@ function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0
 				}
 				echo '!('. $parentid.')[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 				echo " - " . $item->descrip . "\n";
+		    	buildPlatter($con, $rid, $item->children, $depth+1, $menuid + 0, $item->id + 0);
 			}
 		}else{
 			#is a dish - save shit shit
@@ -455,11 +457,11 @@ function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0
 				echo '('. $parentid.')[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 				echo " - " . $item->descrip . "\n";
 			if($parentid != 0){
-				echo "Parent ID !=0";
+				echo "{Parent ID != 0}";
 	    	}elseif ($menuid != 0) {
 	    		#ignore all empty menus, becuase fuck that! 
 	    		#(They would serve no purpose exept to pollute the db)
-	    		echo "Menu ID !=0";
+	    		echo "{Menu ID != 0}";
 	    	}
 
 		}
