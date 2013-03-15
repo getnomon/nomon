@@ -439,6 +439,10 @@ function mysqliQuery($con, $sql){
 //Is a redundant version of getDishes and doesn't populate/query
 function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0){
 		#item[children] is each of the children, if it has children it is a parent. duh.
+	if(!isset($item->children) && $parentid = 0){
+		echo "{!}";
+	}
+
 	if(is_array($item)){
 		for ($i=0; $i < count($item); $i++) { 
 			#Contains a bunch of stdClass Objects
@@ -446,9 +450,6 @@ function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0
 		}
 	}else{
 		#is an stdObject -> check for children
-		if(!isset($item->children) && $parentid = 0){
-			echo "We are about to experience turbulance...";
-		}
 		if (isset($item->children)) {
 			#is sub menu/item (or dish with options)
 			if($depth == 0){
@@ -464,7 +465,7 @@ function buildPlatter($con, $rid, $item, $depth = -1, $menuid = 0, $parentid = 0
 		    	}
 				echo '!('. $parentid.')[' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 				echo " - " . $item->descrip . "\n";
-		    	buildPlatter($con, $rid, $item->children, $depth+1, $menuid + 0, $item->id);
+		    	buildPlatter($con, $rid, $item->children, $depth+1, $menuid, $item->id);
 			}
 		}else{
 			#is a dish - save shit shit
