@@ -51,7 +51,7 @@ $(function() {
 			//console.log(data);
 			//console.log('Formatted Address: ' + data.results[0].formatted_address);
 			$('#address').val(data.results[0].formatted_address);
-			alert('Is mobile: '+((isMobile == null) ? 'true' : 'false'));
+			alert('Is mobile: '+(navigator.userAgent));
 			//$('.result').html(data);
 			//alert('Load was performed.');
 		});
