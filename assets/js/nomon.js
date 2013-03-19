@@ -7,26 +7,7 @@
 */
 
 $(function() {
-	var isMobile = {
-	    Android: function() {
-	        return navigator.userAgent.match(/Android/i);
-	    },
-	    BlackBerry: function() {
-	        return navigator.userAgent.match(/BlackBerry/i);
-	    },
-	    iOS: function() {
-	        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
-	    },
-	    Opera: function() {
-	        return navigator.userAgent.match(/Opera Mini/i);
-	    },
-	    Windows: function() {
-	        return navigator.userAgent.match(/IEMobile/i);
-	    },
-	    any: function() {
-	        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
-	    }
-	};
+	var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|webOS)/);
 	//Capture click/taps
 	$("a").on('click', function (event) {
 		if($(this).attr("target") != "_blank"){
@@ -47,11 +28,11 @@ $(function() {
     function getLocation(location){
     	$.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+
 				location.coords.latitude+','+location.coords.longitude+
-				'&sensor='+((isMobile == null) ? 'true' : 'false'), function(data) {
+				'&sensor='+((isMobile) ? 'true' : 'false'), function(data) {
 			//console.log(data);
 			//console.log('Formatted Address: ' + data.results[0].formatted_address);
 			$('#address').val(data.results[0].formatted_address);
-			alert('Is mobile: '+(navigator.userAgent));
+			alert('Is mobile: '+((isMobile) ? 'true' : 'false'));
 			//$('.result').html(data);
 			//alert('Load was performed.');
 		});
