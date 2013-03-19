@@ -1,5 +1,5 @@
 /*
-# NAME: nomON
+# NAME: nomON.js
 # AUTHOR: Evan Cohen
 # DATE: September 2012
 # USAGE: Powers the mighty application known as nomON
@@ -39,4 +39,5 @@ $(function() {
 				location.coords.latitude+','+location.coords.longitude+
 				'&sensor='+((isMobile) ? 'true' : 'false');
     }
+
 });
