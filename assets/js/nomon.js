@@ -6,7 +6,6 @@
 # REQUIREMENTS: Extreme hunger
 */
 
-
 $(function() {
 	var isMobile = {
 	    Android: function() {
@@ -48,11 +47,11 @@ $(function() {
     function getLocation(location){
     	$.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+
 				location.coords.latitude+','+location.coords.longitude+
-				'&sensor='+((isMobile) ? 'true' : 'false'), function(data) {
-			console.log(data);
-			console.log('Formatted Address: ' + data.results[0].formatted_address);
+				'&sensor='+((isMobile == null) ? 'true' : 'false'), function(data) {
+			//console.log(data);
+			//console.log('Formatted Address: ' + data.results[0].formatted_address);
 			$('#address').val(data.results[0].formatted_address);
-
+			alert('Is mobile: '+((isMobile == null) ? 'true' : 'false'));
 			//$('.result').html(data);
 			//alert('Load was performed.');
 		});
