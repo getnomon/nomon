@@ -17,7 +17,6 @@ $(function() {
 	});
 
 	$('#location').on('click', function(){
-		//http://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&sensor=true_or_false
 		navigator.geolocation.getCurrentPosition(getLocation, getLocationFail);
     });
 
@@ -26,19 +25,18 @@ $(function() {
     }
 
     function getLocation(location){
-    	$.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+
-				location.coords.latitude+','+location.coords.longitude+
-				'&sensor='+((isMobile) ? 'true' : 'false'), function(data) {
-			//console.log(data);
-			//console.log('Formatted Address: ' + data.results[0].formatted_address);
+    	$.get(geoURL(location)).done(function(data) { 
 			$('#address').val(data.results[0].formatted_address);
-			alert('Is mobile: '+((isMobile) ? 'true' : 'false'));
-			//$('.result').html(data);
-			//alert('Load was performed.');
-		});
+		}).fail(function(){getLocationFail(location);});
     }
 
     function getLocationFail(location){
     	alert('Could not find your location...');
+    }
+
+    function geoURL(location){
+    	return 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+
+				location.coords.latitude+','+location.coords.longitude+
+				'&sensor='+((isMobile) ? 'true' : 'false');
     }
 });
