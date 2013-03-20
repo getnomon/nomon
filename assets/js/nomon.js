@@ -27,7 +27,7 @@ $(function() {
     function getLocation(location){
     	$.get(geoURL(location)).done(function(data) { 
 			$('#address').val(data.results[0].formatted_address);
-		}).fail(function(){getLocationFail(location);});
+		}).fail(function(){ alert('Could not AJAX'); getLocationFail(location);});
     }
 
     function getLocationFail(location){
