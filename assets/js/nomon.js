@@ -10,7 +10,6 @@ $(function() {
 	var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|webOS)/);
 	//Capture click/taps
 
-	console.log(navigator.geolocation.getCurrentPosition);
 
 	$("a").on('click', function (event) {
 		if($(this).attr("target") != "_blank"){
@@ -30,7 +29,7 @@ $(function() {
     function getLocation(location){
     	$.get(geoURL(location)).done(function(data) { 
 			$('#address').val(data.results[0].formatted_address);
-		}).fail(function(){ alert('Could not find your location'); getLocationFail(location);});
+		}).fail(function(){ alert('Could not find your location.');});
     }
 
     function getLocationFail(location){
