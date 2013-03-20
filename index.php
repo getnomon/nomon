@@ -25,7 +25,7 @@ require_once('smart.php');
 */
 _generate('header');
 
-if($GLOBALS['dev']){
+if(isset($GLOBALS['dev']) && $GLOBALS['dev']){
 	_generate('dev');
 }
 
