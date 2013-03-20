@@ -3,7 +3,7 @@
 /**
  * Ordr.in API interface.
  *
- * @author   Evan Cohen <evanbtcohen@gmail.com | @3vanc>
+ * @author   Evan Cohen < evanbtcohen@gmail.com | @3vanc >
  * @license  http://creativecommons.org/licenses/MIT/ MIT
  */
 
@@ -15,10 +15,9 @@ $dt = (isset($_POST['dT'])) ? $_POST['dT'] : 'ASAP';
 if(isset($GLOBALS['dev']) && $GLOBALS['dev']){
 	#TODO Use TEST_SERVERS only on dev (after everything is fixed)
 }
-$ordrin = new OrdrinApi("M4CEY61LCIGUUaOpzF4JcTKaHvuOVzb50ZdOYRhMPE", OrdrinApi::TEST_SERVERS);
+$ordrin = new OrdrinApi("M4CEY61LCIGUUaOpzF4Jc_TKaHvuOVzb50ZdOYRhMPE", OrdrinApi::TEST_SERVERS);
 
 if (!isset($_GET["api"])) {
-	# code...
 	$_GET["api"] = "n";
 }
 

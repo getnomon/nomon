@@ -25,6 +25,10 @@ require_once('smart.php');
 */
 _generate('header');
 
+if($GLOBALS['dev']){
+	_generate('dev');
+}
+
 if(isset($_REQUEST['q'])){
 	$q = explode('/', $_REQUEST['q']);
 }else{
