@@ -9,6 +9,9 @@
 $(function() {
 	var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|webOS)/);
 	//Capture click/taps
+
+	console.log(navigator.geolocation.getCurrentPosition);
+
 	$("a").on('click', function (event) {
 		if($(this).attr("target") != "_blank"){
 		    event.preventDefault();
@@ -17,7 +20,7 @@ $(function() {
 	});
 
 	$('#location').on('click', function(){
-		navigator.geolocation.getCurrentPosition(getLocation, getLocationFail);
+		navigator.geolocation.getCurrentPosition(getLocation, getLocationFail, {enableHighAccuracy: true});
     });
 
     if($(location).attr('pathname') != '/' && $(location).attr('pathname') != '/test'){
@@ -27,11 +30,11 @@ $(function() {
     function getLocation(location){
     	$.get(geoURL(location)).done(function(data) { 
 			$('#address').val(data.results[0].formatted_address);
-		}).fail(function(){ alert('Could not AJAX'); getLocationFail(location);});
+		}).fail(function(){ alert('Could not find your location'); getLocationFail(location);});
     }
 
     function getLocationFail(location){
-    	alert('Could not find your location...');
+    	alert('Could not find you! Make sure location services are enabled for nomON.');
     }
 
     function geoURL(location){
