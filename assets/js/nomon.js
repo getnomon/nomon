@@ -42,4 +42,15 @@ $(function() {
 				'&sensor='+((isMobile) ? 'true' : 'false');
     }
 
+    resizeTitle();
+    $(window).resize(function() {
+  		resizeTitle();
+	});
+
+	function resizeTitle(){
+		size = window.innerWidth/6;
+		fontSize = (size > 82) ? 82 + 'px':  size + 'px';
+		$('h1.title-front').css('font-size', fontSize);
+	}
+
 });

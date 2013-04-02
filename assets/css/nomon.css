@@ -92,7 +92,7 @@ a{
     body {-webkit-text-size-adjust: 70%;}
 }*/
 
-.jumbotron h1.front{
-  font-size: 85px;
+h1.title-front{
+  font-size: 82px;
   font-weight: 100;
 }
