@@ -23,6 +23,7 @@ $(function() {
     });
 
     if($(location).attr('pathname') != '/' && $(location).attr('pathname') != '/test'){
+        $('.masthead').css('height', '55px');
         $('.mini-logo').attr('style', 'display: inline-block');
     }
 
