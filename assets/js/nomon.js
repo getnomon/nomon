@@ -24,7 +24,7 @@ $(function() {
 
     if($(location).attr('pathname') != '/' && $(location).attr('pathname') != '/test'){
         $('.masthead').css('height', '55px');
-        $('.mini-logo').attr('style', 'display: inline-block');
+        $('.mini-logo').css('display', 'inline-block');
     }
 
     function getLocation(location){
@@ -53,5 +53,23 @@ $(function() {
 		fontSize = (size > 82) ? 82 + 'px':  size + 'px';
 		$('h1.title-front').css('font-size', fontSize);
 	}
+
+	//This is app specific code
+	if($(location).attr('pathname') == '/app'){
+        $('.masthead').css('height', '30px');
+        $('.mini-logo').css('display', 'none');
+        //Hide rest of page inicially
+        $('#price, #allergies, #pay, #thanks, #review').css('display', 'none');
+
+        $('.btn').on('click', function(){
+        	var target = $(this).attr('href').substr(1);
+        	console.log('Target: ' + target);
+        	//hide all
+        	$('#index, #price, #allergies, #pay, #thanks, #review').css('display', 'none');
+        	//unhide target
+        	$('#'+target).css('display', 'block');
+        	return false;
+        });
+    }
 
 });

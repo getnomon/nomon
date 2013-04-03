@@ -35,13 +35,23 @@ if(isset($_REQUEST['q'])){
 	$q[0] = 'index';
 }
 
-if (file_exists('templates/' . $q[0] . '.html')) {
-	_generate($q[0]);
+if ($q[0] == "app") {
+	//This is the app, load all apropriate pages into DOM
+	_generate('test'); //change to index later
+	_generate('price');
+	_generate('allergies');
+	_generate('pay');
+	_generate('thanks');
+	_generate('review');	
 }else{
-	header("Status: 404 Not Found");
-	_generate('404');
+	//Website
+	if (file_exists('templates/' . $q[0] . '.html')) {
+		_generate($q[0]);
+	}else{
+		header("Status: 404 Not Found");
+		_generate('404');
+	}
 }
-
 _generate('footer');
 
 //Output page to screen!
