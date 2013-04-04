@@ -14,26 +14,28 @@ $(function() {
 	//This is app specific code
 	if(pathname == '/app'){
         $('.masthead').css('height', '30px');
-        $('.mini-logo').css('display', 'none');
+        $('.mini-logo').hide();
         //Hide rest of page inicially
-        $('#price, #allergies, #pay, #thanks, #review').css('display', 'none');
+        $('#price, #allergies, #pay, #thanks, #review').hide();
 
-        $('.btn').on('click', function(){
+        $('.btn').not('#location').on('click', function(){
         	var target = $(this).attr('href').substr(1);
         	console.log('Target: ' + target);
         	//hide all
-        	$('#index, #price, #allergies, #pay, #thanks, #review').css('display', 'none');
-        	$('.masthead').css('height', '55px');
-    		$('.mini-logo').css('display', 'inline-block');
-        	$('#'+target).css('display', 'block');
+        	if(target != ''){
+	        	$('#index, #price, #allergies, #pay, #thanks, #review').hide();
+	        	$('.masthead').css('height', '55px');
+	    		$('.mini-logo').show();
+	        	$('#'+target).show();
+        	}
         	return false;
         });
 
         $('.mini-logo a').on('click', function(){
     		$('#price, #allergies, #pay, #thanks, #review').css('display', 'none');
     		$('.masthead').css('height', '30px');
-    		$('.mini-logo').css('display', 'none');
-    		$('#index').css('display', 'block');
+    		$('.mini-logo').hide();
+    		$('#index').show();
     		return false;
         });
 
