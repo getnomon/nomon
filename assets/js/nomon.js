@@ -103,7 +103,7 @@ $(function() {
         $('.mini-logo').css('display', 'inline-block');
     }
 
-    $('#rest-count').tooltip({placement:'bottom', trigger:'click'})
+    //$('#rest-count').tooltip({placement:'bottom', trigger:'click'});
 
     function getLocation(location){
     	$.get(geoURL(location)).done(function(data) { 
