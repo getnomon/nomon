@@ -42,6 +42,7 @@ $(function() {
                         }
                     }).done(function(result){
                         console.log(result.length);
+                        $('#rest-count').text(result.length);
                         console.log(result);
                     });
                 }).fail(function(){ alert('Could not validate address.'); return false;});
