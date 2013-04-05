@@ -103,6 +103,8 @@ $(function() {
         $('.mini-logo').css('display', 'inline-block');
     }
 
+    $('#rest-count').tooltip({placement:'borrom', trigger:'click'})
+
     function getLocation(location){
     	$.get(geoURL(location)).done(function(data) { 
 			$('#address').val(data.results[0].formatted_address);
