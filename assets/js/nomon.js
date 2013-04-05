@@ -32,6 +32,7 @@ $(function() {
                     //make delivery request based on address
                     $.ajax('/api.php', {
                         type : 'post',
+                        dataType: "json",
                         data: {
                             func : 'dl',
                             addr : add_comp.street_number+" "+add_comp.route,
