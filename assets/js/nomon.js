@@ -19,16 +19,32 @@ $(function() {
         $('#price, #allergies, #pay, #thanks, #review').hide();
 
         $('.btn').not('#location').on('click', function(){
-        	var target = $(this).attr('href').substr(1);
-        	console.log('Target: ' + target);
-        	//hide all
-        	if(target != ''){
-	        	$('#index, #price, #allergies, #pay, #thanks, #review').hide();
-	        	$('.masthead').css('height', '55px');
-	    		$('.mini-logo').show();
-	        	$('#'+target).show();
-        	}
+            if($(this).attr('id') == "getnomon"){
+                $.get(geoValidate($('#address').val())).done(function(data) { 
+                    //got data, now what?
+                    console.log(data);
+                }).fail(function(){ alert('Could not validate address.'); return false;});
+            }
+            var target = $(this).attr('href').substr(1);
+            console.log('Target: ' + target);
+            //hide all
+            if(target != ''){
+                $('#index, #price, #allergies, #pay, #thanks, #review').hide();
+                $('.masthead').css('height', '55px');
+                $('.mini-logo').show();
+                $('#'+target).show();
+            }
         	return false;
+        });
+
+        $('#getnomon').on('click', function(){
+            //validate address! 
+            //We might want to keep this somwhere on the page so the user knows
+            //if they want to change it... And we could display the number of
+            //restaurants delivering along side it. Maybe in a menu? Could be red 
+            //top menu (which ties in with button collor). This menu would also let
+            //the user navagete back and forth on the pages.
+
         });
 
         $('.mini-logo a').on('click', function(){
@@ -42,7 +58,7 @@ $(function() {
     }else{
     	//Non App Code
     	$("a").on('click', function (event) {
-			if($(this).attr("target") != "_blank"){
+			if($(this).attr("target") != "_blank" ||"_external"){
 			    event.preventDefault();
 			    window.location = $(this).attr("href");
 		    }
@@ -74,6 +90,12 @@ $(function() {
     	return 'https://maps.googleapis.com/maps/api/geocode/json?latlng='+
 				location.coords.latitude+','+location.coords.longitude+
 				'&sensor='+((isMobile) ? 'true' : 'false');
+    }
+
+    function geoValidate(address){
+        http://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true_or_false
+        return 'https://maps.googleapis.com/maps/api/geocode/json?address='+
+                address+'&sensor='+((isMobile) ? 'true' : 'false');
     }
 
     resizeTitle();
