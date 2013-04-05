@@ -20,7 +20,7 @@ $(function() {
 
         $('.btn').not('#location').on('click', function(){
             console.log("ID: "+$(this).attr('id'));
-            if($(this).attr('id') == "getnomon"){
+            if($(this).attr('id') == "getnomon "){
                 $.get(geoValidate($('#address').val())).done(function(data) { 
                     //got data, now what?
                     console.log(data);
