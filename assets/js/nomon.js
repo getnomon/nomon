@@ -9,6 +9,7 @@
 $(function() {
 	var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|webOS)/);
 	var pathname = $(location).attr('pathname');
+    var add_comp = []; //address components
 	//Capture click/taps
 
 	//This is app specific code
@@ -19,15 +20,32 @@ $(function() {
         $('#price, #allergies, #pay, #thanks, #review').hide();
 
         $('.btn').not('#location').on('click', function(){
-            console.log("ID: "+$(this).attr('id'));
-            if($(this).attr('id') == "getnomon "){
+            buttonID = $(this).attr('id');
+            if(buttonID == "getnomon"){
                 $.get(geoValidate($('#address').val())).done(function(data) { 
                     //got data, now what?
-                    console.log(data);
+                    console.log(data.results);
+                    $.each(data.results[0].address_components, function(index, addr){
+                        add_comp[addr.types[0]] = addr.short_name;
+                    });
+                    console.log(add_comp);
+                    //make delivery request based on address
+                    $.ajax('/api.php', {
+                        type : 'post',
+                        data: {
+                            func : 'dl',
+                            addr : add_comp.street_number+" "+add_comp.route,
+                            city : add_comp.locality,
+                            state: add_comp.administrative_area_level_1,
+                            zip  : add_comp.postal_code
+                        }
+                    }).done(function(result){
+                        console.log(result);
+                    });
                 }).fail(function(){ alert('Could not validate address.'); return false;});
             }
             var target = $(this).attr('href').substr(1);
-            console.log('Target: ' + target);
+            //console.log('Target: ' + target);
             //hide all
             if(target != ''){
                 $('#index, #price, #allergies, #pay, #thanks, #review').hide();
