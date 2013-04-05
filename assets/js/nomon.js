@@ -41,7 +41,7 @@ $(function() {
                             zip  : add_comp.postal_code
                         }
                     }).done(function(result){
-                        console.log(result.length());
+                        console.log(result.length);
                         console.log(result);
                     });
                 }).fail(function(){ alert('Could not validate address.'); return false;});
