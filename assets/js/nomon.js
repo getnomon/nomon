@@ -48,6 +48,9 @@ $(function() {
                             console.log(result.length);
                             $('#rest-count').text(result.length);
                             console.log(result);
+                            randomRestaurant = result[Math.floor(Math.random()*items.length)];
+                            console.log('Random restaurant: '+randomRestaurant.na);
+                            $('#restaurant').text(randomRestaurant.na);
                         });
                     }).fail(function(){ alert('Could not validate address.'); return false;});
                 }
