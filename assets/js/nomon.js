@@ -19,6 +19,7 @@ $(function() {
         $('#price, #allergies, #pay, #thanks, #review').hide();
 
         $('.btn').not('#location').on('click', function(){
+            console.log("ID: "+$(this).attr('id'));
             if($(this).attr('id') == "getnomon"){
                 $.get(geoValidate($('#address').val())).done(function(data) { 
                     //got data, now what?
