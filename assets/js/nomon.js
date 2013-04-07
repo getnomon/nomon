@@ -18,6 +18,7 @@ $(function() {
         $('.mini-logo').hide();
         //Hide rest of page inicially
         $('.page').hide();
+        $('#index').show();
 
         $('.btn').not('#location').on('click', function(){
             buttonID = $(this).attr('id');
