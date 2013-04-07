@@ -17,7 +17,7 @@ $(function() {
         $('.masthead').css('height', '30px');
         $('.mini-logo').hide();
         //Hide rest of page inicially
-        $('#price, #allergies, #pay, #thanks, #review').hide();
+        $('.page').hide();
 
         $('.btn').not('#location').on('click', function(){
             buttonID = $(this).attr('id');
@@ -59,7 +59,7 @@ $(function() {
             //console.log('Target: ' + target);
             //hide all
             if(target != ''){
-                $('#index, #price, #allergies, #pay, #thanks, #review').hide();
+                $('.page').hide();
                 $('.masthead').css('height', '55px');
                 $('.mini-logo').show();
                 $('#'+target).show();
