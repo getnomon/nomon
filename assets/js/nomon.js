@@ -92,7 +92,6 @@ $(function() {
                 type : 'post',
                 dataType: "json",
                 data: {
-                    api   : 'u',
                     func  : 'gacc',
                     email : $('#inputEmail').val(),
                     pass  : $('#inputPassword').val()
@@ -145,8 +144,12 @@ $(function() {
         $('.mini-logo').css('display', 'inline-block');
     }
 
-    //$('#rest-count').tooltip({placement:'bottom', trigger:'click'});
+    resizeTitle();
+    $(window).resize(function() {
+        resizeTitle();
+    });
 
+    //$('#rest-count').tooltip({placement:'bottom', trigger:'click'});
     function getLocation(location){
     	$.get(geoURL(location)).done(function(data) { 
 			$('#address').val(data.results[0].formatted_address);
@@ -169,20 +172,21 @@ $(function() {
                 address+'&sensor='+((isMobile) ? 'true' : 'false');
     }
 
-    function api(type){
-        return '/api.php?api=' + type;
+    function resizeTitle(){
+        size = window.innerWidth/6;
+        fontSize = (size > 82) ? 82 + 'px':  size + 'px';
+        $('h1.title-front').css('font-size', fontSize);
     }
 
-    resizeTitle();
-    $(window).resize(function() {
-  		resizeTitle();
-	});
-
-	function resizeTitle(){
-		size = window.innerWidth/6;
-		fontSize = (size > 82) ? 82 + 'px':  size + 'px';
-		$('h1.title-front').css('font-size', fontSize);
-	}
- 
-
 });
+
+function api(type){
+    return '/api.php?api=' + type;
+}
+
+function validateEmail(email) { 
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\
+".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA
+-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+} 

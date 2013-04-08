@@ -1,0 +1,82 @@
+<script type="text/javascript">
+$(function(){
+	var validates = true;
+	$('#create-user').submit(function(){
+        //Pass info to server and get session!
+        //validate
+        validates = true;
+        if($('#createEmail').val()){
+        	alert('You must enter a valid email'); validates = false;
+        }else if($('#createPassword').val().length > 5){
+       		alert('Password Must be at least 5 characters'); validates = false;
+    	}else if($('#createfName').val() == ""){
+    		alert('Please enter your first name'); validates = false;
+    	}else if($('#createlName').val() == ""){
+    		alert('Please enter your last name'); validates = false;
+    	}
+        //Create Account
+
+        if(validates){
+            $.ajax(api('r'), {
+                type : 'post',
+                dataType: "json",
+                data: {
+                    func  : 'macc',
+                    email : $('#createEmail').val(),
+                    pass  : $('#createPassword').val(),
+                    fName : $('#createfName').val(),
+                    lName : $('#createlName').val()
+                }
+            }).done(function(result){
+                console.log(result);
+                console.log('account created');
+            }).fail(function(jqXHR, textStatus, errorThrown){
+                console.log(errorThrown);
+                if(errorThrown.error != null){
+                    console.log(errorThrown.error.text);
+                    alert('Could not create user');
+                }else{
+                    alert('Check your internet connection');
+                }
+            });
+        }
+        return false;
+    });
+});
+</script>
+
+<div id="settings" class="page">
+  <div class="jumbotron clearfix">
+    <h1>Create Account</h1>
+  </div>
+    
+    <a class="btn btn-danger btn-large btn-block btn-primary" href="/thanks">Create New User</a>
+    <hr>
+    <form id="create-user" class="form-horizontal">
+	  <div class="control-group">
+        <div class="input-prepend">
+          <span class="add-on"><i class="">First Name</i></span>
+            <input class="span4" type="text" id="createfName" placeholder="First Name">
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="input-prepend">
+          <span class="add-on"><i class="">Last Name</i></span>
+            <input class="span4" type="text" id="createlName" placeholder="Last Name">
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-envelope"></i></span>
+            <input class="span4" type="text" id="createEmail" placeholder="Email">
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-lock"></i></span>
+            <input class="span4" type="password" id="createPassword" placeholder="Password">
+        </div>
+      </div>
+      <button id="login">Create Account</button>
+    </form>
+</div>
