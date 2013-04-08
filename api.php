@@ -59,7 +59,7 @@ switch ($_GET["api"]) {
 	    $data['response'] = $print;
 	    echo json_encode($data);
 	}catch(Exception $e){
-		echo "{Swag Exception} " . $e;
+		echo json_encode($e); //"{Swag Exception} " . $e;
 	}
   break;
 }
