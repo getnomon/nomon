@@ -29,13 +29,14 @@ $(function(){
                 }
             }).done(function(result){
                 console.log(result);
-                console.log('account created');
-            }).fail(function(jqXHR, textStatus, errorThrown){
-                console.log(errorThrown);
                 if(errorThrown.error != null){
                     console.log(errorThrown.error.text);
                     alert('Could not create user');
-                }else{
+                    return false;
+                }
+                console.log('account created');
+            }).fail(function(jqXHR, textStatus, errorThrown){
+                console.log(errorThrown);
                     alert('Check your internet connection');
                 }
             });
