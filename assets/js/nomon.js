@@ -21,7 +21,7 @@ $(function() {
         $('.page').hide();
         $('#index').show();
 
-        $('.btn').not('#location').on('click', function(){
+        $('a, .btn').not('#location, .external').on('click', function(){
             buttonID = $(this).attr('id');
             if(buttonID == "getnomon"){
                 if($('#address').val() == ""){
