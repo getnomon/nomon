@@ -59,7 +59,7 @@ switch ($_GET["api"]) {
 	    $data['response'] = $print;
 	    echo json_encode($data);
 	}catch(Exception $e){
-		echo json_encode((string)$e); //return error
+		echo json_encode(errorToJSON($e)); //return error
 	}
   break;
 }
@@ -141,10 +141,15 @@ try{
 	  break;
 	}
 }catch (Exception $e){
-	echo json_encode((string)$e); //return error
+	echo json_encode(errorToJSON($e)); //return error
 }
 
 
+function errorToJSON($e){
+	$error['error']['message']= $e->getMessage();
+	$error['error']['code']= $e->getCode();
+	return $error;
+}
 
 function calcMeal($targetPrice, $result, $allergies = NULL){
 	if($allergies != NULL){
