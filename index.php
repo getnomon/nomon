@@ -43,6 +43,7 @@ if ($q[0] == "app") {
 	_generate('pay');
 	_generate('thanks');
 	_generate('review');	
+	_generate('settings');
 }else{
 	//Website
 	if (file_exists('templates/' . $q[0] . '.html')) {
