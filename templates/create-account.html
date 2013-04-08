@@ -35,6 +35,7 @@ $(function(){
                     alert('Fill out the form completely!\n Emails must be valid and passwords must be at least 5 characters');
                     return false;
                 }
+                alert('Thanks! Your account has been created :)');
                 console.log('account created');
             }).fail(function(jqXHR, textStatus, errorThrown){
                 console.log(errorThrown);
