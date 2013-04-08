@@ -105,8 +105,6 @@ $(function() {
                     //boo boo fail
                 }
             }).fail(function(jqXHR, textStatus, errorThrown){
-                console.log(jqXHR);
-                console.log(textStatus);
                 console.log(errorThrown);
                 alert('Could not authenticate');
             });
