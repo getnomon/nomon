@@ -10,6 +10,7 @@ $(function() {
 	var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|webOS)/);
 	var pathname = $(location).attr('pathname');
     var add_comp = []; //address components
+    var api = '/api.php';
 	//Capture click/taps
 
 	//This is app specific code
@@ -35,7 +36,7 @@ $(function() {
                         });
                         console.log(add_comp);
                         //make delivery request based on address
-                        $.ajax('/api.php', {
+                        $.ajax(api, {
                             type : 'post',
                             dataType: "json",
                             data: {
@@ -52,8 +53,15 @@ $(function() {
                             randomRestaurant = result[Math.floor(Math.random()*result.length)];
                             console.log('Random restaurant: '+randomRestaurant.na);
                             $('#restaurant').text(randomRestaurant.na);
+                        }).fail(function(jqXHR, textStatus, errorThrown){
+                            alert('Could not find any restaurants :(');
+                            console.log(textStatus);
+                            console.log(errorThrown);
                         });
-                    }).fail(function(){ alert('Could not validate address.'); return false;});
+                    }).fail(function(jqXHR, textStatus, errorThrown){ 
+                        alert('Could not validate address.'); 
+                        return false;
+                    });
                 }
             }
             var target = $(this).attr('href').substr(1);
@@ -76,6 +84,30 @@ $(function() {
             //top menu (which ties in with button collor). This menu would also let
             //the user navagete back and forth on the pages.
 
+        });
+
+        $('#login').on('click', function(){
+            //Pass info to server and get session!
+            //Authenticate user
+            $.ajax(api, {
+                type : 'post',
+                dataType: "json",
+                data: {
+                    api   : 'u',
+                    func  : 'gacc',
+                    email : $('#inputEmail').val(),
+                    pass  : $('#inputPassword').val()
+                }
+            }).done(function(result){
+                console.log(result);
+                if(result.error != null){
+                    //user is auth
+                }else{
+                    //boo boo fail
+                }
+            }).fail(function(jqXHR, textStatus, errorThrown){
+                alert('Could not authenticate');
+            });
         });
 
         $('.mini-logo a').on('click', function(){

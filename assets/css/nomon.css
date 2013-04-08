@@ -3,6 +3,10 @@
   margin: 0px;
 }
 
+*::selection          {background: #bc2127; color: #FFFFFF;/* Safari */}
+*::-moz-selection {background: #bc2127; color: #FFFFFF;/* Firefox */}
+*::-webkit-selection {background: #bc2127; color: #FFFFFF;/* Other */}
+
 /* Custom container */
 .container-narrow {
   margin: 0 auto;
@@ -75,12 +79,27 @@
   top: -15px;
 }
 
+#nav-main, .navbar-inner{
+  background-color: #da4f49;
+  background-image: -moz-linear-gradient(top, #ffffff, #f2f2f2);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2));
+  background-image: -webkit-linear-gradient(top, #ffffff, #f2f2f2);
+  background-image: -o-linear-gradient(top, #ffffff, #f2f2f2);
+  background-image: linear-gradient(to bottom, #ee5f5b, #bd362f);
+  background-repeat: repeat-x;
+  border: 0;
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
+}
+
 .nav a{
   color: #333333;
 }
 
-.nav{
-  margin-bottom:0px;
+.navbar .brand, .navbar .nav > li > a{
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
 /* Does not fix viewport bug

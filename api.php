@@ -25,7 +25,8 @@ switch ($_GET["api"]) {
   case "r": #Don't do anything
   break;
   case "u": #Authenticate User
-    $ordrin->user->authenticate($_POST['email'],hash('sha256',$_POST['pass']));
+  	$hashPass = hash('sha256',$_POST['pass']); //save this cookie?
+    $ordrin->user->authenticate($_POST['email'], $hashPass);
   break;
   case "o": #Place Order
   	try{
