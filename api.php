@@ -141,7 +141,7 @@ try{
 	  break;
 	}
 }catch (Exception $e){
-	echo "{Swag Exception} " . $e;
+	echo json_encode($e); //return error
 }
 
 
