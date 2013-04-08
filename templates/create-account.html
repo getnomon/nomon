@@ -29,7 +29,7 @@ $(function(){
                 }
             }).done(function(result){
                 console.log(result);
-                if(errorThrown.error != null){
+                if(result.error != null){
                     console.log(errorThrown.error.text);
                     alert('Could not create user');
                     return false;
