@@ -86,7 +86,7 @@ $(function() {
 
         });
 
-        $('#login').on('click', function(){
+        $('#login-form').on('submit', function(){
             //Pass info to server and get session!
             //Authenticate user
             $.ajax(api, {
@@ -108,6 +108,7 @@ $(function() {
             }).fail(function(jqXHR, textStatus, errorThrown){
                 alert('Could not authenticate');
             });
+            return false;
         });
 
         $('.mini-logo a').on('click', function(){
