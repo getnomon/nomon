@@ -59,7 +59,7 @@ switch ($_GET["api"]) {
 	    $data['response'] = $print;
 	    echo json_encode($data);
 	}catch(Exception $e){
-		$error['error']=$e;
+		$error['error']= (string)$e;
 		echo json_encode($error); //return error
 	}
   break;
@@ -142,7 +142,7 @@ try{
 	  break;
 	}
 }catch (Exception $e){
-	$error['error']=$e;
+	$error['error']= (string)$e;
 	echo json_encode($error); //return error
 }
 
