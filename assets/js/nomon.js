@@ -10,7 +10,6 @@ $(function() {
 	var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|webOS)/);
 	var pathname = $(location).attr('pathname');
     var add_comp = []; //address components
-    var api = '/api.php';
 	//Capture click/taps
 
 	//This is app specific code
@@ -36,7 +35,7 @@ $(function() {
                         });
                         console.log(add_comp);
                         //make delivery request based on address
-                        $.ajax(api, {
+                        $.ajax(api('r'), {
                             type : 'post',
                             dataType: "json",
                             data: {
@@ -89,7 +88,7 @@ $(function() {
         $('#login-form').submit(function(){
             //Pass info to server and get session!
             //Authenticate user
-            $.ajax(api + '?api=u', {
+            $.ajax(api('u'), {
                 type : 'post',
                 dataType: "json",
                 data: {
@@ -165,6 +164,10 @@ $(function() {
         http://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=true_or_false
         return 'https://maps.googleapis.com/maps/api/geocode/json?address='+
                 address+'&sensor='+((isMobile) ? 'true' : 'false');
+    }
+
+    function apiRequest(type){
+        return '/api.php?api=' + type;
     }
 
     resizeTitle();
