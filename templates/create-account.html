@@ -5,6 +5,7 @@ $(function(){
         //Pass info to server and get session!
         //validate
         validates = true;
+        alert($('#createPassword').val());
         if(validateEmail($('#createEmail').val())){
         	alert('You must enter a valid email'); validates = false;
         }else if($('#createPassword').val().length >= 5){
@@ -30,8 +31,8 @@ $(function(){
             }).done(function(result){
                 console.log(result);
                 if(result.error != null){
-                    console.log(errorThrown.error.text);
-                    alert('Could not create user');
+                    console.log(result.error.text);
+                    alert('Please fill out the registration form completely!');
                     return false;
                 }
                 console.log('account created');
