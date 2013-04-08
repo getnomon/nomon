@@ -106,7 +106,12 @@ $(function() {
                 }
             }).fail(function(jqXHR, textStatus, errorThrown){
                 console.log(errorThrown);
-                alert('Could not authenticate');
+                if(errorThrown.error != null){
+                    console.log(errorThrown.error.text);
+                    alert('Wrong username and/or password');
+                }else{
+                    alert('Check your internet connection');
+                }
             });
             return false;
         });
