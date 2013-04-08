@@ -166,7 +166,7 @@ $(function() {
                 address+'&sensor='+((isMobile) ? 'true' : 'false');
     }
 
-    function apiRequest(type){
+    function api(type){
         return '/api.php?api=' + type;
     }
 
