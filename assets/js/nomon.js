@@ -86,7 +86,7 @@ $(function() {
 
         });
 
-        $('#login-form').on('submit', function(){
+        $('#login-form').submit(function(){
             //Pass info to server and get session!
             //Authenticate user
             $.ajax(api, {
