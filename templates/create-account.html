@@ -5,10 +5,10 @@ $(function(){
         //Pass info to server and get session!
         //validate
         validates = true;
-        alert($('#createPassword').val().length);
+        console.log(validateEmail($('#createEmail').val()));
         if(validateEmail($('#createEmail').val())){
         	alert('You must enter a valid email'); validates = false;
-        }else if($('#createPassword').val().length >= 5){
+        }else if($('#createPassword').val().length < 5){
        		alert('Password Must be at least 5 characters'); validates = false;
     	}else if($('#createfName').val() == ""){
     		alert('Please enter your first name'); validates = false;
@@ -32,7 +32,7 @@ $(function(){
                 console.log(result);
                 if(result.error != null){
                     console.log(result.error.text);
-                    alert('Fill out the form completely!\n Emails must be valid and passwords must be at least 5 charictors');
+                    alert('Fill out the form completely!\n Emails must be valid and passwords must be at least 5 characters');
                     return false;
                 }
                 console.log('account created');
