@@ -5,9 +5,9 @@ $(function(){
         //Pass info to server and get session!
         //validate
         validates = true;
-        if($('#createEmail').val()){
+        if(validateEmail($('#createEmail').val()){
         	alert('You must enter a valid email'); validates = false;
-        }else if($('#createPassword').val().length > 5){
+        }else if($('#createPassword').val().length >= 5){
        		alert('Password Must be at least 5 characters'); validates = false;
     	}else if($('#createfName').val() == ""){
     		alert('Please enter your first name'); validates = false;
