@@ -89,7 +89,7 @@ $(function() {
         $('#login-form').submit(function(){
             //Pass info to server and get session!
             //Authenticate user
-            $.ajax(api, {
+            $.ajax(api + '?api=u', {
                 type : 'post',
                 dataType: "json",
                 data: {
