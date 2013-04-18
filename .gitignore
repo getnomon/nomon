@@ -3,6 +3,7 @@
 *.txt
 *.json
 *.xspf
+*.mwb
 
 # Log files
 *.log
