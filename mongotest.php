@@ -9,6 +9,10 @@ try {
   // access collection
   $collection = $db->items;
 
+  //add item to collection
+  $document = array( "name" => "ovacado", "quantity" => 3, "price" => 3.75);
+  $collection->insert($document);
+
   // execute query
   // retrieve all documents
   $cursor = $collection->find();
