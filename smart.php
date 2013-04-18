@@ -1,6 +1,8 @@
 <?php
 
-require_once ("api.php");
+require_once ("api/api.php");
+
+$nomon = new nomon();
 
 $GLOBALS['page'] = "";
 
@@ -14,10 +16,19 @@ function _renderPage(){
 
 
 #Track state of user with cookies
+/*
+-Address
+-User (double hashed )
+
+*/
 
 #Create a SECURE cookie
 function bake($name, $value){
 	setcookie($name, $value, 0, '/', 'getnomon.com', isset($_SERVER["HTTPS"]), true);
 }
+
+#This is for hashing sessionids
+#ini_set('session.hash_function', 1);
+
 
 ?>

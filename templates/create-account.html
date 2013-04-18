@@ -15,8 +15,8 @@ $(function(){
     	}else if($('#createlName').val() == ""){
     		alert('Please enter your last name'); validates = false;
     	}
+    	
         //Create Account
-
         if(validates){
             $.ajax(api('r'), {
                 type : 'post',
