@@ -50,6 +50,20 @@ $(function() {
                             //Inject the number of results into the headder
                             //$('#rest-count').text(result.length);
                             console.log(result);
+
+                            /*begin jank type population*/
+                            var types = [];
+                            $.each(result, function(index, rst){
+                                types.push(rst.cu[0]);
+                            });
+                            unique_types = $.unique(types);
+                            $.each(unique_types, function(index, type){
+                                $('form#uber').append($('label', {class:"checkbox"})
+                                    .append($('input', 
+                                    {type:"checkbox", id:"Rcheckbox"+index, name:"filter", value:type, text:type}))
+                                );
+                            });
+                            /*end jank type population*/
                             randomRestaurant = result[Math.floor(Math.random()*result.length)];
                             console.log('Random restaurant: '+randomRestaurant.na);
                             $('#restaurant').text(randomRestaurant.na);
