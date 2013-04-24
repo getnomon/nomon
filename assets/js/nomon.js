@@ -47,7 +47,8 @@ $(function() {
                             }
                         }).done(function(result){
                             console.log(result.length);
-                            $('#rest-count').text(result.length);
+                            //Inject the number of results into the headder
+                            //$('#rest-count').text(result.length);
                             console.log(result);
                             randomRestaurant = result[Math.floor(Math.random()*result.length)];
                             console.log('Random restaurant: '+randomRestaurant.na);

@@ -7,25 +7,43 @@ class nomon {
     public $ordrin;
 
     function __construct() { 
-    	#Link global ordrin to our local var
-    	global $ordrin;
+        #Link global ordrin to our local var
+        global $ordrin;
         $this->ordrin = $ordrin;
-    	#connect to the nomon database
+        #connect to the nomon database
         $this->con = mysqli_connect("localhost","nomon","iloveapples","nomon");
         #check session (if it is not yet set, let's create one)
         $a = session_id();
-		if(empty($a)){
-			session_start();
-		}
+        if(empty($a)){
+            session_start();
+        }
         #load in helper classes
         $this->user = new nomonUser();
         $this->order = new nomonOrder();
     }
 
-	#Clears the user's current session
+    /**
+     * Return a JSON or JSONP object.
+     * ALL OUTPUT SHOULD GO THROUGH THIS FUNCTION!
+     * Use this instead of json_encode!
+     *
+     * @param object  $object       Array to return should be a PHP object!
+     * @param bool    $p            Whether to wrap in a jsonp callback
+     *
+     * @return JSON object with an apropriate callback if nessesary
+     */
+    public function returnJSON($object, $p = true){
+        $json = json_encode($object);
+        if($p){
+            return "jsonpCallback(".$json.");";
+        }  
+        return $json;
+    }
+    
+    #Clears the user's current session
     public function logout(){
-    	session_destroy();
-    	#send session end time to server
+        session_destroy();
+        #send session end time to server
     }
 
     public function login($email, $password){
@@ -39,11 +57,12 @@ class nomon {
     }
 
     private function query($sql){
-    	if(!$result = $this->con->query($sql)){
-    		throw new NomonException(array("There was an error running the query!", $this->$con->error), 1);
-		}
-		return $result;
+        if(!$result = $this->con->query($sql)){
+            throw new NomonException(array("There was an error running the query!", $this->$con->error), 1);
+        }
+        return $result;
     }
+
 
     function __destruct() {
        #let go of the database
