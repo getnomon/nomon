@@ -54,7 +54,7 @@ $(function() {
                             /*begin jank type population*/
                             var types = [];
                             $.each(result, function(index, rst){
-                                types.push(rst.cu);
+                                types.push(rst.cu[0]);
                             });
                             unique_types = $.unique(types);
                             console.log(unique_types);
