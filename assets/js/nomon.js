@@ -85,7 +85,7 @@ $(function() {
                 }
             }
 
-            if(!(typeof $(this).attr('href').substr(1) === 'undefined')){
+            if(!(typeof $(this).attr('href') === 'undefined')){
                 var target = $(this).attr('href').substr(1);
                 //console.log('Target: ' + target);
                 //hide all
