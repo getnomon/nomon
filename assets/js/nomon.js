@@ -59,7 +59,7 @@ $(function() {
                                     types.push(rst.cu[0]);
                                 }
                             });
-                            unique_types = $.unique(types);
+                            unique_types = unique(types);
                             console.log(unique_types);
                             $.each(unique_types, function(index, type){
                                 $('form#uber').prepend($('<label>', {class:"checkbox"})
@@ -197,6 +197,12 @@ $(function() {
         fontSize = (size > 82) ? 82 + 'px':  size + 'px';
         $('h1.title-front').css('font-size', fontSize);
     }
+
+    function unique(array){
+    return array.filter(function(el,index,arr){
+        return index == arr.indexOf(el);
+    });
+}
 
 });
 
