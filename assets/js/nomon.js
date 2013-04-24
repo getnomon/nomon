@@ -57,10 +57,11 @@ $(function() {
                                 types.push(rst.cu[0]);
                             });
                             unique_types = $.unique(types);
+                            console.log(unique_types);
                             $.each(unique_types, function(index, type){
-                                $('form#uber').append($('label', {class:"checkbox"})
-                                    .append($('input', 
-                                    {type:"checkbox", id:"Rcheckbox"+index, name:"filter", value:type, text:type}))
+                                $('form#uber').append($('<label>', {class:"checkbox"})
+                                    .append($('<input>', 
+                                    {"type":"checkbox", id:"Rcheckbox"+index, name:"filter", "value":type, text:type}))
                                 );
                             });
                             /*end jank type population*/
