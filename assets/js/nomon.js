@@ -60,7 +60,7 @@ $(function() {
                                 }
                             });
                             unique_types = unique(types);
-                            unique_types.sort(function(a,b){return b-a});
+                            unique_types.reverse();
                             console.log(unique_types);
                             $.each(unique_types, function(index, type){
                                 $('form#uber').prepend($('<label>', {class:"checkbox"})
