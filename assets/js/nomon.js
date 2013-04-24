@@ -46,7 +46,7 @@ $(function() {
                                 zip  : add_comp.postal_code
                             }
                         }).done(function(result){
-                            console.log(result.length);
+                            console.log(result);
                             //Inject the number of results into the headder
                             //$('#rest-count').text(result.length);
                             //console.log(result);
@@ -54,7 +54,8 @@ $(function() {
                             /*begin jank type population*/
                             var types = [];
                             $.each(result, function(index, rst){
-                                if(!(typeof rst.cu[0] === 'undefined')){
+                                console.log(index);
+                                if(!(typeof rst.cu === 'undefined')){
                                     types.push(rst.cu[0]);
                                 }
                             });
