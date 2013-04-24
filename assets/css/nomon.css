@@ -54,13 +54,17 @@
   margin-top: 28px;
 }
 
-#restrictions{
+.form-narrow{
   display: block;
   padding-top: 5px;
   margin: auto;
   width: 200px;
   max-width: 100%;
   text-align: left;
+}
+
+.form-narrow span{
+  float: left;
 }
 
 .logo-banner{

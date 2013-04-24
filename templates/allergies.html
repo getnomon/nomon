@@ -5,7 +5,7 @@
 
         <a class="btn btn-danger btn-large btn-block btn-primary" href="/pay">I'll eat anything.</a>
         <button class="btn btn-danger btn-large btn-block btn-primary" onclick="document.getElementById('restrictions').style.display='block';">Keep in mind...</button>
-        <form id="restrictions" action="/pay" style="display:none; margin-top: 10px;" method="post">
+        <form id="restrictions" class="form-narrow" action="/pay" style="display:none; margin-top: 10px;" method="post">
         	<label><h4>I am a</h4></label>
 	        <label class="checkbox">
 			  <input type="checkbox" id="Checkbox1" name="restrictions" value="Vegetarian"> Vegetarian
@@ -36,7 +36,7 @@
         </form>
 
         <button class="btn btn-danger btn-large btn-block btn-primary" onclick="document.getElementById('uber').style.display='block';">Uber Button</button>
-        <form id="uber" action="/pay" style="display:none; margin-top: 10px;" method="post">
+        <form id="uber" class="form-narrow" action="/pay" style="display:none; margin-top: 10px;" method="post">
         	<label><h4>I only want</h4></label>
 			<button type="submit" class="btn btn-danger btn-large btn-block btn-primary" style="margin-top:10px">Let's do it!</button>
         </form>
