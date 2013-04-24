@@ -54,7 +54,7 @@ $(function() {
                             /*begin jank type population*/
                             var types = [];
                             $.each(result, function(index, rst){
-                                if(!(typof rst.cu[0] === 'undefined')){
+                                if(!(typeof rst.cu[0] === 'undefined')){
                                     types.push(rst.cu[0]);
                                 }
                             });
