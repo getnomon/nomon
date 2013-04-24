@@ -84,16 +84,19 @@ $(function() {
                     });
                 }
             }
-            var target = $(this).attr('href').substr(1);
-            //console.log('Target: ' + target);
-            //hide all
-            if(target != ''){
-                $('.page').hide();
-                $('.masthead').css('height', '55px');
-                $('.mini-logo').show();
-                $('#'+target).show();
+
+            if(!(typeof $(this).attr('href').substr(1) === 'undefined')){
+                var target = $(this).attr('href').substr(1);
+                //console.log('Target: ' + target);
+                //hide all
+                if(target != ''){
+                    $('.page').hide();
+                    $('.masthead').css('height', '55px');
+                    $('.mini-logo').show();
+                    $('#'+target).show();
+                }
             }
-        	return false;
+            	return false;
         });
 
         $('#getnomon').on('click', function(){
