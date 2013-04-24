@@ -49,11 +49,13 @@ $(function() {
                             console.log(result.length);
                             //Inject the number of results into the headder
                             //$('#rest-count').text(result.length);
-                            console.log(result);
+                            //console.log(result);
 
                             /*begin jank type population*/
                             var types = [];
                             $.each(result, function(index, rst){
+                                console.log(rst);
+                                console.log(rst.cu);
                                 types.push(rst.cu[0]);
                             });
                             unique_types = $.unique(types);
