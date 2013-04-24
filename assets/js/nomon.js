@@ -64,7 +64,8 @@ $(function() {
                             $.each(unique_types, function(index, type){
                                 $('form#uber').append($('<label>', {class:"checkbox"})
                                     .append($('<input>', 
-                                    {"type":"checkbox", id:"Rcheckbox"+index, name:"filter", "value":type, text:type}))
+                                    {"type":"checkbox", id:"Rcheckbox"+index, name:"filter", "value":type, checked:"true"})
+                                        .append($('<span>', {text:type})))
                                 );
                             });
                             /*end jank type population*/
