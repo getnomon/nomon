@@ -16,6 +16,8 @@
 #Enable cross domain requests
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+#responce type
+header('Content-Type: application/json');
 
 require_once('ordrin/OrdrinApi.php');
 
