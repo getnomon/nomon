@@ -7,20 +7,13 @@
  * @license  http://creativecommons.org/licenses/MIT/ MIT
  *
  * TODO: Find out how to subvert cross domain POST
- * or at least do a secure get request.
- * This is a HUGE security vuniribility and will have
- * to be fixed ASAP
  *
  */
 
-#Enable cross domain requests
-header("Access-Control-Allow-Origin: *");
-header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
-
 require_once('ordrin/OrdrinApi.php');
+header('Content-Type: application/json');
 
-
-##Date Time (Either set or ASAP)
+#Date Time (Either set or ASAP)
 $dt = (isset($_POST['dT'])) ? $_POST['dT'] : 'ASAP';
 
 if(isset($GLOBALS['dev']) && $GLOBALS['dev']){
