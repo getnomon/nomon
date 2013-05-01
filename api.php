@@ -57,9 +57,9 @@ switch ($_GET["api"]) {
 	    $addr = $ordrin::address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], "");
 	    $print = $ordrin->order->submit($_POST["rid"], $tray, $_POST['tip'], $dt, $_POST["email"], $_POST['pass'], $_POST["fName"], $_POST["lName"], $a, $credit_card);
 	    $data['response'] = $print;
-	    echo json_encode($data);
+	    echo json_respond($data);
 	}catch(Exception $e){
-		echo json_encode(errorToJSON($e)); //return error
+		echo json_respond(errorToJSON($e)); //return error
 	}
   break;
 }
@@ -73,75 +73,75 @@ try{
 	  case "dl": #Delivery List
 	    $addr = $ordrin::address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], "");
 	    $print = $ordrin->restaurant->getDeliveryList($dt, $addr);
-	    echo json_encode($print);
+	    echo json_respond($print);
 	  break;
 	  case "dc": #Delivery Check
 	    $addr = $ordrin::address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], "");
 	    $print = $ordrin->restaurant->deliveryCheck($_POST["rid"], $dt, $addr);
-	    echo json_encode($print);
+	    echo json_respond($print);
 	  break;
 	  case "df": #Delivery Fee
 	    $sT = $_POST["sT"];
 	    $tip = $_POST["tip"];
 	    $addr = $ordrin::address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], "");
 	    $print = $ordrin->restaurant->deliveryFee($_POST["rid"], $sT, $tip, $dt, $addr);
-	    echo json_encode($print);
+	    echo json_respond($print);
 	  break;
 	  case "rd": #Restaurant Details
 	    $print = $ordrin->restaurant->details($_POST["rid"]);
-	    echo json_encode($print);
+	    echo json_respond($print);
 	  break;
 	#User API
 	  case "gacc": #Account Info
 	    $print = $ordrin->user->getAccountInfo();
-	    echo json_encode($print);
+	    echo json_respond($print);
 	  break;
 	  case "macc": #Create Account
 	    $print = $ordrin->user->create($_POST["email"], hash('sha256',$_POST["pass"]), $_POST["fName"], $_POST["lName"]);
-	    echo json_encode($print);
+	    echo json_respond($print);
 	  break;
 	  case "upass": #Update Password
 	    $ordrin->user->authenticate($_POST['email'],hash('sha256',$_POST['oldPass']));
 	    $print = $ordrin->user->updatePassword(hash('sha256',$_POST['pass']));
-	    echo json_encode($print);
+	    echo json_respond($print);
 	  break;
 	  case "gaddr": #Saved Address(es)
 	    $print = $ordrin->user->getAddress($_POST["addrNick"]);
-	    echo json_encode($print);
+	    echo json_respond($print);
 	  break;
 	  case "uaddr": #Save/Update Address
 	    $a = $ordrin::Address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], $_POST["phone"], $_POST["addr2"]);
 	    $print = $ordrin->user->setAddress($_POST["addrNick"], $a);
-	    echo json_encode($print);
+	    echo json_respond($print);
 	  break;
 	  case "daddr": #Delete Address
 	    $print = $ordrin->user->deleteAddress($_POST["addrNick"]);
-	    echo json_encode($print);
+	    echo json_respond($print);
 	  break;
 	  case "gcar": #Get Card(s)
 	    $print = $ordrin->user->getCard($_POST["cardNick"]);
-	    echo json_encode($print);
+	    echo json_respond($print);
 	  break;
 	  case "ucar": #Save/update Card
 	    $a = $ordrin::Address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], $_POST["phone"], $_POST["addr2"]);
 	    $print = $ordrin->user->setCard($_POST["cardNick"], $_POST["fName"] . $_POST["lName"], $_POST["cardNum"], $_POST["csc"], $_POST["expMo"], $_POST["expYr"], $a);
-	    echo json_encode($print);
+	    echo json_respond($print);
 	  break;
 	  case "dcar": #Delete Card
 	    $print = $ordrin->user->deleteCard($_POST["cardNick"]);
-	    echo json_encode($print);
+	    echo json_respond($print);
 	  break;
 	  case "gordr": #Get Previous Order(s)
 	    $print = $ordrin->user->getOrderHistory();
-	    echo json_encode($print);
+	    echo json_respond($print);
 	  break;
 	  case "gordrs": #Info On Specific Order
 	    $print = $ordrin->user->getOrderHistory($_POST["ordrID"]);
-	    echo json_encode($print);
+	    echo json_respond($print);
 	  break;
 	}
 }catch (Exception $e){
-	echo json_encode(errorToJSON($e)); //return error
+	echo json_respond(errorToJSON($e)); //return error
 }
 
 
@@ -157,6 +157,14 @@ function calcMeal($targetPrice, $result, $allergies = NULL){
 		//Dary -> pizza
 	}
 
+}
+
+function json_respond($array){
+	$data = json_encode($array);
+	if(isset($_REQUEST['callback'])){
+		return $_REQUEST['callback'] . '(' . $data . ')';
+	}
+	return $data;
 }
 
 /*Acceps an array of allergie IDs*/

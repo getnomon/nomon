@@ -161,7 +161,7 @@ $(function() {
 		navigator.geolocation.getCurrentPosition(getLocation, getLocationFail, {enableHighAccuracy: true});
     });
 
-    if(pathname != '/' && pathname != '/test' && pathname != "/app"){
+    if(pathname != '/' && pathname != '/test' && pathname != "/old-app"){
         $('.masthead').css('height', '55px');
         $('.mini-logo').css('display', 'inline-block');
     }
