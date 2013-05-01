@@ -5,13 +5,13 @@ error_reporting(E_ALL);
 /*Index file makes nomon HUNGRY*/
 //Load Dependencies
 //Get Moneyn
-$SUBDOMAIN = pathinfo($_SERVER['SERVER_NAME'], PATHINFO_EXTENSION);
+$DOMAINEXT = pathinfo($_SERVER['SERVER_NAME'], PATHINFO_EXTENSION);
 
 #FORCE HTTPS
-if((!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "") && $SUBDOMAIN != "dev") {
+if((!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "") && $DOMAINEXT != "dev") {
     $redirect = "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     header("Location: $redirect");
-}elseif ($SUBDOMAIN == "dev") {
+}elseif ($DOMAINEXT == "dev") {
 	#This is the dev server... Deal with it...
 	$GLOBALS['dev'] = true;
 }
@@ -35,7 +35,7 @@ if(isset($_REQUEST['q'])){
 	$q[0] = 'index';
 }
 
-if ($q[0] == "app") {
+if ($q[0] == "old-app") {
 	//This is the app, load all apropriate pages into DOM
 	_generate('test'); //change to index later
 	_generate('price');

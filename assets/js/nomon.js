@@ -13,7 +13,7 @@ $(function() {
 	//Capture click/taps
 
 	//This is app specific code
-	if(pathname == '/app'){
+	if(pathname == '/old-app'){
         $('.masthead').css('height', '30px');
         $('.mini-logo').hide();
         //Hide rest of page inicially
@@ -74,9 +74,7 @@ $(function() {
                             console.log('Random restaurant: '+randomRestaurant.na);
                             $('#restaurant').text(randomRestaurant.na);
                         }).fail(function(jqXHR, textStatus, errorThrown){
-                            alert('Could not find any restaurants :(');
-                            console.log(textStatus);
-                            console.log(errorThrown);
+                            alert('Could not find any restaurants for this location');
                         });
                     }).fail(function(jqXHR, textStatus, errorThrown){ 
                         alert('Could not validate address.'); 
