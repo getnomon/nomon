@@ -8,6 +8,7 @@
  */
 
 require_once('ordrin/OrdrinApi.php');
+header('Content-Type: application/json');
 
 #Date Time (Either set or ASAP)
 $dt = (isset($_POST['dT'])) ? $_POST['dT'] : 'ASAP';
