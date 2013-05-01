@@ -29,7 +29,7 @@ $(function() {
                 }else{
                     $.get(geoValidate($('#address').val())).done(function(data) { 
                         //got data, now what?
-                        console.log(data.results);
+                        //console.log(data.results);
                         $.each(data.results[0].address_components, function(index, addr){
                             add_comp[addr.types[0]] = addr.short_name;
                         });
