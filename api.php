@@ -13,18 +13,50 @@
  *
  */
 
+$VERSION = 0.87;
+
 #Enable cross domain requests
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 #responce type
 header('Content-Type: application/json');
 
-require_once('ordrin/OrdrinApi.php');
 
-if(isset($_GET['motd'])){
-	$motd['motd'] = "This is the message of the day! We can use <strong>html</html> too!";
+$a = session_id();
+if(empty($a)){ session_start();}
+//echo "SID: ".SID."<br>session_id(): ".session_id()."<br>COOKIE: ".$_COOKIE["PHPSESSID"];
+
+/*get the message of the day! (we don't need the api for this)*/
+if(isset($_GET['motd']) || isset($_GET['session'])){
+	if(isset($_GET['motd'])){
+		$motd['motd'] = "<p style='text-align: center'>This is the message of the day! We can use <strong>html</html> too!</p>";
+	}
+	//disabled for now
+	if(false && $_GET['ver'] < $ver){
+		$motd['ver'] = "<h1>Please download the newest version of nomON!</h1>";
+	}
+	if(isset($_GET['session']) && $_GET['session']){
+		$motd['auth'] = (!empty($SESSION['emal']))? true : false;
+		$motd['sid']['s'] = session_id();
+		$motd['sid']['c'] = $_COOKIE["PHPSESSID"];
+	}
+
 	die(json_encode($motd));
 }
+
+//Log the user out
+if(isset($_GET['logout']) && $_GET['logout']){
+	if (ini_get("session.use_cookies")) {
+    	$params = session_get_cookie_params();
+    	setcookie(session_name(), '', time() - 42000, $params["path"], 
+    	$params["domain"], $params["secure"], $params["httsponly"]);
+	}
+	// Finally, destroy the session.
+	session_destroy();
+}
+
+
+require_once('ordrin/OrdrinApi.php');
 
 ##Date Time (Either set or ASAP)
 $dt = (isset($_POST['dT'])) ? $_POST['dT'] : 'ASAP';
@@ -42,13 +74,20 @@ switch ($_GET["api"]) {
   case "r": #Don't do anything
   break;
   case "u": #Authenticate User
-  	$hashPass = hash('sha256',$_POST['pass']); //save this cookie?
-    $ordrin->user->authenticate($_POST['email'], $hashPass);
+  	try{
+		$hashPass = hash('sha256',$_POST['pass']);
+    	$ordrin->user->authenticate($_POST['email'], $hashPass);
+	}catch(Exception $e){
+		die(json_encode($error['error'] = $e->getMessage()));
+	}
+	//user is authenticated let's save that hashed pass
+	$SESSION['pass'] = $hashPass;
+	$SESSION['email'] = $_POST['email'];
   break;
   case "o": #Place Order
   	try{
-	    if(!empty($_POST['pass'])){
-	      $ordrin->user->authenticate($_POST['email'],hash('sha256',$_POST['pass']));
+	    if(!empty($SESSION['pass'])){
+	      $ordrin->user->authenticate($SESSION['email'], $SESSION['pass']);
 	    }
 	    $a = $ordrin::address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], $_POST['phone']);
 	    $credit_card = $ordrin::creditCard($_POST['fName'] .' '. $_POST['lName'], $_POST['expMo'], $_POST['expYr'], $_POST['cardNum'], $_POST['csc'], $a); 
@@ -182,6 +221,16 @@ function json_respond($array){
 		return $_REQUEST['callback'] . '(' . $data . ')';
 	}
 	return $data;
+}
+
+//set a secure cookie
+function bake($name, $value){
+	setcookie($name, $value, 0, '/', 'getnomon.com', true, true);
+}
+
+//remove a cookie
+function burn($name){
+	bake($name, null);
 }
 
 /*Acceps an array of allergie IDs*/

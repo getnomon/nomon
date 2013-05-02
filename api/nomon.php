@@ -32,7 +32,7 @@ class nomon {
      *
      * @return JSON object with an apropriate callback if nessesary
      */
-    public function returnJSON($object, $p = true){
+    public function returnJSON($object, $p = false){
         $json = json_encode($object);
         if($p){
             return "jsonpCallback(".$json.");";
@@ -53,6 +53,7 @@ class nomon {
         } catch (Exception $e){
             #do something with this
         }
+        
         $_SESSION['auth'] = true;
     }
 
