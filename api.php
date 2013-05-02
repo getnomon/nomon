@@ -21,6 +21,10 @@ header('Content-Type: application/json');
 
 require_once('ordrin/OrdrinApi.php');
 
+if(isset($_GET['motd'])){
+	$motd['motd'] = "This is the message of the day! We can use <strong>html</html> too!";
+	die(json_encode($motd));
+}
 
 ##Date Time (Either set or ASAP)
 $dt = (isset($_POST['dT'])) ? $_POST['dT'] : 'ASAP';
