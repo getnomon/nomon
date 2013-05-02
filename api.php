@@ -78,7 +78,7 @@ switch ($_GET["api"]) {
 		$hashPass = hash('sha256',$_POST['pass']);
     	$ordrin->user->authenticate($_POST['email'], $hashPass);
 	}catch(Exception $e){
-		die(json_encode($error['error'] = $e->getMessage()));
+		die(errorToJSON($e));
 	}
 	//user is authenticated let's save that hashed pass
 	$SESSION['pass'] = $hashPass;
