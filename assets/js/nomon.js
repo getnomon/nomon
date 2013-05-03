@@ -222,7 +222,7 @@ $(function() {
 });
 
 function api(type){
-    return '/api.php?api=' + type;
+    return '/api-active.php?api=' + type;
 }
 
 function validateEmail(emailAddress) {
