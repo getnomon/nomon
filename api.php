@@ -45,7 +45,7 @@ header('Content-Type: application/json');
 
 /*get the message of the day! (we don't need the api for this)*/
 if(isset($_POST['motd'])){
-	$motd['motd'] = "<p style='text-align: center'>This is the message of the day! We can use <strong>html</html> too!</p>";
+	$motd['motd'] = "<p style='text-align: center'>Welcome to the nomON <strong>BETA</strong>!</p>";
 }
 
 //Log the user out
