@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 /**
  * Ordr.in API interface.
@@ -14,10 +13,11 @@ session_start();
  *
  */
 
-/*if(session_id() == "" && isset($_POST['session_id']) && $_POST['session_id'] != "undefined"){
+if(session_id() == "" && isset($_POST['session_id']) && $_POST['session_id'] != "undefined"){
 	session_id($_POST['session_id']);
-}*/
+}
 
+session_start();
 
 
 $username = 'nomon';
