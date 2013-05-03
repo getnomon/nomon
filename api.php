@@ -21,28 +21,11 @@ header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 #responce type
 header('Content-Type: application/json');
 
-
-$a = session_id();
-if(empty($a)){ session_start();}
-//echo "SID: ".SID."<br>session_id(): ".session_id()."<br>COOKIE: ".$_COOKIE["PHPSESSID"];
-
-/*get the message of the day! (we don't need the api for this)*/
-if(isset($_GET['motd']) || isset($_GET['session'])){
-	if(isset($_GET['motd'])){
-		$motd['motd'] = "<p style='text-align: center'>This is the message of the day! We can use <strong>html</html> too!</p>";
-	}
-	//disabled for now
-	if(false && $_GET['ver'] < $ver){
-		$motd['ver'] = "<h1>Please download the newest version of nomON!</h1>";
-	}
-	if(isset($_GET['session']) && $_GET['session']){
-		$motd['auth'] = (!empty($SESSION['emal']))? true : false;
-		$motd['sid']['s'] = session_id();
-		$motd['sid']['c'] = $_COOKIE["PHPSESSID"];
-	}
-
-	die(json_encode($motd));
+if(isset($_POST['session_id'])){
+	session_id($_POST['session_id']);
 }
+
+session_start();
 
 //Log the user out
 if(isset($_GET['logout']) && $_GET['logout']){
@@ -74,15 +57,33 @@ switch ($_GET["api"]) {
   case "r": #Don't do anything
   break;
   case "u": #Authenticate User
-  	try{
-		$hashPass = hash('sha256',$_POST['pass']);
-    	$ordrin->user->authenticate($_POST['email'], $hashPass);
-	}catch(Exception $e){
-		die(errorToJSON($e));
-	}
+  	if(!isset($_SESSION['pass'])){
+	  	try{
+			$hashPass = hash('sha256',$_POST['pass']);
+	    	$ordrin->user->authenticate($_POST['email'], $hashPass);
+		}catch(Exception $e){
+			die(errorToJSON($e));
+		}
 	//user is authenticated let's save that hashed pass
-	$SESSION['pass'] = $hashPass;
-	$SESSION['email'] = $_POST['email'];
+		$SESSION['pass'] = $hashPass;
+		$SESSION['email'] = $_POST['email'];
+
+		/*get the message of the day! (we don't need the api for this)*/
+		if(isset($_GET['motd']) || isset($_GET['session'])){
+			if(isset($_GET['motd'])){
+				$motd['motd'] = "<p style='text-align: center'>This is the message of the day! We can use <strong>html</html> too!</p>";
+			}
+			//disabled for now
+			if(false && $_GET['ver'] < $ver){
+				$motd['ver'] = "<h1>Please download the newest version of nomON!</h1>";
+			}
+		}
+		if(isset($_GET['session']) && $_GET['session']){
+			$motd['auth'] = (!empty($SESSION['emal']))? true : false;
+			$motd['sid'] = session_id();
+			die(json_encode($motd));
+		}
+	}
   break;
   case "o": #Place Order
   	try{
@@ -109,9 +110,9 @@ switch ($_GET["api"]) {
 	    $tray = $ordrin::tray($items);
 	    
 	    $data = array();
-	    $data['request'] = array('restaurant_id'=>$_POST['rid'],'tray'=>$tray->_convertForAPI(),'tip'=>$_POST['tip'],'date'=>$dt,'em'=>$_POST['email'],'password'=>$_POST['pass'],"First Name"=>$_POST['fName'],"Last Name"=>$_POST['lName'],"addr"=>$a,"credit_card"=>$credit_card);
+	    $data['request'] = array('restaurant_id'=>$_POST['rid'],'tray'=>$tray->_convertForAPI(),'tip'=>$_POST['tip'],'date'=>$dt,'em'=>$_SESSION['email'],'password'=>$_SESSION['pass'],"First Name"=>$_POST['fName'],"Last Name"=>$_POST['lName'],"addr"=>$a,"credit_card"=>$credit_card);
 	    $addr = $ordrin::address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], "");
-	    $print = $ordrin->order->submit($_POST["rid"], $tray, $_POST['tip'], $dt, $_POST["email"], $_POST['pass'], $_POST["fName"], $_POST["lName"], $a, $credit_card);
+	    $print = $ordrin->order->submit($_POST["rid"], $tray, $_POST['tip'], $dt, $_SESSION["email"], $_SESSION['pass'], $_POST["fName"], $_POST["lName"], $a, $credit_card);
 	    $data['response'] = $print;
 	    echo json_respond($data);
 	}catch(Exception $e){
