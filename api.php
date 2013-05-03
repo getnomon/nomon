@@ -18,6 +18,20 @@ if(session_id() == "" && isset($_POST['session_id']) && $_POST['session_id'] != 
 }
 session_start();
 
+
+$username = 'nomon';
+$password = 'iloveapples';
+$hostname = 'localhost'; // This will always need to be localhost on our server.
+$database = 'nomon';
+
+// Create a connection to the database.
+$db = new PDO("mysql:dbname=$database;host=$hostname", $username, $password);
+
+// Make any SQL syntax errors result in PHP errors.
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+
+
 $VERSION = 0.87;
 
 #Enable cross domain requests
@@ -74,9 +88,10 @@ switch ($_GET["api"]) {
 		}
 		//user is authenticated let's save that hashed pass
 		if($_POST['start_session']){
-			//bake('pass', $hashPass);
-			$SESSION['pass'] = $hashPass;
-			$SESSION['email'] = $_POST['email'];
+			/*$sql = "INSERT INTO";*/
+
+			bake('pass', $hashPass);
+			bake('email',  $_POST['email']);
 			$motd['sid'] = session_id();
 			die(json_encode($motd));
 		}
@@ -91,9 +106,9 @@ switch ($_GET["api"]) {
 			$motd['sid'] = session_id();
 		}
 		echo json_encode($motd);
-	}elseif(isset($_SESSION['pass'])){
+	}elseif(isset($_COOKIE['pass'])){
 		$fuck['nofuck'] = "Session varable is carrying over";
-		$fuck['hashpass'] = $_SESSION['pass'];
+		$fuck['hashpass'] = $_COOKIE['pass'];
 		$fuck['sid'] = session_id();
 		die(json_encode($fuck));
     	$ordrin->user->authenticate($_SESSION['email'], $_SESSION['pass']);
@@ -105,8 +120,8 @@ switch ($_GET["api"]) {
   break;
   case "o": #Place Order
   	try{
-	    if(!empty($SESSION['pass'])){
-	      $ordrin->user->authenticate($SESSION['email'], $SESSION['pass']);
+	    if(!empty($_SESSION['pass'])){
+	      $ordrin->user->authenticate($_SESSION['email'], $_SESSION['pass']);
 	    }
 	    $a = $ordrin::address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], $_POST['phone']);
 	    $credit_card = $ordrin::creditCard($_POST['fName'] .' '. $_POST['lName'], $_POST['expMo'], $_POST['expYr'], $_POST['cardNum'], $_POST['csc'], $a); 
@@ -263,4 +278,27 @@ function genNote($allergies){
 	$note .= "Thanks!\n -NomON | nomon.co";
 }
 
-?>
+function http_die($code, $status, $message) {
+  header("HTTP/1.1 $code $status");
+  die(json_encode($message));
+}
+
+function xql($sql, $params, $print = false, $return = false){
+	global $db;
+
+	try{
+		header('Content-Type: application/json');
+		$q = $db->prepare($sql);
+		$q->execute($params);
+		if($print || $return){
+			$rows = $q->fetchAll(PDO::FETCH_ASSOC);
+			if($print){
+				echo json_encode($rows);
+			}
+			return $rows;
+		}
+	}catch(PDOException $e){
+	    // Non-specific error for production
+	    http_die(500, "Internal Server Error", "SQL Error: " . $e->getMessage());
+	}
+}
