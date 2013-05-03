@@ -1,8 +1,10 @@
 *{
   padding: 0px;
   margin: 0px;
+  /*
   -webkit-user-select: none;
   -moz-user-select: none;
+  */
 }
 
 *::selection          {background: #bc2127; color: #FFFFFF;/* Safari */}
