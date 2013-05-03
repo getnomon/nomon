@@ -89,6 +89,10 @@ switch ($_GET["api"]) {
 		echo json_encode($motd);
 	}elseif(isset($_SESSION['pass'])){
     	$ordrin->user->authenticate($_SESSION['email'], $_SESSION['pass']);
+	}else{
+		$fuck['fuck'] = "Session varable not carrying over";
+		$fuck['sid'] = session_id();
+		json_encode($fuck);
 	}
   break;
   case "o": #Place Order
