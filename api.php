@@ -94,7 +94,7 @@ switch ($_GET["api"]) {
 			$_SESSION['pass'] = $hashPass;
 			$_SESSION['email'] = $_POST['email'];
 			$_SESSION['uuid'] =  $_POST['uuid'];
-			
+			session_write_close();
 
 			bake('pass', $hashPass);
 			bake('email',  $_POST['email']);
@@ -321,7 +321,3 @@ function xql($sql, $params, $print = false, $return = false){
 function generatePlatter(){
 	return array(4613, 78974, 654984);
 }
-
-
-//Taking care of some variables
-session_write_close();
