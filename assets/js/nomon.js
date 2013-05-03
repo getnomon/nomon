@@ -10,6 +10,9 @@ $(function() {
 	var isMobile = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|BlackBerry|webOS)/);
 	var pathname = $(location).attr('pathname');
     var add_comp = []; //address components
+    var validates = true;
+    var email = "";
+    var password = "";
 	//Capture click/taps
 
 	//This is app specific code
@@ -76,6 +79,84 @@ $(function() {
 		    }
 		});
     }
+
+    $('#create-user').submit(function(){
+        //Pass info to server and get session!
+        //validate
+        validates = true;
+        email = $('#createEmail').val();
+        password = $('#createPassword').val();
+
+        console.log(validateEmail($('#createEmail').val()));
+        if(!validateEmail($('#createEmail').val())){
+            alert('You must enter a valid email'); validates = false;
+        }else if($('#createPassword').val().length < 5){
+            alert('Password Must be at least 5 characters'); validates = false;
+        }else if($('#createfName').val() == ""){
+            alert('Please enter your first name'); validates = false;
+        }else if($('#createlName').val() == ""){
+            alert('Please enter your last name'); validates = false;
+        }
+        
+        //Create Account
+        if(validates){
+            $.ajax(api('r'), {
+                type : 'post',
+                dataType: "json",
+                data: {
+                    func  : 'macc',
+                    email : email,
+                    pass  : password,
+                    fName : $('#createfName').val(),
+                    lName : $('#createlName').val()
+                }
+            }).done(function(result){
+                console.log(result);
+                if(result.error != null){
+                    console.log(result.error.text);
+                    alert('Fill out the form completely!\n Emails must be valid and passwords must be at least 5 characters');
+                    return false;
+                }else{
+                  $.get(geoValidate($('#address').val())).done(function(data) { 
+                        //got data, now what?
+                        //console.log(data.results);
+                        $.each(data.results[0].address_components, function(index, addr){
+                            add_comp[addr.types[0]] = addr.short_name;
+                        });
+                        console.log(add_comp);
+                        //make delivery request based on address
+                        $.ajax(api('r'), {
+                            type : 'post',
+                            dataType: "json",
+                            data: {
+                                func : 'uaddr',
+                                email: email,
+                                pass : password,
+                                addr : add_comp.street_number+" "+add_comp.route,
+                                city : add_comp.locality,
+                                state: add_comp.administrative_area_level_1,
+                                zip  : add_comp.postal_code
+                            }
+                        }).done(function(result){
+                            console.log(result);
+                            /*begin jank type population*/
+                        }).fail(function(jqXHR, textStatus, errorThrown){
+                            alert('Something went wront... Try again?');
+                        });
+                    }).fail(function(jqXHR, textStatus, errorThrown){ 
+                        alert('Could not validate address.'); 
+                        return false;
+                    });
+                }
+                alert('Thanks! Your account has been created :)');
+                console.log('account created');
+            }).fail(function(jqXHR, textStatus, errorThrown){
+                console.log(errorThrown);
+                    alert('Check your internet connection');
+            });
+        }
+        return false;
+    });
 
     //Genaric Cross app/web code
 
