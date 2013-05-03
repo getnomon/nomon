@@ -38,6 +38,7 @@ $VERSION = 0.87;
 #Enable cross domain requests
 header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, X-Requested-With');
 #responce type
 header('Content-Type: application/json');
 
