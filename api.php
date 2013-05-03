@@ -112,7 +112,7 @@ switch ($_GET["api"]) {
 			$motd['sid'] = session_id();
 		}
 		echo json_encode($motd);
-	}elseif(isset($_SESSION['pass'])){
+	}elseif(!empty($_SESSION['pass'])){
 		$fuck['nofuck'] = "Session varable is carrying over";
 		$fuck['hashpass'] = $_SESSION['pass'];
 		$fuck['sid'] = session_id();
@@ -120,6 +120,7 @@ switch ($_GET["api"]) {
     	$ordrin->user->authenticate($_SESSION['email'], $_SESSION['pass']);
 	}else{
 		$fuck['fuck'] = "Session varable not carrying over";
+		$fuck['session'] = $_SESSION;
 		$fuck['sid'] = session_id();
 		die(json_encode($fuck));
 	}
