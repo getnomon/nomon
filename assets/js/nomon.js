@@ -96,6 +96,10 @@ $(function() {
             alert('Please enter your first name'); validates = false;
         }else if($('#createlName').val() == ""){
             alert('Please enter your last name'); validates = false;
+        }else if($('#createAddress').val() == ""){
+            alert('Please enter your last name'); validates = false;
+        }else if($('#createPhone').val() == ""){
+            alert('Please enter your last name'); validates = false;
         }
         
         //Create Account
