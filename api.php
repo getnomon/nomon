@@ -91,6 +91,9 @@ switch ($_GET["api"]) {
 		//user is authenticated let's save that hashed pass
 		if($_POST['start_session']){
 			/*$sql = "INSERT INTO";*/
+			$_SESSION['pass'] = $hashPass;
+			$_SESSION['email'] = $_POST['email'];
+			session_write_close();
 
 			bake('pass', $hashPass);
 			bake('email',  $_POST['email']);
