@@ -1,10 +1,11 @@
 <?php
+session_start();
 
 /**
  * Ordr.in API interface.
  *
- * @author   Evan Cohen < evanbtcohen@gmail.com | @3vanc >
- * @license  http://creativecommons.org/licenses/MIT/ MIT
+ * author   Evan Cohen < evanbtcohen@gmail.com | @3vanc >
+ * license  http://creativecommons.org/licenses/MIT/ MIT
  *
  * TODO: Find out how to subvert cross domain POST
  * or at least do a secure get request.
@@ -16,7 +17,6 @@
 /*if(session_id() == "" && isset($_POST['session_id']) && $_POST['session_id'] != "undefined"){
 	session_id($_POST['session_id']);
 }*/
-session_start();
 
 
 $username = 'nomon';
