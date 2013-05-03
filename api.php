@@ -93,6 +93,7 @@ switch ($_GET["api"]) {
 			/*$sql = "INSERT INTO";*/
 			$_SESSION['pass'] = $hashPass;
 			$_SESSION['email'] = $_POST['email'];
+			$_SESSION['uuid'] =  $_POST['uuid'];
 			//session_write_close();
 
 			bake('pass', $hashPass);
@@ -114,6 +115,11 @@ switch ($_GET["api"]) {
 		echo json_encode($motd);
 	}elseif(!empty($_SESSION['pass'])){
 		//We have a stored hash password that we can use
+		if($_SESSION['uuid'] != $_POST['uuid']){
+			//someone is trying to hack us
+			$nohack['message'] = "Nice try, ya fuckin hacker! :)";
+			die(json_encode($nohack));
+		}
     	$ordrin->user->authenticate($_SESSION['email'], $_SESSION['pass']);
 	}else{
 		$fuck['fuck'] = "Session varable not carrying over";
