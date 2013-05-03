@@ -69,19 +69,19 @@ switch ($_GET["api"]) {
 		$SESSION['email'] = $_POST['email'];
 
 		/*get the message of the day! (we don't need the api for this)*/
-		if(isset($_GET['motd']) || isset($_GET['session'])){
-			if(isset($_GET['motd'])){
+		if(isset($_POST['motd']) || isset($_POST['get_session'])){
+			if(isset($_POST['motd'])){
 				$motd['motd'] = "<p style='text-align: center'>This is the message of the day! We can use <strong>html</html> too!</p>";
 			}
 			//disabled for now
-			if(false && $_GET['ver'] < $ver){
+			if(false && $_POST['ver'] < $ver){
 				$motd['ver'] = "<h1>Please download the newest version of nomON!</h1>";
 			}
-		}
-		if(isset($_GET['session']) && $_GET['session']){
-			$motd['auth'] = (!empty($SESSION['emal']))? true : false;
-			$motd['sid'] = session_id();
-			die(json_encode($motd));
+			if(isset($_POST['get_session']) && $_POST['get_session']){
+				$motd['auth'] = (!empty($SESSION['emal']))? true : false;
+				$motd['sid'] = session_id();
+			}
+			echo json_encode($motd);
 		}
 	}
   break;
