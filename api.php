@@ -13,7 +13,7 @@
  *
  */
 
-if(isset($_POST['session_id']) && $_POST['session_id'] != "undefined"){
+if(session_id() == "" && isset($_POST['session_id']) && $_POST['session_id'] != "undefined"){
 	session_id($_POST['session_id']);
 }
 session_start();
@@ -71,6 +71,7 @@ switch ($_GET["api"]) {
 		}
 		//user is authenticated let's save that hashed pass
 		if($_POST['start_session']){
+			//bake('pass', $hashPass);
 			$SESSION['pass'] = $hashPass;
 			$SESSION['email'] = $_POST['email'];
 			$motd['sid'] = session_id();
