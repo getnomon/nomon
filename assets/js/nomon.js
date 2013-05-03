@@ -126,7 +126,7 @@ $(function() {
                         });
                         console.log(add_comp);
                         //make delivery request based on address
-                        $.ajax(api('r'), {
+                        $.ajax(api('u'), {
                             type : 'post',
                             dataType: "json",
                             data: {
