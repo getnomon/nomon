@@ -113,10 +113,7 @@ switch ($_GET["api"]) {
 		}
 		echo json_encode($motd);
 	}elseif(!empty($_SESSION['pass'])){
-		$fuck['nofuck'] = "Session varable is carrying over";
-		$fuck['hashpass'] = $_SESSION['pass'];
-		$fuck['sid'] = session_id();
-		die(json_encode($fuck));
+		//We have a stored hash password that we can use
     	$ordrin->user->authenticate($_SESSION['email'], $_SESSION['pass']);
 	}else{
 		$fuck['fuck'] = "Session varable not carrying over";
