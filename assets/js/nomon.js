@@ -117,6 +117,7 @@ $(function() {
                     alert('Fill out the form completely!\n Emails must be valid and passwords must be at least 5 characters');
                     return false;
                 }else{
+                  console.log($('#address').val());
                   $.get(geoValidate($('#address').val())).done(function(data) { 
                         //got data, now what?
                         //console.log(data.results);
@@ -132,7 +133,9 @@ $(function() {
                                 func : 'uaddr',
                                 email: email,
                                 pass : password,
+                                addrNick : 'Home',
                                 addr : add_comp.street_number+" "+add_comp.route,
+                                addr2: '',
                                 city : add_comp.locality,
                                 state: add_comp.administrative_area_level_1,
                                 zip  : add_comp.postal_code
@@ -140,6 +143,7 @@ $(function() {
                         }).done(function(result){
                             console.log(result);
                             /*begin jank type population*/
+                            alert('Thanks! Your account has been created :)');
                         }).fail(function(jqXHR, textStatus, errorThrown){
                             alert('Something went wront... Try again?');
                         });
@@ -148,7 +152,7 @@ $(function() {
                         return false;
                     });
                 }
-                alert('Thanks! Your account has been created :)');
+                
                 console.log('account created');
             }).fail(function(jqXHR, textStatus, errorThrown){
                 console.log(errorThrown);
