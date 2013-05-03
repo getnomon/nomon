@@ -20,7 +20,7 @@ if(session_id() == "" && isset($_POST['session_id']) && $_POST['session_id'] != 
 session_start();
 
 
-$username = 'nomon';
+/*$username = 'nomon';
 $password = 'iloveapples';
 $hostname = 'localhost'; // This will always need to be localhost on our server.
 $database = 'nomon';
@@ -29,7 +29,7 @@ $database = 'nomon';
 $db = new PDO("mysql:dbname=$database;host=$hostname", $username, $password);
 
 // Make any SQL syntax errors result in PHP errors.
-$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);*/
 
 
 
@@ -94,7 +94,7 @@ switch ($_GET["api"]) {
 			$_SESSION['pass'] = $hashPass;
 			$_SESSION['email'] = $_POST['email'];
 			$_SESSION['uuid'] =  $_POST['uuid'];
-			//session_write_close();
+			
 
 			bake('pass', $hashPass);
 			bake('email',  $_POST['email']);
@@ -172,6 +172,7 @@ try{
 	#Restaurant API
 	  case "dl": #Delivery List
 	    $addr = $ordrin::address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], "");
+	    $_SESSION['addr'] = $addr; //save the working address for this order
 	    $print = $ordrin->restaurant->getDeliveryList($dt, $addr);
 	    echo json_respond($print);
 	  break;
@@ -312,3 +313,15 @@ function xql($sql, $params, $print = false, $return = false){
 	    http_die(500, "Internal Server Error", "SQL Error: " . $e->getMessage());
 	}
 }
+
+/**
+* The AMAZING algorithum!
+* @return [Array] of dishIDs
+**/
+function generatePlatter(){
+	return array(4613, 78974, 654984);
+}
+
+
+//Taking care of some variables
+session_write_close();
