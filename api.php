@@ -21,7 +21,7 @@ header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 #responce type
 header('Content-Type: application/json');
 
-if(isset($_POST['session_id']) && $_POST['session_id'] != ""){
+if(isset($_POST['session_id']) && $_POST['session_id'] != "undefined"){
 	session_id($_POST['session_id']);
 }
 
