@@ -62,17 +62,21 @@ switch ($_GET["api"]) {
   case "r": #Don't do anything
   break;
   case "u": #Authenticate User
-  	if((!isset($_SESSION['pass']) && !isset($_POST['get_session'])) || isset($_POST['pass'])){
-		  	try{
-				$hashPass = hash('sha256',$_POST['pass']);
-		    	$ordrin->user->authenticate($_POST['email'], $hashPass);
-			}catch(Exception $e){
-				die(errorToJSON($e));
-			}
+  	if(isset($_POST['pass'])){
+	  	try{
+			$hashPass = hash('sha256',$_POST['pass']);
+	    	$ordrin->user->authenticate($_POST['email'], $hashPass);
+		}catch(Exception $e){
+			die(errorToJSON($e));
+		}
 		//user is authenticated let's save that hashed pass
+		if($_POST['start_session']){
 			$SESSION['pass'] = $hashPass;
 			$SESSION['email'] = $_POST['email'];
-	}else{
+			$motd['sid'] = session_id();
+			die(json_encode($motd));
+		}
+	}elseif(isset($_POST['get_session'])){
 		//user is not authenticated! KILL IT WITH FIRE!
 		//disabled for now
 		if(false && $_POST['ver'] < $ver){
