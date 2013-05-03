@@ -41,6 +41,9 @@ if(isset($_GET['logout']) && $_GET['logout']){
 	}
 	// Finally, destroy the session.
 	session_destroy();
+	$message['responce']['message'] = "Logout successful";
+	$message['responce']['logout'] = true;
+	die(json_encode($message));
 }
 
 
