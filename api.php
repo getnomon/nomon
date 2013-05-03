@@ -123,6 +123,7 @@ switch ($_GET["api"]) {
     	$ordrin->user->authenticate($_SESSION['email'], $_SESSION['pass']);
 	}else{
 		$fuck['fuck'] = "Session varable not carrying over";
+		$fuck['error'] = 1; //should "deauthenticate user"
 		$fuck['session'] = $_SESSION;
 		$fuck['sid'] = session_id();
 		die(json_encode($fuck));
