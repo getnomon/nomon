@@ -83,7 +83,7 @@ switch ($_GET["api"]) {
 			$motd['ver'] = "<h1>Please download the newest version of nomON!</h1>";
 		}
 		if($_POST['get_session']){
-			$motd['auth'] = isset($SESSION['email']);
+			$motd['auth'] = ($_POST['session_id'] == session_id());
 			$motd['sid'] = session_id();
 		}
 		echo json_encode($motd);
