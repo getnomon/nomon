@@ -145,7 +145,7 @@ $(function() {
                             /*begin jank type population*/
                             alert('Thanks! Your account has been created :)');
                         }).fail(function(jqXHR, textStatus, errorThrown){
-                            alert('Something went wront... Try again?');
+                            alert('Something went wrong... Try again!');
                         });
                     }).fail(function(jqXHR, textStatus, errorThrown){ 
                         alert('Could not validate address.'); 
@@ -153,7 +153,7 @@ $(function() {
                     });
                 }
                 
-                console.log('account created');
+                //console.log('account created');
             }).fail(function(jqXHR, textStatus, errorThrown){
                 console.log(errorThrown);
                     alert('Check your internet connection');
