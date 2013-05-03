@@ -14,7 +14,6 @@
   
   <script type="text/javascript">
   function APISubmit(api) {
-    console.log($("#restAPIForm").serialize());
     switch (api) {
       case 'r':
         $.post("submit.php?api=r", $("#restAPIForm").serialize(), function(data) { feed(data); }, "json"); 
