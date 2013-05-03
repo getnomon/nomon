@@ -12,7 +12,7 @@ require_once('../OrdrinApi.php');
 #Date Time (Either set or ASAP)
 $dt = (isset($_POST['dT'])) ? $_POST['dT'] : 'ASAP';
 
-$ordrin = new OrdrinApi("M4CEY61LCIGUUaOpzF4Jc_TKaHvuOVzb50ZdOYRhMPE", OrdrinApi::TEST_SERVERS);
+$ordrin = new OrdrinApi("M4CEY61LCIGUUaOpzF4Jc_TKaHvuOVzb50ZdOYRhMPE", OrdrinApi::PROD_SERVERS);
 
 switch ($_GET["api"]) {
   case "r": #Don't do anything
