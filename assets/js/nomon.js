@@ -138,7 +138,8 @@ $(function() {
                                 addr2: '',
                                 city : add_comp.locality,
                                 state: add_comp.administrative_area_level_1,
-                                zip  : add_comp.postal_code
+                                zip  : add_comp.postal_code,
+                                phone: $('createPhone').val();
                             }
                         }).done(function(result){
                             console.log(result);
