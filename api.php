@@ -105,6 +105,7 @@ switch ($_GET["api"]) {
 		}
 		if($_POST['get_session']){
 			$motd['auth'] = ($_POST['session_id'] == session_id());
+			$motd['sna'] = session_name();
 			$motd['sid'] = session_id();
 		}
 		echo json_encode($motd);
