@@ -87,6 +87,8 @@ switch ($_GET["api"]) {
 			$motd['sid'] = session_id();
 		}
 		echo json_encode($motd);
+	}elseif(isset($_SESSION['pass'])){
+    	$ordrin->user->authenticate($_SESSION['email'], $_SESSION['pass']);
 	}
   break;
   case "o": #Place Order
