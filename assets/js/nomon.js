@@ -147,9 +147,30 @@ $(function() {
                             }
                         }).done(function(result){
                             console.log(result);
-                            /*begin jank type population*/
-                            alert('Thanks! Your account has been created :)');
                             console.log('Now we should save this info to the database!');
+                            $.ajax("/register.php", {
+                                type : 'post',
+                                dataType: "json",
+                                data: {
+                                    action : 'add',
+                                    email: email,
+                                    pass : password,
+                                    addrNick : 'Home',
+                                    addr : add_comp.street_number+" "+add_comp.route,
+                                    addr2: '',
+                                    city : add_comp.locality,
+                                    state: add_comp.administrative_area_level_1,
+                                    zip  : add_comp.postal_code,
+                                    phone: $('#createPhone').val()
+                                }
+                            }).done(function(result){
+                                console.log(result);
+                                /*begin jank type population*/
+                                alert('Thanks! Your account has been created :)');
+                                console.log('Now we should save this info to the database!');
+                            }).fail(function(jqXHR, textStatus, errorThrown){
+                                alert('Something went wrong... Try again!');
+                            });
                         }).fail(function(jqXHR, textStatus, errorThrown){
                             alert('Something went wrong... Try again!');
                         });

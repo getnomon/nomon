@@ -38,6 +38,8 @@ if(isset($_REQUEST['action'])){
 					':a' => $_POST['state'], ':z' => $_POST['zip'], ':p' => $_POST['phone']);
 			executeQuery($sql, $options, false);
 			//echo "[]";
+			$result['complete'] = true;
+			echo json_encode($result);
 			break;
 		default:
 			die("NO NO NO NO NO! Go Away! You didn't pass the correct paramaters");
