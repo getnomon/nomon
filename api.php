@@ -13,6 +13,11 @@
  *
  */
 
+if(isset($_POST['session_id']) && $_POST['session_id'] != "undefined"){
+	session_id($_POST['session_id']);
+}
+session_start();
+
 $VERSION = 0.87;
 
 #Enable cross domain requests
@@ -21,11 +26,6 @@ header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 #responce type
 header('Content-Type: application/json');
 
-if(isset($_POST['session_id']) && $_POST['session_id'] != "undefined"){
-	session_id($_POST['session_id']);
-}
-
-session_start();
 
 /*get the message of the day! (we don't need the api for this)*/
 if(isset($_POST['motd'])){
@@ -83,7 +83,7 @@ switch ($_GET["api"]) {
 			$motd['ver'] = "<h1>Please download the newest version of nomON!</h1>";
 		}
 		if($_POST['get_session']){
-			$motd['auth'] = false;
+			$motd['auth'] = isset($SESSION['email']);
 			$motd['sid'] = session_id();
 		}
 		echo json_encode($motd);
