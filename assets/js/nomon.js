@@ -149,6 +149,7 @@ $(function() {
                             console.log(result);
                             /*begin jank type population*/
                             alert('Thanks! Your account has been created :)');
+                            console.log('Now we should save this info to the database!');
                         }).fail(function(jqXHR, textStatus, errorThrown){
                             alert('Something went wrong... Try again!');
                         });
@@ -161,7 +162,7 @@ $(function() {
                 //console.log('account created');
             }).fail(function(jqXHR, textStatus, errorThrown){
                 console.log(errorThrown);
-                    alert('Check your internet connection');
+                    alert('Can not create an account. Please try again!');
             });
         }
         return false;

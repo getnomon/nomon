@@ -13,9 +13,9 @@
  *
  */
 
-if(session_id() == "" && isset($_POST['session_id']) && $_POST['session_id'] != "undefined"){
+/*if(session_id() == "" && isset($_POST['session_id']) && $_POST['session_id'] != "undefined"){
 	session_id($_POST['session_id']);
-}
+}*/
 session_start();
 
 
@@ -106,9 +106,9 @@ switch ($_GET["api"]) {
 			$motd['sid'] = session_id();
 		}
 		echo json_encode($motd);
-	}elseif(isset($_COOKIE['pass'])){
+	}elseif(isset($_SESSION['pass'])){
 		$fuck['nofuck'] = "Session varable is carrying over";
-		$fuck['hashpass'] = $_COOKIE['pass'];
+		$fuck['hashpass'] = $_SESSION['pass'];
 		$fuck['sid'] = session_id();
 		die(json_encode($fuck));
     	$ordrin->user->authenticate($_SESSION['email'], $_SESSION['pass']);
