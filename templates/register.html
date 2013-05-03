@@ -1,0 +1,126 @@
+<script type="text/javascript">
+$(function(){
+	var validates = true;
+  var email = "";
+  var password = "";
+	$('#create-user').submit(function(){
+        //Pass info to server and get session!
+        //validate
+        validates = true;
+        email = $('#createEmail').val();
+        password = $('#createPassword').val();
+
+        console.log(validateEmail($('#createEmail').val()));
+        if(!validateEmail($('#createEmail').val())){
+        	alert('You must enter a valid email'); validates = false;
+        }else if($('#createPassword').val().length < 5){
+       		alert('Password Must be at least 5 characters'); validates = false;
+    	}else if($('#createfName').val() == ""){
+    		alert('Please enter your first name'); validates = false;
+    	}else if($('#createlName').val() == ""){
+    		alert('Please enter your last name'); validates = false;
+    	}
+    	
+        //Create Account
+        if(validates){
+            $.ajax(api('r'), {
+                type : 'post',
+                dataType: "json",
+                data: {
+                    func  : 'macc',
+                    email : email,
+                    pass  : password,
+                    fName : $('#createfName').val(),
+                    lName : $('#createlName').val()
+                }
+            }).done(function(result){
+                console.log(result);
+                if(result.error != null){
+                    console.log(result.error.text);
+                    alert('Fill out the form completely!\n Emails must be valid and passwords must be at least 5 characters');
+                    return false;
+                }else{
+                  $.get(geoValidate($('#address').val())).done(function(data) { 
+                        //got data, now what?
+                        //console.log(data.results);
+                        $.each(data.results[0].address_components, function(index, addr){
+                            add_comp[addr.types[0]] = addr.short_name;
+                        });
+                        console.log(add_comp);
+                        //make delivery request based on address
+                        $.ajax(api('r'), {
+                            type : 'post',
+                            dataType: "json",
+                            data: {
+                                func : 'uaddr',
+                                email: email,
+                                pass : password,
+                                addr : add_comp.street_number+" "+add_comp.route,
+                                city : add_comp.locality,
+                                state: add_comp.administrative_area_level_1,
+                                zip  : add_comp.postal_code
+                            }
+                        }).done(function(result){
+                            console.log(result);
+                            /*begin jank type population*/
+                        }).fail(function(jqXHR, textStatus, errorThrown){
+                            alert('Something went wront... Try again?');
+                        });
+                    }).fail(function(jqXHR, textStatus, errorThrown){ 
+                        alert('Could not validate address.'); 
+                        return false;
+                    });
+                }
+                alert('Thanks! Your account has been created :)');
+                console.log('account created');
+            }).fail(function(jqXHR, textStatus, errorThrown){
+                console.log(errorThrown);
+                    alert('Check your internet connection');
+            });
+        }
+        return false;
+    });
+});
+</script>
+
+<div id="settings" class="page">
+  <div class="jumbotron clearfix">
+    <h1>Create Account</h1>
+  </div>
+    <hr>
+    <form id="create-user" class="form-horizontal">
+	  <div class="control-group">
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-user"></i></span>
+            <input class="span4" type="text" id="createfName" placeholder="First Name">
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-user"></i></span>
+            <input class="span4" type="text" id="createlName" placeholder="Last Name">
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-envelope"></i></span>
+            <input class="span4" type="text" id="createEmail" placeholder="Email">
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-lock"></i></span>
+            <input class="span4" type="password" id="createPassword" placeholder="Password">
+        </div>
+      </div>
+      <div class="control-group">
+        <label>Enter your home address:</label>
+        <div class="input-prepend">
+          <span class="add-on"><i class="icon-home"></i></span>
+            <input id="address" class="span4" type="text" placeholder="42 Milky Way Lane">
+        </div>
+        <button id="location" class="btn btn-inverse" type="button" style="height:40px"><img src="/assets/img/geo.png" style="height: auto; width: 20px; position: relative; top: 2px;">Auto Detect Location</div>
+      </div>
+      <button type="submit" class="btn btn-danger btn-large btn-block btn-primary" href="/thanks">Create New User</button>
+    </form>
+</div>
