@@ -93,7 +93,7 @@ switch ($_GET["api"]) {
 			/*$sql = "INSERT INTO";*/
 			$_SESSION['pass'] = $hashPass;
 			$_SESSION['email'] = $_POST['email'];
-			$_SESSION['uuid'] =  $_POST['uuid'];
+			$_SESSION['uuid'] =  $_POST['start_session']; //set uuid
 			session_write_close();
 
 			bake('pass', $hashPass);
