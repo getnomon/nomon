@@ -21,11 +21,16 @@ header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 #responce type
 header('Content-Type: application/json');
 
-if(isset($_POST['session_id'])){
+if(isset($_POST['session_id']) && $_POST['session_id'] != 0){
 	session_id($_POST['session_id']);
 }
 
 session_start();
+
+/*get the message of the day! (we don't need the api for this)*/
+if(isset($_POST['motd'])){
+	$motd['motd'] = "<p style='text-align: center'>This is the message of the day! We can use <strong>html</html> too!</p>";
+}
 
 //Log the user out
 if(isset($_GET['logout']) && $_GET['logout']){
@@ -57,32 +62,27 @@ switch ($_GET["api"]) {
   case "r": #Don't do anything
   break;
   case "u": #Authenticate User
-  	if(!isset($_SESSION['pass'])){
-	  	try{
-			$hashPass = hash('sha256',$_POST['pass']);
-	    	$ordrin->user->authenticate($_POST['email'], $hashPass);
-		}catch(Exception $e){
-			die(errorToJSON($e));
+  	if((!isset($_SESSION['pass']) && !isset($_POST['get_session'])) || isset($_POST['pass'])){
+		  	try{
+				$hashPass = hash('sha256',$_POST['pass']);
+		    	$ordrin->user->authenticate($_POST['email'], $hashPass);
+			}catch(Exception $e){
+				die(errorToJSON($e));
+			}
+		//user is authenticated let's save that hashed pass
+			$SESSION['pass'] = $hashPass;
+			$SESSION['email'] = $_POST['email'];
+	}else{
+		//user is not authenticated! KILL IT WITH FIRE!
+		//disabled for now
+		if(false && $_POST['ver'] < $ver){
+			$motd['ver'] = "<h1>Please download the newest version of nomON!</h1>";
 		}
-	//user is authenticated let's save that hashed pass
-		$SESSION['pass'] = $hashPass;
-		$SESSION['email'] = $_POST['email'];
-
-		/*get the message of the day! (we don't need the api for this)*/
-		if(isset($_POST['motd']) || isset($_POST['get_session'])){
-			if(isset($_POST['motd'])){
-				$motd['motd'] = "<p style='text-align: center'>This is the message of the day! We can use <strong>html</html> too!</p>";
-			}
-			//disabled for now
-			if(false && $_POST['ver'] < $ver){
-				$motd['ver'] = "<h1>Please download the newest version of nomON!</h1>";
-			}
-			if(isset($_POST['get_session']) && $_POST['get_session']){
-				$motd['auth'] = (!empty($SESSION['emal']))? true : false;
-				$motd['sid'] = session_id();
-			}
-			echo json_encode($motd);
+		if($_POST['get_session']){
+			$motd['auth'] = false;
+			$motd['sid'] = session_id();
 		}
+		echo json_encode($motd);
 	}
   break;
   case "o": #Place Order
