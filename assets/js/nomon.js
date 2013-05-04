@@ -121,8 +121,8 @@ $(function() {
                     alert('Fill out the form completely!\n Emails must be valid and passwords must be at least 5 characters');
                     return false;
                 }else{
-                  console.log($('#address').val());
-                  $.get(geoValidate($('#address').val())).done(function(data) { 
+                  console.log($('#createAddress').val());
+                  $.get(geoValidate($('#createAddress').val())).done(function(data) { 
                         //got data, now what?
                         //console.log(data.results);
                         $.each(data.results[0].address_components, function(index, addr){
@@ -208,7 +208,7 @@ $(function() {
     //$('#rest-count').tooltip({placement:'bottom', trigger:'click'});
     function getLocation(location){
     	$.get(geoURL(location)).done(function(data) { 
-			$('#address').val(data.results[0].formatted_address);
+			$('#createAddress').val(data.results[0].formatted_address);
 		}).fail(function(){ alert('Could not find your location.');});
     }
 
