@@ -23,7 +23,7 @@ if(isset($_REQUEST['action'])){
 		case 'add':
 		//$print = $ordrin->user->create($_POST["email"], hash('sha256',$_POST["pass"]), $_POST["fName"], $_POST["lName"]);
 			$random = substr(number_format(time() * rand(),0,'',''),0,10);
-			ensure_params(array('email', 'pass', 'fName', 'lName', 'addr', 'city', 'state', 'zip', 'phone'));				
+			//ensure_params(array('email', 'pass', 'fName', 'lName', 'addr', 'city', 'state', 'zip', 'phone'));				
 			$sql = "INSERT INTO user (userEmail, userPass, userFname, userLname, userAuthCode)
 			VALUES (:e, :p, :f, :l, :r)";
 			$options = array(':t' => $_POST['email'], ':u' => $_POST['pass'], 
