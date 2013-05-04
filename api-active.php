@@ -12,8 +12,9 @@
  * to be fixed ASAP
  *
  */
+header('Content-Type: application/json');
 
-require_once('../OrdrinApi.php');
+require_once('ordrin/OrdrinApi.php');
 
 $dt = (isset($_POST['dT'])) ? $_POST['dT'] : '';
 
