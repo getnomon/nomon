@@ -148,7 +148,7 @@ $(function() {
                         }).done(function(result){
                             console.log(result);
                             console.log('Now we should save this info to the database!');
-                            $.ajax("/register.php", {
+                            $.ajax("/_register.php", {
                                 type : 'post',
                                 dataType: "json",
                                 data: {

@@ -47,7 +47,6 @@ if ($q[0] == "old-app") {
 }else{
 	//Website
 	if (file_exists('templates/' . $q[0] . '.html')) {
-		echo $q[0];
 		_generate($q[0]);
 	}else{
 		header("Status: 404 Not Found");
