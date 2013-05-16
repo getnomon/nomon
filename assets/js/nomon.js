@@ -166,8 +166,7 @@ $(function() {
                             }).done(function(result){
                                 console.log(result);
                                 /*begin jank type population*/
-                                alert('Thanks! Your account has been created :)');
-                                console.log('Now we should save this info to the database!');
+                                window.location = "/thanks";
                             }).fail(function(jqXHR, textStatus, errorThrown){
                                 alert('Something went wrong... Try again!');
                             });
