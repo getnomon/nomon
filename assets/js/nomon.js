@@ -97,9 +97,9 @@ $(function() {
         }else if($('#createlName').val() == ""){
             alert('Please enter your last name'); validates = false;
         }else if($('#createAddress').val() == ""){
-            alert('Please enter your last name'); validates = false;
+            alert('Please enter your address'); validates = false;
         }else if($('#createPhone').val() == ""){
-            alert('Please enter your last name'); validates = false;
+            alert('Please enter your phone number'); validates = false;
         }
         
         //Create Account

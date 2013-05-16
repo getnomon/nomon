@@ -26,8 +26,8 @@ if(isset($_REQUEST['action'])){
 			//ensure_params(array('email', 'pass', 'fName', 'lName', 'addr', 'city', 'state', 'zip', 'phone'));
 			$sql = "INSERT INTO user (userEmail, userPass, userFname, userLname, userAuthCode)
 			VALUES (:e, :p, :f, :l, :r)";
-			$options = array(':t' => $_POST['email'], ':u' => $_POST['pass'], 
-					':u' => $_POST['fName'], ':u' => $_POST['lName'], ':r' => $random);
+			$options = array(':e' => $_POST['email'], ':p' => $_POST['pass'], 
+					':f' => $_POST['fName'], ':l' => $_POST['lName'], ':r' => $random);
 			executeQuery($sql, $options, false);
 			$id = $db->lastInsertId();
 			//now return the result
