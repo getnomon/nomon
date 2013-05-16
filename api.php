@@ -128,8 +128,7 @@ switch ($_GET["api"]) {
 		}
     	$ordrin->user->authenticate($_SESSION['email'], $_SESSION['pass']);
 	}else{
-		$fuck['error'] = 1; //should "deauthenticate user"
-		$fuck['error']['type'] = 401;
+		$fuck['error']['type'] = 401; //should "deauthenticate user"
 		$fuck['error']['message'] = "Could not authenticate";
 		$fuck['session'] = $_SESSION;
 		$fuck['sid'] = session_id();
