@@ -11,14 +11,13 @@
  * This is a HUGE security vuniribility and will have
  * to be fixed ASAP
  *
- */
+ **/
 
 
 /**
 * Error Codes!
-* 32 - Could not authenticate
-*
-*/
+* 401 - Could not authenticate
+**/
 
 if(session_id() == "" && isset($_POST['session_id']) && $_POST['session_id'] != "undefined"){
 	session_id($_POST['session_id']);
@@ -130,7 +129,7 @@ switch ($_GET["api"]) {
     	$ordrin->user->authenticate($_SESSION['email'], $_SESSION['pass']);
 	}else{
 		$fuck['error'] = 1; //should "deauthenticate user"
-		$fuck['error']['type'] = 32;
+		$fuck['error']['type'] = 401;
 		$fuck['error']['message'] = "Could not authenticate";
 		$fuck['session'] = $_SESSION;
 		$fuck['sid'] = session_id();
