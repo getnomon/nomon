@@ -68,7 +68,7 @@ function executeQuery($sql, $params, $print, $return = false){
 		}
 	}catch(PDOException $e){
 	    // Non-specific error for production
-	    http_die(500, "Internal Server Error", "Database Error!");
+	    http_die(500, "Internal Server Error", $e->getMessage());
 	}
 }
 
