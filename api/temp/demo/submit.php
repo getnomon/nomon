@@ -9,7 +9,6 @@ $dt = (isset($_POST['dT'])) ? $_POST['dT'] : '';
 
 $ordrin = new OrdrinApi("M4CEY61LCIGUUaOpzF4Jc_TKaHvuOVzb50ZdOYRhMPE", OrdrinApi::TEST_SERVERS);
 
-try{
 switch ($_GET["api"]) {
   case "r":
     // don't need to do anything
@@ -123,7 +122,5 @@ switch ($_POST["func"]) {
     echo json_encode($print);
   break;
 }
-}catch(Exception $e){
-  echo "Error: " . $e;
-}
+
 ?>
