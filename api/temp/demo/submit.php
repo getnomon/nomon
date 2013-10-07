@@ -42,6 +42,7 @@ switch ($_GET["api"]) {
     $addr = OrdrinApi::address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], "");
     $print = $ordrin->order->submit($_POST["rid"], $tray, $_POST['tip'], $dt, $_POST["email"], $_POST['pass'], $_POST["fName"], $_POST["lName"], $a, $credit_card);
     $data['response'] = $print;
+    echo "THIS IS WORKING! THE PROBLEM IS ORDERIN";
     echo json_encode($data);
   break;
 }
