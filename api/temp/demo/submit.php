@@ -51,7 +51,7 @@ switch ($_GET["api"]) {
 if(!isset($_POST['func'])) {
   $_POST['func'] = 'ord';
 }
-switch ($_POST["func"]) {
+switch ($_GET["func"]) {
   case "dl":
     $addr = OrdrinApi::address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], "");
     $print = $ordrin->restaurant->getDeliveryList($dt, $addr);
