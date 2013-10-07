@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 require_once('../OrdrinApi.php');
 
-$dt = (isset($_POST['dT'])) ? $_POST['dT'] : '';
+$dt = (isset($_GET['dT'])) ? $_GET['dT'] : '';
 
 $ordrin = new OrdrinApi("M4CEY61LCIGUUaOpzF4Jc_TKaHvuOVzb50ZdOYRhMPE", OrdrinApi::TEST_SERVERS);
 
@@ -14,16 +14,16 @@ switch ($_GET["api"]) {
     // don't need to do anything
   break;
   case "u":
-    $ordrin->user->authenticate($_POST['email'],hash('sha256',$_POST['pass']));
+    $ordrin->user->authenticate($_GET['email'],hash('sha256',$_GET['pass']));
   break;
   case "o":
-    if(!empty($_POST['pass'])){
-      $ordrin->user->authenticate($_POST['email'],hash('sha256',$_POST['pass']));
+    if(!empty($_GET['pass'])){
+      $ordrin->user->authenticate($_GET['email'],hash('sha256',$_GET['pass']));
     }
-    $a = OrdrinApi::address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], $_POST['phone']);
-    $credit_card = OrdrinApi::creditCard($_POST['fName'] .' '. $_POST['lName'], $_POST['expMo'], $_POST['expYr'], $_POST['cardNum'], $_POST['csc'], $a); 
+    $a = OrdrinApi::address($_GET["addr"], $_GET["city"], $_GET["state"], $_GET["zip"], $_GET['phone']);
+    $credit_card = OrdrinApi::creditCard($_GET['fName'] .' '. $_GET['lName'], $_GET['expMo'], $_GET['expYr'], $_GET['cardNum'], $_GET['csc'], $a); 
 
-    $details = $ordrin->restaurant->details($_POST["rid"]);
+    $details = $ordrin->restaurant->details($_GET["rid"]);
     $items = array();
     foreach($details->menu as $section) {
       foreach($section->children as $item) {
@@ -40,37 +40,37 @@ switch ($_GET["api"]) {
     $tray = OrdrinApi::tray($items);
     
     $data = array();
-    $data['request'] = array('restaurant_id'=>$_POST['rid'],'tray'=>$tray->_convertForAPI(),'tip'=>$_POST['tip'],'date'=>$dt,'em'=>$_POST['email'],'password'=>$_POST['pass'],"First Name"=>$_POST['fName'],"Last Name"=>$_POST['lName'],"addr"=>$a,"credit_card"=>$credit_card);
-    $addr = OrdrinApi::address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], "");
-    $print = $ordrin->order->submit($_POST["rid"], $tray, $_POST['tip'], $dt, $_POST["email"], $_POST['pass'], $_POST["fName"], $_POST["lName"], $a, $credit_card);
+    $data['request'] = array('restaurant_id'=>$_GET['rid'],'tray'=>$tray->_convertForAPI(),'tip'=>$_GET['tip'],'date'=>$dt,'em'=>$_GET['email'],'password'=>$_GET['pass'],"First Name"=>$_GET['fName'],"Last Name"=>$_GET['lName'],"addr"=>$a,"credit_card"=>$credit_card);
+    $addr = OrdrinApi::address($_GET["addr"], $_GET["city"], $_GET["state"], $_GET["zip"], "");
+    $print = $ordrin->order->submit($_GET["rid"], $tray, $_GET['tip'], $dt, $_GET["email"], $_GET['pass'], $_GET["fName"], $_GET["lName"], $a, $credit_card);
     $data['response'] = $print;
     echo "THIS IS WORKING! THE PROBLEM IS ORDERIN";
     echo json_encode($data);
   break;
 }
-if(!isset($_POST['func'])) {
-  $_POST['func'] = 'ord';
+if(!isset($_GET['func'])) {
+  $_GET['func'] = 'ord';
 }
 switch ($_GET["func"]) {
   case "dl":
-    $addr = OrdrinApi::address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], "");
+    $addr = OrdrinApi::address($_GET["addr"], $_GET["city"], $_GET["state"], $_GET["zip"], "");
     $print = $ordrin->restaurant->getDeliveryList($dt, $addr);
     echo json_encode($print);
   break;
   case "dc":
-    $addr = OrdrinApi::address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], "");
-    $print = $ordrin->restaurant->deliveryCheck($_POST["rid"], $dt, $addr);
+    $addr = OrdrinApi::address($_GET["addr"], $_GET["city"], $_GET["state"], $_GET["zip"], "");
+    $print = $ordrin->restaurant->deliveryCheck($_GET["rid"], $dt, $addr);
     echo json_encode($print);
   break;
   case "df":
-    $sT = $_POST["sT"];
-    $tip = $_POST["tip"];
-    $addr = OrdrinApi::address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], "");
-    $print = $ordrin->restaurant->deliveryFee($_POST["rid"], $sT, $tip, $dt, $addr);
+    $sT = $_GET["sT"];
+    $tip = $_GET["tip"];
+    $addr = OrdrinApi::address($_GET["addr"], $_GET["city"], $_GET["state"], $_GET["zip"], "");
+    $print = $ordrin->restaurant->deliveryFee($_GET["rid"], $sT, $tip, $dt, $addr);
     echo json_encode($print);
   break;
   case "rd":
-    $print = $ordrin->restaurant->details($_POST["rid"]);
+    $print = $ordrin->restaurant->details($_GET["rid"]);
     echo json_encode($print);
   break;
 
@@ -79,38 +79,38 @@ switch ($_GET["func"]) {
     echo json_encode($print);
   break;
   case "macc":
-    $print = $ordrin->user->create($_POST["email"], hash('sha256',$_POST["pass"]), $_POST["fName"], $_POST["lName"]);
+    $print = $ordrin->user->create($_GET["email"], hash('sha256',$_GET["pass"]), $_GET["fName"], $_GET["lName"]);
     echo json_encode($print);
   break;
   case "upass":
-    $ordrin->user->authenticate($_POST['email'],hash('sha256',$_POST['oldPass']));
-    $print = $ordrin->user->updatePassword(hash('sha256',$_POST['pass']));
+    $ordrin->user->authenticate($_GET['email'],hash('sha256',$_GET['oldPass']));
+    $print = $ordrin->user->updatePassword(hash('sha256',$_GET['pass']));
     echo json_encode($print);
   break;
   case "gaddr":
-    $print = $ordrin->user->getAddress($_POST["addrNick"]);
+    $print = $ordrin->user->getAddress($_GET["addrNick"]);
     echo json_encode($print);
   break;
   case "uaddr":
-    $a = OrdrinApi::Address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], $_POST["phone"], $_POST["addr2"]);
-    $print = $ordrin->user->setAddress($_POST["addrNick"], $a);
+    $a = OrdrinApi::Address($_GET["addr"], $_GET["city"], $_GET["state"], $_GET["zip"], $_GET["phone"], $_GET["addr2"]);
+    $print = $ordrin->user->setAddress($_GET["addrNick"], $a);
     echo json_encode($print);
   break;
   case "daddr":
-    $print = $ordrin->user->deleteAddress($_POST["addrNick"]);
+    $print = $ordrin->user->deleteAddress($_GET["addrNick"]);
     echo json_encode($print);
   break;
   case "gcar":
-    $print = $ordrin->user->getCard($_POST["cardNick"]);
+    $print = $ordrin->user->getCard($_GET["cardNick"]);
     echo json_encode($print);
   break;
   case "ucar":
-    $a = OrdrinApi::Address($_POST["addr"], $_POST["city"], $_POST["state"], $_POST["zip"], $_POST["phone"], $_POST["addr2"]);
-    $print = $ordrin->user->setCard($_POST["cardNick"], $_POST["fName"] . $_POST["lName"], $_POST["cardNum"], $_POST["csc"], $_POST["expMo"], $_POST["expYr"], $a);
+    $a = OrdrinApi::Address($_GET["addr"], $_GET["city"], $_GET["state"], $_GET["zip"], $_GET["phone"], $_GET["addr2"]);
+    $print = $ordrin->user->setCard($_GET["cardNick"], $_GET["fName"] . $_GET["lName"], $_GET["cardNum"], $_GET["csc"], $_GET["expMo"], $_GET["expYr"], $a);
     echo json_encode($print);
   break;
   case "dcar":
-    $print = $ordrin->user->deleteCard($_POST["cardNick"]);
+    $print = $ordrin->user->deleteCard($_GET["cardNick"]);
     echo json_encode($print);
   break;
   case "gordr":
@@ -118,7 +118,7 @@ switch ($_GET["func"]) {
     echo json_encode($print);
   break;
   case "gordrs":
-    $print = $ordrin->user->getOrderHistory($_POST["ordrID"]);
+    $print = $ordrin->user->getOrderHistory($_GET["ordrID"]);
     echo json_encode($print);
   break;
 }
