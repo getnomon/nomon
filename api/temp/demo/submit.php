@@ -120,6 +120,6 @@ switch ($_POST["func"]) {
   break;
 }
 }catch(Exception $e){
-  echo $e;
+  echo "Error: " . $e;
 }
 ?>
