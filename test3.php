@@ -188,7 +188,7 @@ function getDishes($item, $depth = -1){
 			getDishes($item[$i], $depth+1);
 		}
 	}else{
-		if($item->is_orderable){
+		if($item->is_orderable && $item->min_child_select){
 			global $dishes;
 			array_push($dishes, $item->name);
 		}
@@ -203,7 +203,9 @@ function getDishes($item, $depth = -1){
 			}
 			echo '![' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 			echo " - " . $item->descrip . "\n";
-			getDishes($item->children, $depth+1);
+			if($item->min_child_select != 0){
+				getDishes($item->children, $depth+1);
+			}
 		}else{
 			#is a dish - save shit shit
 			for($j=0; $j<$depth; $j++){
