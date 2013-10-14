@@ -190,9 +190,7 @@ function getDishes($item, $depth = -1){
 	}else{
 		if($item->is_orderable){
 			global $dishes;
-			if(isset($item->children)){
-				$item->sexy = 1;
-			}
+			$item->is_leaf = !isset($item->children);
 			array_push($dishes, $item);
 		}
 		#is an stdObject -> check for children
