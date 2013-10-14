@@ -107,7 +107,7 @@ try{
 
 	    //parse menu
 	    getDishes($menu);
-	    print_r($dishes);
+	    var_dump($dishes);
 	    //echo '____________________________________________________________________';
 	    //print_r($menu);
 	    
@@ -190,7 +190,10 @@ function getDishes($item, $depth = -1){
 	}else{
 		if($item->is_orderable){
 			global $dishes;
-			array_push($dishes, $item->name);
+			if(isset($item->children)){
+				$item->sexy = 1;
+			}
+			array_push($dishes, $item);
 		}
 		#is an stdObject -> check for children
 		if (isset($item->children)) {
@@ -203,9 +206,7 @@ function getDishes($item, $depth = -1){
 			}
 			echo '![' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 			echo " - " . $item->descrip . "\n";
-			if($item->min_child_select != 0){
-				getDishes($item->children, $depth+1);
-			}
+			getDishes($item->children, $depth+1);
 		}else{
 			#is a dish - save shit shit
 			for($j=0; $j<$depth; $j++){
