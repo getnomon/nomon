@@ -189,6 +189,7 @@ function getDishes($item, $depth = -1){
 		}
 	}else{
 		if($item->is_orderable){
+			global $dishes;
 			array_push($dishes, $item->name);
 		}
 		#is an stdObject -> check for children
