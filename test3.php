@@ -181,9 +181,6 @@ function calcMeal($targetPrice, $result, $allergies = NULL){
 #MUST pass menu object
 
 function getDishes($item, $depth = -1){
-	if($item->is_orderable){
-		array_push($dishes, $item->name);
-	}
 	#item[children] is each of the children, if it has children it is a parent. duh.
 	if(is_array($item)){
 		for ($i=0; $i < count($item); $i++) { 
@@ -191,6 +188,9 @@ function getDishes($item, $depth = -1){
 			getDishes($item[$i], $depth+1);
 		}
 	}else{
+		if($item->is_orderable){
+			array_push($dishes, $item->name);
+		}
 		#is an stdObject -> check for children
 		if (isset($item->children)) {
 			#is sub menu/item (or dish with options)
