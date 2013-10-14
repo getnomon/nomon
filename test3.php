@@ -203,7 +203,7 @@ function getDishes($item, $depth = -1){
 			}
 			echo '![' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 			echo " - " . $item->descrip . "\n";
-			if($item->min_child_select != 0){
+			if($item->min_child_select == 0){
 				getDishes($item->children, $depth+1);
 			}
 		}else{
