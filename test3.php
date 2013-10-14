@@ -25,6 +25,7 @@ $dt = (isset($_REQUEST['dT'])) ? $_REQUEST['dT'] : 'ASAP';
 $ordrin = new OrdrinApi("M4CEY61LCIGUUaOpzF4Jc_TKaHvuOVzb50ZdOYRhMPE", OrdrinApi::TEST_SERVERS);
 
 $MYSQL = "";
+$dishes = array();
 
 #Connect to DB
 $con = mysqli_connect("localhost","nomon","iloveapples","nomon");
@@ -105,8 +106,8 @@ try{
 	    $menu = $restaurant->menu;
 
 	    //parse menu
-	    getDishes($con, $_REQUEST["rid"], $menu);
-
+	    getDishes($menu);
+	    print_r($dishes);
 	    //echo '____________________________________________________________________';
 	    //print_r($menu);
 	    
@@ -179,12 +180,15 @@ function calcMeal($targetPrice, $result, $allergies = NULL){
 #accepts a menu id (menu parent description)
 #MUST pass menu object
 
-function getDishes($con, $rid, $item, $depth = -1){
+function getDishes($item, $depth = -1){
+	if($item->is_orderable){
+		array_push($dishes, $item->name);
+	}
 	#item[children] is each of the children, if it has children it is a parent. duh.
 	if(is_array($item)){
 		for ($i=0; $i < count($item); $i++) { 
 			#Contains a bunch of stdClass Objects
-			getDishes($con, $rid, $item[$i], $depth+1);
+			getDishes($item[$i], $depth+1);
 		}
 	}else{
 		#is an stdObject -> check for children
@@ -198,7 +202,7 @@ function getDishes($con, $rid, $item, $depth = -1){
 			}
 			echo '![' . $item->id . ']' . " $" . $item->price . " " . $item->name;
 			echo " - " . $item->descrip . "\n";
-			getDishes($con, $rid, $item->children, $depth+1);
+			getDishes($item->children, $depth+1);
 		}else{
 			#is a dish - save shit shit
 			for($j=0; $j<$depth; $j++){
